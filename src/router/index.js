@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
-
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -24,38 +23,38 @@ const router = createRouter({
           meta: { title: 'Login', middleware: ['guest'] },
           component: () => import('../views/auth/Login.vue'),
         },
-      ]
+        {
+          path: 'register',
+          name: 'register',
+          meta: { title: 'Register', middleware: ['guest'] },
+          component: () => import('../views/auth/Register.vue'),
+        },
+        {
+          path: 'forgot-password',
+          name: 'forgot-password',
+          meta: { title: 'Forgot Password', middleware: ['guest'] },
+          component: () => import('../views/auth/ForgotPassword.vue'),
+        },
+        {
+          path: 'password-reset/:token',
+          name: 'password-reset',
+          meta: { title: 'Password Reset', middleware: ['guest'] },
+          component: () => import('../views/auth/PasswordReset.vue'),
+        },
+        {
+          path: 'verify-email',
+          name: 'verify-email',
+          meta: { title: 'Email Verify', middleware: ['auth'] },
+          component: () => import('../views/auth/VerifyEmail.vue'),
+        },
+      ],
     },
- 
-    {
-      path: '/register',
-      name: 'register',
-      meta: { title: 'Register', middleware: ['guest'] },
-      component: () => import('../views/auth/Register.vue'),
-    },
-    {
-      path: '/forgot-password',
-      name: 'forgot-password',
-      meta: { title: 'Forgot Password', middleware: ['guest'] },
-      component: () => import('../views/auth/ForgotPassword.vue'),
-    },
+
     {
       path: '/dashboard',
       name: 'dashboard',
       meta: { title: 'Dashboard', middleware: ['auth', 'verified'] },
       component: () => import('../views/Dashboard.vue'),
-    },
-    {
-      path: '/verify-email',
-      name: 'verify-email',
-      meta: { title: 'Email Verify', middleware: ['auth'] },
-      component: () => import('../views/auth/VerifyEmail.vue'),
-    },
-    {
-      path: '/password-reset/:token',
-      name: 'password-reset',
-      meta: { title: 'Password Reset', middleware: ['guest'] },
-      component: () => import('../views/auth/PasswordReset.vue'),
     },
   ],
 })

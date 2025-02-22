@@ -1,5 +1,5 @@
 <script setup>
-import GuestLayout from '../../layouts/GuestLayout.vue'
+import AuthLayout from '../../layouts/AuthLayout.vue'
 import InputError from '../../components/InputError.vue'
 import InputLabel from '../../components/InputLabel.vue'
 import PrimaryButton from '../../components/PrimaryButton.vue'
@@ -20,7 +20,7 @@ const handleForgotPassword = async () =>
 </script>
 
 <template>
-  <GuestLayout>
+  <AuthLayout>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
       ¿Olvidaste tu contraseña? No hay problema. Índícanos tu dirección de correo electrónico y te
       enviaremos un enlace para restablecerla y poder elegir una nueva.
@@ -52,7 +52,9 @@ const handleForgotPassword = async () =>
         </PrimaryButton>
       </div>
     </form>
-  </GuestLayout>
+    <RouterLink :to="{ name: 'home' }" class="mt-4 flex justify-center hover:text-amber-600"
+    >Atrás</RouterLink>
+  </AuthLayout>
 </template>
 
 <style scoped></style>

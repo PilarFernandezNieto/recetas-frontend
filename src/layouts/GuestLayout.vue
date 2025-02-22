@@ -46,7 +46,7 @@ const showingNavigationDropdown = ref(false)
                   >Inicia sesión</NavLink
                 >
 
-                <NavLink to="/register" class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
+                <NavLink :to="{name: 'register'}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
                   >Registro</NavLink
                 >
               </template>

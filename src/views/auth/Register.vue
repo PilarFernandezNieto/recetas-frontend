@@ -1,5 +1,5 @@
 <script setup>
-import GuestLayout from '../../layouts/GuestLayout.vue'
+import AuthLayout from '../../layouts/AuthLayout.vue'
 import InputError from '../../components/InputError.vue'
 import InputLabel from '../../components/InputLabel.vue'
 import PrimaryButton from '../../components/PrimaryButton.vue'
@@ -23,7 +23,7 @@ const handleRegister = async () => await register(processing, errors, form.value
 </script>
 
 <template>
-  <GuestLayout>
+  <AuthLayout>
     <form @submit.prevent="handleRegister()">
       <div>
         <InputLabel for="name" value="Nombre" />
@@ -89,14 +89,15 @@ const handleRegister = async () => await register(processing, errors, form.value
         >
           ¿Ya tienes cuenta? Inicia sesión
         </RouterLink>
-
-
       </div>
       <PrimaryButton class="w-full" :class="{ 'opacity-25': processing }" :disabled="processing">
-          Regístrate
-        </PrimaryButton>
+        Regístrate
+      </PrimaryButton>
     </form>
-  </GuestLayout>
+    <RouterLink :to="{ name: 'home' }" class="mt-4 flex justify-center hover:text-amber-600"
+      >Atrás</RouterLink
+    >
+  </AuthLayout>
 </template>
 
 <style scoped></style>
