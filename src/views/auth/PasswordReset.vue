@@ -50,14 +50,13 @@ const handleResetPassword = async () => await resetPassword(processing, errors, 
       </div>
 
       <div class="mt-4">
-        <InputLabel for="password" value="Password" />
+        <InputLabel for="password" value="Contraseña" />
 
         <TextInput
           id="password"
           type="password"
           class="mt-1 block w-full"
           v-model="form.password"
-          required
           autocomplete="new-password"
         />
 
@@ -65,14 +64,13 @@ const handleResetPassword = async () => await resetPassword(processing, errors, 
       </div>
 
       <div class="mt-4">
-        <InputLabel for="password_confirmation" value="Confirm Password" />
+        <InputLabel for="password_confirmation" value="Confirmar contraseña" />
 
         <TextInput
           id="password_confirmation"
           type="password"
           class="mt-1 block w-full"
           v-model="form.password_confirmation"
-          required
           autocomplete="new-password"
         />
 
@@ -80,8 +78,8 @@ const handleResetPassword = async () => await resetPassword(processing, errors, 
       </div>
 
       <div class="flex items-center justify-end mt-4">
-        <PrimaryButton :class="{ 'opacity-25': processing }" :disabled="processing">
-          Reset Password
+        <PrimaryButton class="w-full" :class="{ 'opacity-25': processing }" :disabled="processing">
+          Reestablecer Contraseña
         </PrimaryButton>
       </div>
     </form>

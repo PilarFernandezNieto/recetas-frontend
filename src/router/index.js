@@ -45,7 +45,7 @@ const router = createRouter({
     {
       path: '/password-reset/:token',
       name: 'password-reset',
-      meta: { title: 'Password Reset', middleware: ['auth'] },
+      meta: { title: 'Password Reset', middleware: ['guest'] },
       component: () => import('../views/auth/PasswordReset.vue'),
     },
   ],

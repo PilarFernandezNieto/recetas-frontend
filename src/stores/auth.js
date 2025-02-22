@@ -74,6 +74,8 @@ export const useAuthStore = defineStore('auth', () => {
       await csrf()
 
       const { data } = await axios.post('/forgot-password', { email })
+      console.log(data);
+      
 
       status.value = data.status
     } catch (error) {

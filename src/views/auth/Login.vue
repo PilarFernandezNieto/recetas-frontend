@@ -57,7 +57,7 @@ const handleLogin = async () => await login(processing, errors, form.value)
       </div>
 
       <div class="mt-4">
-        <InputLabel for="password" value="Password" />
+        <InputLabel for="password" value="Contraseña" />
 
         <TextInput
           id="password"
@@ -77,18 +77,24 @@ const handleLogin = async () => await login(processing, errors, form.value)
         </label>
       </div>
 
-      <div class="flex items-center justify-end mt-4">
+      <div class="flex items-center justify-between my-4">
         <RouterLink
           :to="{ name: 'forgot-password' }"
-          class="underline text-sm text-gray-600  hover:text-amber-600  rounded-md focus:outline-none"
+          class="underline text-sm text-gray-600 hover:text-amber-600 rounded-md focus:outline-none"
         >
           ¿Has olvidado tu contraseña?
         </RouterLink>
-
-        <PrimaryButton class="ml-4" :class="{ 'opacity-25': processing }" :disabled="processing">
-          Inicia sesión
-        </PrimaryButton>
+        <RouterLink
+          :to="{ name: 'register' }"
+          class="underline text-sm text-gray-600 hover:text-amber-600 rounded-md focus:outline-none"
+        >
+         ¿Todavía no tienes cuenta?
+        </RouterLink>
       </div>
+
+      <PrimaryButton class="w-full" :class="{ 'opacity-25': processing }" :disabled="processing">
+        Inicia sesión
+      </PrimaryButton>
     </form>
   </GuestLayout>
 </template>
