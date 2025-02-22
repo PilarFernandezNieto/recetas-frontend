@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+
+
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -11,13 +13,20 @@ const router = createRouter({
       meta: { title: 'Home', middleware: [] },
       component: Home,
     },
-    
     {
-      path: '/login',
-      name: 'login',
-      meta: { title: 'Login', middleware: ['guest'] },
-      component: () => import('../views/auth/Login.vue'),
+      path: '/auth',
+      name: 'auth',
+      meta: { title: 'Auth', middleware: ['guest'] },
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          meta: { title: 'Login', middleware: ['guest'] },
+          component: () => import('../views/auth/Login.vue'),
+        },
+      ]
     },
+ 
     {
       path: '/register',
       name: 'register',

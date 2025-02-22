@@ -1,5 +1,5 @@
 <script setup>
-import GuestLayout from '../../layouts/GuestLayout.vue'
+import AuthLayout from '../../layouts/AuthLayout.vue'
 import Checkbox from '../../components/Checkbox.vue'
 import InputError from '../../components/InputError.vue'
 import InputLabel from '../../components/InputLabel.vue'
@@ -7,7 +7,7 @@ import PrimaryButton from '../../components/PrimaryButton.vue'
 import TextInput from '../../components/TextInput.vue'
 import { useAuthStore } from '../../stores/auth'
 import { ref, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 const form = ref({
   email: '',
@@ -35,11 +35,11 @@ const handleLogin = async () => await login(processing, errors, form.value)
 </script>
 
 <template>
-  <GuestLayout>
+  <AuthLayout>
     <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
       {{ status }}
     </div>
-
+    <h1 class="text-base text-center p-4 uppercase text-gray-700 font-medium">Inicia sesión</h1>
     <form @submit.prevent="handleLogin()">
       <div>
         <InputLabel for="email" value="Email" />
@@ -88,7 +88,7 @@ const handleLogin = async () => await login(processing, errors, form.value)
           :to="{ name: 'register' }"
           class="underline text-sm text-gray-600 hover:text-amber-600 rounded-md focus:outline-none"
         >
-         ¿Todavía no tienes cuenta?
+          ¿Todavía no tienes cuenta?
         </RouterLink>
       </div>
 
@@ -96,7 +96,8 @@ const handleLogin = async () => await login(processing, errors, form.value)
         Inicia sesión
       </PrimaryButton>
     </form>
-  </GuestLayout>
+    <RouterLink :to="{name: 'home'}" class="mt-4 flex justify-center hover:text-amber-600">Volver</RouterLink>
+  </AuthLayout>
 </template>
 
 <style scoped></style>
