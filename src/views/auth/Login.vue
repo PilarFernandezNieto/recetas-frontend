@@ -39,7 +39,7 @@ const handleLogin = async () => await login(processing, errors, form.value)
     <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
       {{ status }}
     </div>
-    <h1 class="text-base text-center p-4 uppercase text-gray-700 font-medium">Inicia sesión</h1>
+    <h1 class="font-titulares text-base text-center p-4 uppercase font-medium">Inicia sesión</h1>
     <form @submit.prevent="handleLogin()">
       <div>
         <InputLabel for="email" value="Email" />

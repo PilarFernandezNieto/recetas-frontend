@@ -33,6 +33,7 @@ const handleResetPassword = async () => await resetPassword(processing, errors, 
 
 <template>
   <AuthLayout>
+    <h1 class="font-titulares text-base text-center p-4 uppercase font-medium">Recuperar contraseña</h1>
     <form @submit.prevent="handleResetPassword()">
       <div>
         <InputLabel for="email" value="Email" />

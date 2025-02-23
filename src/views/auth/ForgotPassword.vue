@@ -21,6 +21,7 @@ const handleForgotPassword = async () =>
 
 <template>
   <AuthLayout>
+    <h1 class="font-titulares text-base text-center p-4 uppercase font-medium">Recuperar contraseña</h1>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
       ¿Olvidaste tu contraseña? No hay problema. Índícanos tu dirección de correo electrónico y te
       enviaremos un enlace para restablecerla y poder elegir una nueva.
@@ -29,7 +30,7 @@ const handleForgotPassword = async () =>
     <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
       {{ status }}
     </div>
-
+    
     <form @submit.prevent="handleForgotPassword()">
       <div>
         <InputLabel for="email" value="Email" />

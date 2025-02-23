@@ -24,6 +24,7 @@ const handleRegister = async () => await register(processing, errors, form.value
 
 <template>
   <AuthLayout>
+    <h1 class="font-titulares text-base text-center p-4 uppercase font-medium">Registro</h1>
     <form @submit.prevent="handleRegister()">
       <div>
         <InputLabel for="name" value="Nombre" />
