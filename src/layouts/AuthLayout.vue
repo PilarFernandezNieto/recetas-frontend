@@ -10,6 +10,7 @@ import ApplicationLogo from '../components/ApplicationLogo.vue';
       </RouterLink>
     </div>
     <div class="w-[32rem] sm:max-w-lg lg:max-w-7xl mt-6 shadow-md overflow-hidden sm:rounded-lg bg-white p-4">
+      <!-- Aquí aparecen todos los formularios y componentes para la autenticación -->
       <slot />
     </div>
   </div>

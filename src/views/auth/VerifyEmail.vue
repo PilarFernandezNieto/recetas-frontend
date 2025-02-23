@@ -22,29 +22,29 @@ const handleResendEmailVerification = async () => await resendEmailVerification(
 <template>
   <AuthLayout>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-      Thanks for signing up! Before getting started, could you verify your email address by clicking
-      on the link we just emailed to you? If you didn't receive the email, we will gladly send you
-      another.
+      Gracias por registrarte. Antes de continuar debes verificar tu correo. Si no has recibido el
+      email de confirmación puedes solicitar otro.
     </div>
 
     <div
       class="mb-4 font-medium text-sm text-green-700 bg-green-100 px-4 py-2 rounded dark:text-green-400"
       v-if="status"
     >
-      A new verification link has been sent to the email address you provided during registration.
+      Un nuevo enlace de verificación ha sido enviado a la dirección de correo electrónico que
+      proporcionaste durante el registro.
     </div>
 
     <form @submit.prevent="handleResendEmailVerification()">
       <div class="mt-4 flex items-center justify-between">
         <PrimaryButton :class="{ 'opacity-25': processing }" :disabled="processing">
-          Resend Verification Email
+          Reenviar correo de verificación
         </PrimaryButton>
 
         <button
           @click="logout()"
-          class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+          class="underline text-sm text-gray-600 hover:text-amber-600"
         >
-          Log Out
+          Cierra Sesión
         </button>
       </div>
     </form>

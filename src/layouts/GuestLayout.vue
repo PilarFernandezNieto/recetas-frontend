@@ -16,6 +16,7 @@ const { user, logout, isLoggedIn } = useAuthStore()
 const showingNavigationDropdown = ref(false)
 </script>
 
+<!-- PARA TODAS LA VISTAS QUE NO NECESITAN LOGIN -->
 <template>
   <div class="min-h-screen pt-6 sm:pt-0 bg-amber-50">
     <nav class="bg-amber-50 shadow">
@@ -46,7 +47,9 @@ const showingNavigationDropdown = ref(false)
                   >Inicia sesión</NavLink
                 >
 
-                <NavLink :to="{name: 'register'}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
+                <NavLink
+                  :to="{ name: 'register' }"
+                  class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
                   >Registro</NavLink
                 >
               </template>
@@ -131,7 +134,7 @@ const showingNavigationDropdown = ref(false)
         <div class="pt-2 pb-3 space-y-1">
           <ResponsiveNavLink :to="{ name: 'home' }"> Inicio </ResponsiveNavLink>
           <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
-            Dashboard
+            Panel de administración
           </ResponsiveNavLink>
           <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'usuarios'">
             Usuarios
@@ -157,6 +160,7 @@ const showingNavigationDropdown = ref(false)
     </nav>
 
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 overflow-hidden">
+      <!-- Aquí se mostrará la pagina principal y todas las vistas que no necesiten login -->
       <slot />
     </div>
   </div>
