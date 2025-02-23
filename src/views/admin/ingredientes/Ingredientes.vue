@@ -22,7 +22,7 @@ const ingredientesFiltrados = computed(() => {
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Ingredientes</h2>
+      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Ingredientes</h2>
     </template>
 
     <div class="py-12">
@@ -43,7 +43,7 @@ const ingredientesFiltrados = computed(() => {
             </div>
             <RouterLink
               to="/"
-              class="bg-amber-500 hover:bg-amber-800 text-white py-2 px-4 text-lg font-bold rounded-md text-center"
+              class="bg-amber-500 hover:bg-amber-700 text-white py-2 px-4 text-lg font-bold rounded-md text-center"
               >Nuevo ingrediente</RouterLink
             >
           </div>

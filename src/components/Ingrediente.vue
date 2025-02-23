@@ -35,11 +35,11 @@ const props = defineProps({
             <div class="flex lg:flex-col justify-between gap-5">
                 <a href="/"
             
-                    class="bg-indigo-600 text-white py-2 px-4 rounded-md text-center cursor:pointer"
+                    class="bg-indigo-600 text-white py-2 px-4 rounded-md text-center cursor:pointer w-1/2 md:w-full"
                     >Editar</a
                 >
                 <button
-                    class="bg-red-600 text-white py-2 px-4 rounded"
+                    class="bg-red-600 text-white py-2 px-4 rounded w-1/2 md:w-full"
                    
                 >
                     Eliminar
