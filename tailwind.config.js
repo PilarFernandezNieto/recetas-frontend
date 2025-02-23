@@ -7,8 +7,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+        principal: ["Urbanist", defaultTheme.fontFamily.sans],
+        titulares: ["Cinzel", defaultTheme.fontFamily.sans],
       },
+      backgroundImage: {
+        "fondo-fruta": "url('/img/fondo_fruta_vegetales.jpg')",
+      }
     },
   },
   plugins: [forms],
