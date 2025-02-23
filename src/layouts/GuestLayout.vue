@@ -35,7 +35,7 @@ const showingNavigationDropdown = ref(false)
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
               <NavLink
                 v-if="isLoggedIn"
-                to="/dashboard"
+                :to="{name: 'dashboard'}"
                 class="font-semibold text-gray-600 hover:text-gray-900"
                 >Dashboard</NavLink
               >

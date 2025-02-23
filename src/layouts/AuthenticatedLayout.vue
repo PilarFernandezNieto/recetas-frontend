@@ -17,7 +17,7 @@ const showingNavigationDropdown = ref(false)
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-screen">
     <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
       <!-- Navegación principal -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,8 +36,8 @@ const showingNavigationDropdown = ref(false)
               <NavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
                 Panel Administrador
               </NavLink>
-              <NavLink :to="{ name: 'dashboard' }" :active="route.name == 'usuarios'">
-                Usuarios
+              <NavLink :to="{ name: 'ingredientes' }" :active="route.name == 'ingredientes'">
+                Ingredientes
               </NavLink>
             </div>
           </div>
@@ -123,8 +123,8 @@ const showingNavigationDropdown = ref(false)
           <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
             Dashboard
           </ResponsiveNavLink>
-          <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'usuarios'">
-            Usuarios
+          <ResponsiveNavLink :to="{ name: 'ingredientes' }" :active="route.name == 'ingredientes'">
+            Ingredientes
           </ResponsiveNavLink>
         </div>
 

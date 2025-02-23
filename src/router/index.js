@@ -13,6 +13,25 @@ const router = createRouter({
       component: Home,
     },
     {
+      path: '/admin',
+      name: 'admin',
+      meta: { title: 'Admin', middleware: ['auth'] },
+      children: [
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          meta: { title: 'Dashboard', middleware: ['auth', 'verified'] },
+          component: () => import('../views/Dashboard.vue'),
+        },
+        {
+          path: 'ingredientes',
+          name: 'ingredientes',
+          meta: { title: 'Ingredientes', middleware: ['auth'] },
+          component: () => import('@/views/admin/ingredientes/Ingredientes.vue'),
+        }
+      ]
+    },
+    {
       path: '/auth',
       name: 'auth',
       meta: { title: 'Auth', middleware: ['guest'] },
@@ -50,12 +69,7 @@ const router = createRouter({
       ],
     },
 
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      meta: { title: 'Dashboard', middleware: ['auth', 'verified'] },
-      component: () => import('../views/Dashboard.vue'),
-    },
+ 
   ],
 })
 
