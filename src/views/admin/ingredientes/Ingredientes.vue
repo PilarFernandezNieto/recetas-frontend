@@ -5,9 +5,10 @@ import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
 import Ingrediente from '@/components/Ingrediente.vue'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
+import { FwbSpinner } from 'flowbite-vue'
 
 const ingredienteStore = useIngredienteStore()
-console.log(ingredienteStore.ingredientes);
+console.log(ingredienteStore.ingredientes)
 
 onMounted(() => {
   ingredienteStore.fetchIngredientes()
@@ -35,11 +36,11 @@ const ingredientesFiltrados = computed(() => {
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
           <div class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de ingredientes</div>
-          <div v-if="ingredienteStore.loading" class="flex justify-center py-6">
-            <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-amber-500" role="status">
-              <span class="visually-hidden">Cargando...</span>
+          <template v-if="ingredienteStore.loading">
+            <div class="flex justify-center mb-8">
+              <fwb-spinner size="10" class="flex justify-center" />
             </div>
-          </div>
+          </template>
           <div class="flex flex-col gap-4 lg:flex-row mb-4 justify-end">
             <div class="flex items-center justify-center">
               <input
