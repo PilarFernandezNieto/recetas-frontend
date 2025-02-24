@@ -33,7 +33,7 @@ const props = defineProps({
         />
       </div>
       <div class="flex lg:flex-col justify-between gap-5">
-        <EditButton>Editar</EditButton>
+        <EditButton to="/">Editar</EditButton>
         <DeleteButton> Eliminar </DeleteButton>
       </div>
     </div>
