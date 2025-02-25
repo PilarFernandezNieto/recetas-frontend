@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia'
 import { onMounted, ref } from 'vue'
 import axios from '../utils/axios'
+import { useToastStore } from './toastStore'
+import { useRouter } from 'vue-router'
 
 export const useIngredienteStore = defineStore('ingredientes', () => {
   const ingredientes = ref([])
   const loading = ref(true)
+  const toastStore = useToastStore();
+  const router = useRouter();
 
   const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -30,13 +34,21 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
 
     try {
       await csrf()
-      const { data } = await axios.post('/api/ingredientes', datos, {
+      const {data} = await axios.post('/api/ingredientes', datos, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
+      if (data.type === 'success') {
+        toastStore.mostrarExito(data.message)
+        router.push({ name: 'ingredientes' })
+    }
+      
+      
     } catch (error) {
-      console.log(error)
+      if (error?.response?.status === 422) {
+        errors.value = error.response.data.errors
+      }
     } finally {
       processing.value = false
     }

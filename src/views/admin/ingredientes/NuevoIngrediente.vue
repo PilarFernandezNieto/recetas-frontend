@@ -20,7 +20,6 @@ const handleImageChange = (e) => {
   form.value.imagen = e.target.files[0]
   console.log(form.value.imagen)
 }
-const handleRegister = async () => await register(processing, errors, form.value)
 const handleIngrediente = async () => {
   await ingredienteStore.nuevoIngrediente(processing, errors, form.value)
 }
@@ -34,11 +33,6 @@ const handleIngrediente = async () => {
       <div class="w-1/2 mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Nuevo Ingrediente</div>
-          <template v-if="ingredienteStore.loading">
-            <div class="flex justify-center mb-8">
-              <fwb-spinner size="10" color="green" />
-            </div>
-          </template>
           <div class="bg-white shadow-sm p-4 rounded-lg">
             <form @submit.prevent="handleIngrediente()">
               <div>
