@@ -38,7 +38,7 @@ const ingredientesFiltrados = computed(() => {
           <div class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de ingredientes</div>
           <template v-if="ingredienteStore.loading">
             <div class="flex justify-center mb-8">
-              <fwb-spinner size="10" class="flex justify-center" />
+              <fwb-spinner size="10" color="green" />
             </div>
           </template>
           <div class="flex flex-col gap-4 lg:flex-row mb-4 justify-end">
@@ -53,7 +53,7 @@ const ingredientesFiltrados = computed(() => {
                 class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-r-md border border-amber-500"
               ></i>
             </div>
-            <NewElementLink to="/">Nuevo ingrediente</NewElementLink>
+            <NewElementLink :to="{name: 'nuevo-ingrediente'}">Nuevo ingrediente</NewElementLink>
           </div>
           <div class="grid grid-cols-1 gap-4">
             <Ingrediente

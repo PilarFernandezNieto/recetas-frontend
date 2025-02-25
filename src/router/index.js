@@ -28,7 +28,14 @@ const router = createRouter({
           name: 'ingredientes',
           meta: { title: 'Ingredientes', middleware: ['auth'] },
           component: () => import('@/views/admin/ingredientes/Ingredientes.vue'),
+        },
+        {
+          path: 'nuevo-ingrediente',
+          name: 'nuevo-ingrediente',
+          meta: { title: 'Nuevo Ingrediente', middleware: ['auth'] },
+          component: () => import('@/views/admin/ingredientes/NuevoIngrediente.vue'),
         }
+    
       ]
     },
     {

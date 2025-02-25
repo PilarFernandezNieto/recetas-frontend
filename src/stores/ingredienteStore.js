@@ -23,9 +23,29 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     }
   }
 
+  const nuevoIngrediente = async (processing, errors, { ...datos }) => {
+    console.log(datos)
+    processing.value = true
+    errors.value = {}
+
+    try {
+      await csrf()
+      const { data } = await axios.post('/api/ingredientes', datos, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    } finally {
+      processing.value = false
+    }
+  }
+
   return {
     ingredientes,
     fetchIngredientes,
-    loading
+    loading,
+    nuevoIngrediente,
   }
 })
