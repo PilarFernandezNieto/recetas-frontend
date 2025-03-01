@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import axios from '../utils/axios'
 import { useToastStore } from './toastStore'
 import { useRouter } from 'vue-router'
-import Login from '../views/auth/Login.vue'
+
 
 export const useIngredienteStore = defineStore('ingredientes', () => {
   const ingredientes = ref([])
