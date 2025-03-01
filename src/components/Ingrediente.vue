@@ -13,6 +13,8 @@ const props = defineProps({
     required: true,
   },
 })
+const imagenServer = computed(() => props.ingrediente.imagen.startsWith('http'))
+const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
 </script>
 <template>
   <div
@@ -27,7 +29,7 @@ const props = defineProps({
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div class="flex justify-center lg:mb-0">
         <img
-          :src="ingrediente.imagen"
+          :src="[imagenServer ? ingrediente.imagen : getImagen(ingrediente.imagen)]"
           :alt="ingrediente.nombre"
           class="w-full lg:w-40 rounded-md"
         />
