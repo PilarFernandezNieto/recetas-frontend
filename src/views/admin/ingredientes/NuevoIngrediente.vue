@@ -4,6 +4,8 @@ import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
 import TextInput from '../../../components/TextInput.vue'
 import PrimaryButton from '../../../components/PrimaryButton.vue'
+import GoBackButton from '../../../components/GoBackButton.vue'
+import InputError from '../../../components/InputError.vue'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
 const ingredienteStore = useIngredienteStore()
 
@@ -21,12 +23,13 @@ const handleImageChange = (e) => {
   console.log(form.value.imagen)
 }
 const handleIngrediente = async () => {
-  const formData = new FormData();
-  formData.append('nombre', form.value.nombre);
-  formData.append('descripcion', form.value.descripcion);
-  formData.append('imagen', form.value.imagen);
+  const formData = new FormData()
+  formData.append('nombre', form.value.nombre)
+  formData.append('descripcion', form.value.descripcion)
+  formData.append('imagen', form.value.imagen)
   await ingredienteStore.nuevoIngrediente(processing, errors, formData)
 }
+console.log('Desde nuevo ingrediente', errors.value)
 </script>
 <template>
   <AuthenticatedLayout>
@@ -49,19 +52,18 @@ const handleIngrediente = async () => {
                   v-model="form.nombre"
                   autofocus
                 />
-
-                <!-- <InputError class="mt-2" :message="errors.nombre?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.nombre?.[0]" />
               </div>
               <div class="my-8">
                 <label
                   for="imagen"
-                  class="cursor-pointer bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 focus:ring-2 focus:ring-amber-600"
+                  class="cursor-pointer bg-amber-600 text-white mb-2 py-2 px-4 rounded-md hover:bg-amber-700 focus:ring-2 focus:ring-amber-600"
                 >
                   Subir imagen
                 </label>
                 <input type="file" id="imagen" @change="handleImageChange" class="hidden" />
 
-                <!-- <InputError class="mt-2" :message="errors.file?.[0]" /> -->
+                <InputError v-for="error in errors.imagen" class="mt-3" :message="error" />
               </div>
               <div>
                 <InputLabel for="descripcion" value="Descripción" />
@@ -72,7 +74,7 @@ const handleIngrediente = async () => {
                   class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-600 focus:ring-amber-600 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
                 ></textarea>
 
-                <!-- <InputError class="mt-2" :message="errors.descripcion?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.descripcion?.[0]" />
               </div>
               <PrimaryButton
                 class="w-full mt-2"
@@ -82,6 +84,7 @@ const handleIngrediente = async () => {
                 Nuevo Ingrediente
               </PrimaryButton>
             </form>
+            <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
           </div>
         </div>
       </div>

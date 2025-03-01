@@ -6,6 +6,7 @@ import EditButton from './EditButton.vue'
 import DeleteButton from './DeleteButton.vue'
 
 const ingredienteStore = useIngredienteStore()
+const swal = inject('$swal')
 
 const props = defineProps({
   ingrediente: {
@@ -15,6 +16,21 @@ const props = defineProps({
 })
 const imagenServer = computed(() => props.ingrediente.imagen.startsWith('http'))
 const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
+
+const showAlert = (id) => {
+    swal({
+        icon: 'warning',
+        text: '¿Seguro que desea eliminar el ingrediente',
+        showDenyButton: true,
+        confirmButtonText: "Adelante",
+        denyButtonText: "No"
+    }).then((result) => {
+    if (result.isConfirmed) {
+        ingredienteStore.eliminarIngrediente(id);
+    }
+    })
+}
+
 </script>
 <template>
   <div
@@ -36,7 +52,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
       </div>
       <div class="flex lg:flex-col justify-between gap-5">
         <EditButton :to="{name: 'editar-ingrediente', params: {id: ingrediente.id}}">Editar</EditButton>
-        <DeleteButton> Eliminar </DeleteButton>
+        <DeleteButton :type="button" @click="showAlert(ingrediente.id)" > Eliminar </DeleteButton>
       </div>
     </div>
   </div>

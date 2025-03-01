@@ -57,6 +57,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     } catch (error) {
       if (error?.response?.status === 422) {
         errors.value = error.response.data.errors
+        
       }
     } finally {
       processing.value = false
@@ -91,6 +92,19 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     }
   }
 
+  const eliminarIngrediente = async (id) => {
+    try {
+      await csrf()
+      const { data } = await axios.delete(`/api/ingredientes/${id}`)
+      if (data.type === 'success') {
+        toastStore.mostrarExito(data.message)
+        ingredientes.value = ingredientes.value.filter(ingredienteStore => ingredienteStore.id !== id)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return {
     ingredientes,
     ingrediente,
@@ -99,5 +113,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     loading,
     nuevoIngrediente,
     editarIngrediente,
+    eliminarIngrediente
   }
 })

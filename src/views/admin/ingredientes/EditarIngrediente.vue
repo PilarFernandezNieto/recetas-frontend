@@ -5,6 +5,8 @@ import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
 import TextInput from '../../../components/TextInput.vue'
 import PrimaryButton from '../../../components/PrimaryButton.vue'
+import GoBackButton from '../../../components/GoBackButton.vue'
+import InputError from '../../../components/InputError.vue'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
 const ingredienteStore = useIngredienteStore()
 const route = useRoute()
@@ -45,7 +47,7 @@ const getImagen = computed(
     <div class="py-12">
       <div class="w-1/2 mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
-          <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Nuevo Ingrediente</div>
+          <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Ingrediente</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
             <form @submit.prevent="handleIngrediente">
               <div>
@@ -59,7 +61,7 @@ const getImagen = computed(
                   autofocus
                 />
 
-                <!-- <InputError class="mt-2" :message="errors.nombre?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.nombre?.[0]" />
               </div>
               <div class="my-8">
                 <label
@@ -70,7 +72,7 @@ const getImagen = computed(
                 </label>
                 <input type="file" id="imagen" @change="handleImageChange" class="hidden" />
 
-                <!-- <InputError class="mt-2" :message="errors.file?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.imagen?.[0]" />
               </div>
               <div class="mb-4">
                 <img :src="getImagen" alt="imagen" class="w-40" />
@@ -84,16 +86,17 @@ const getImagen = computed(
                   class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-600 focus:ring-amber-600 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
                 ></textarea>
 
-                <!-- <InputError class="mt-2" :message="errors.descripcion?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.descripcion?.[0]" />
               </div>
               <PrimaryButton
                 class="w-full mt-2"
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
               >
-                Nuevo Ingrediente
+                Editar Ingrediente
               </PrimaryButton>
             </form>
+            <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
           </div>
         </div>
       </div>
