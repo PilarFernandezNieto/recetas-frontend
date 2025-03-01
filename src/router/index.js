@@ -34,6 +34,12 @@ const router = createRouter({
           name: 'nuevo-ingrediente',
           meta: { title: 'Nuevo Ingrediente', middleware: ['auth'] },
           component: () => import('@/views/admin/ingredientes/NuevoIngrediente.vue'),
+        },
+        {
+          path: 'editar-ingrediente/:id',
+          name: 'editar-ingrediente',
+          meta: { title: 'Editar Ingrediente', middleware: ['auth'] },
+          component: () => import('@/views/admin/ingredientes/EditarIngrediente.vue'),
         }
     
       ]

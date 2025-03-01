@@ -35,7 +35,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
         />
       </div>
       <div class="flex lg:flex-col justify-between gap-5">
-        <EditButton to="/">Editar</EditButton>
+        <EditButton :to="{name: 'editar-ingrediente', params: {id: ingrediente.id}}">Editar</EditButton>
         <DeleteButton> Eliminar </DeleteButton>
       </div>
     </div>
