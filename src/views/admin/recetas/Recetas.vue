@@ -1,6 +1,11 @@
 <script setup>
+import { ref } from 'vue'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
+import Receta from '../../../components/Receta.vue'
+import { recetas as recetasDB } from '../../../data/recetas';
+
+const recetas = ref(recetasDB);
 </script>
 
 <template>
@@ -26,6 +31,13 @@ import NewElementLink from '../../../components/NewElementLink.vue'
               ></i>
             </div>
             <NewElementLink :to="{name: 'nueva-receta'}">Nueva Receta</NewElementLink>
+          </div>
+          <div class="grid grid-cols-1 gap-4">
+            <Receta
+              v-for="receta in recetas"
+              :key="receta.id"
+              :receta="receta"
+            />
           </div>
         </div>
       </div>
