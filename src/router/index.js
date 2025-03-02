@@ -48,6 +48,12 @@ const router = createRouter({
           component: () => import('@/views/admin/recetas/Recetas.vue'),
         },
         {
+          path: 'receta/:id',
+          name: 'receta',
+          meta: { title: 'Receta', middleware: ['auth'] },
+          component: () => import('@/views/admin/recetas/FichaReceta.vue'),
+        },
+        {
           path: 'nueva-receta',
           name: 'nueva-receta',
           meta: { title: 'Nueva Receta', middleware: ['auth'] },

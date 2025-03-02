@@ -51,6 +51,7 @@ const filtrados = computed(() => {
           <span class="font-medium">{{ valor }}</span>
         </li>
       </ul>
+      <NewElementLink :to="{ name: 'receta', params: {id: receta.id} }">Ver Receta</NewElementLink>
       
     </div>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
