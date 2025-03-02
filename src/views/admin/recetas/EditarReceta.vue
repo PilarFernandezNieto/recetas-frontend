@@ -6,6 +6,7 @@ import InputLabel from '../../../components/InputLabel.vue'
 import TextInput from '../../../components/TextInput.vue'
 import PrimaryButton from '../../../components/PrimaryButton.vue'
 import GoBackButton from '../../../components/GoBackButton.vue'
+import EditorTiny from '../../../components/EditorTiny.vue'
 import { recetas as recetasDB } from '../../../data/recetas'
 import { dificultades as dificultadesDB } from '../../../data/dificultades'
 
@@ -23,7 +24,7 @@ const receta = computed(() => recetas.value.find((r) => r.id == id))
       <h2 class="font-semibold text-xl text-gray-700 leading-tight">Recetas</h2>
     </template>
     <div class="py-12">
-      <div class="w-[90%] md:w-1/2 mx-auto sm:px-6 lg:px-8">
+      <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Receta</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
@@ -89,12 +90,8 @@ const receta = computed(() => recetas.value.find((r) => r.id == id))
               </div> -->
               <div>
                 <InputLabel for="instruciones" value="Instrucciones" />
-
-                <textarea
-                  id="instruciones"
-                  v-model="receta.instrucciones"
-                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-600 focus:ring-amber-600 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
-                ></textarea>
+                <EditorTiny v-model="receta.instrucciones"></EditorTiny>
+   
 
                 <!-- <InputError class="mt-2" :message="errors.descripcion?.[0]" /> -->
               </div>
