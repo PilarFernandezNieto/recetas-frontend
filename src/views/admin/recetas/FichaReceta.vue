@@ -43,7 +43,7 @@ const filtrados = computed(() => {
                 <span class="font-medium">{{ valor }}</span>
               </li>
             </ul>
-            <div class="mt-4 text-lg bg-white p-4 rounded-md">{{ recetaStore.receta.instrucciones }}</div>
+            <div class="mt-4 text-lg bg-white p-4 rounded-md" v-html="recetaStore.receta.instrucciones"></div>
           </div>
           <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
         </div>

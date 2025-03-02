@@ -5,18 +5,20 @@ import InputLabel from '../../../components/InputLabel.vue'
 import TextInput from '../../../components/TextInput.vue'
 import PrimaryButton from '../../../components/PrimaryButton.vue'
 import GoBackButton from '../../../components/GoBackButton.vue'
+import InputError from '../../../components/InputError.vue'
 import EditorTiny from '../../../components/EditorTiny.vue'
-import { dificultades as dificultadesDB } from '../../../data/dificultades'
-import { ingredientes as ingredientesDB } from '../../../data/ingredientes'
 import Modal from '../../../components/Modal.vue'
+import { useRecetaStore } from '../../../stores/recetaStore'
+import { useIngredienteStore } from '../../../stores/ingredienteStore'
 
-const dificultades = ref(dificultadesDB)
-const ingredientes = ref(ingredientesDB)
+const recetaStore = useRecetaStore()
+const ingredienteStore = useIngredienteStore()
 const receta = ref({
   nombre: '',
   origen: '',
   tiempo: '',
-  dificultad: 0,
+  comensales: '',
+  dificultad_id: 0,
   imagen: '',
   instrucciones: '',
   ingredientes: [],
@@ -24,24 +26,55 @@ const receta = ref({
 const ingredientesSeleccionados = ref([]) // Para gestionar los ingredientes seleccionados con cantidades
 const ingredienteSeleccionado = ref(null) // Ingrediente que se seleccionó para agregar cantidad
 const cantidadIngrediente = ref('') // Cantidad ingresada por el usuario
+const unidadMedida = ref('')
 const showModal = ref(false)
+const processing = ref(false)
+const errors = ref({})
 
-const handleReceta = () => {
+onMounted(async () => {
+  await recetaStore.fetchDificultades()
+  await ingredienteStore.fetchIngredientes()
+})
+
+const handleReceta = async () => {
   // Guardar la receta y sus ingredientes con cantidades en la base de datos
   console.log('Receta:', receta.value)
-  receta.value.ingredientes = ingredientesSeleccionados.value
   console.log('Ingredientes seleccionados:', ingredientesSeleccionados.value)
+  receta.value.ingredientes = ingredientesSeleccionados.value
+
+  const formData = new FormData()
+  formData.append('nombre', receta.value.nombre)
+  formData.append('origen', receta.value.origen)
+  formData.append('tiempo', receta.value.tiempo)
+  formData.append('comensales', receta.value.comensales)
+  formData.append('dificultad_id', receta.value.dificultad_id)
+  formData.append('instrucciones', receta.value.instrucciones)
+
+  receta.value.ingredientes.forEach((ing, index) => {
+    formData.append(`ingredientes[${index}][ingrediente_id]`, ing.id)
+    formData.append(`ingredientes[${index}][cantidad]`, ing.cantidad)
+    formData.append(`ingredientes[${index}][unidad]`, ing.unidad)
+  })
+
+  if (receta.value.imagen) {
+    formData.append('imagen', receta.value.imagen)
+  }
+  await recetaStore.nuevaReceta(processing, errors, formData)
 }
 
 const handleIngredientChange = (event) => {
   // Obtener el ingrediente seleccionado y la cantidad
   const selectedId = event.target.value
-  const ingrediente = ingredientes.value.find((ing) => ing.id === parseInt(selectedId))
+  const ingrediente = ingredienteStore.ingredientes.find((ing) => ing.id === parseInt(selectedId))
 
   if (ingrediente) {
     ingredienteSeleccionado.value = ingrediente
     showModal.value = true
   }
+}
+const eliminarIngrediente = (index) => {
+  ingredientesSeleccionados.value.splice(index, 1)
+  console.log('Ingredientes después de eliminar:', ingredientesSeleccionados.value)
 }
 
 const handleCantidadChange = () => {
@@ -50,10 +83,17 @@ const handleCantidadChange = () => {
     ingredientesSeleccionados.value.push({
       ...ingredienteSeleccionado.value,
       cantidad: cantidadIngrediente.value,
+      unidad: unidadMedida.value,
     })
     cantidadIngrediente.value = ''
+    unidadMedida.value = ''
     showModal.value = false
   }
+}
+
+const handleImageChange = (e) => {
+  receta.value.imagen = e.target.files[0]
+  console.log(form.value.imagen)
 }
 </script>
 
@@ -78,9 +118,9 @@ const handleCantidadChange = () => {
                   autofocus
                 />
 
-                <!-- <InputError class="mt-2" :message="errors.nombre?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.nombre?.[0]" />
               </div>
-              <div class="mt-2 md:grid grid-cols-3 gap-4">
+              <div class="mt-2 md:grid grid-cols-4 gap-4">
                 <div>
                   <InputLabel for="origen" value="Origen" />
                   <TextInput
@@ -88,6 +128,17 @@ const handleCantidadChange = () => {
                     type="text"
                     class="mt-2 block w-full"
                     v-model="receta.origen"
+                    autofocus
+                  />
+                  <InputError class="mt-2" :message="errors.origen?.[0]" />
+                </div>
+                <div class="mt-2 md:mt-0">
+                  <InputLabel for="comensales" value="Comensales" />
+                  <TextInput
+                    id="comensales"
+                    type="text"
+                    class="mt-2 block w-full"
+                    v-model="receta.comensales"
                     autofocus
                   />
                 </div>
@@ -100,27 +151,27 @@ const handleCantidadChange = () => {
                     v-model="receta.tiempo"
                     autofocus
                   />
+                  <InputError class="mt-2" :message="errors.tiempo?.[0]" />
                 </div>
                 <div class="mt-2 md:mt-0">
                   <InputLabel for="dificultad" value="Dificultad" />
                   <select
-                    name="dificultades"
+                    v-model="receta.dificultad_id"
                     id="dificultades"
                     class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm"
                   >
-                    <option value="0" selected>-------------</option>
+                    <option value="" selected>-------------</option>
                     <option
-                      v-for="dificultad in dificultades"
+                      v-for="dificultad in recetaStore.dificultades"
                       :key="dificultad.id"
                       :value="dificultad.id"
-                      :selected="receta.dificultad === dificultad.id"
+                      :selected="receta.dificultad_id === dificultad.id"
                     >
                       {{ dificultad.nombre }}
                     </option>
                   </select>
+                  <InputError class="mt-2" :message="errors.dificultad_id?.[0]" />
                 </div>
-
-                <!-- <InputError class="mt-2" :message="errors.nombre?.[0]" /> -->
               </div>
               <div class="my-8">
                 <label
@@ -131,7 +182,7 @@ const handleCantidadChange = () => {
                 </label>
                 <input type="file" id="imagen" @change="handleImageChange" class="hidden" />
 
-                <!-- <InputError class="mt-2" :message="errors.imagen?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.imagen?.[0]" />
               </div>
 
               <!-- INGREDIENTES -->
@@ -143,34 +194,44 @@ const handleCantidadChange = () => {
                   class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm"
                   @change="handleIngredientChange"
                 >
-                  <option value="0" selected>-------------</option>
+                  <option selected>-------------</option>
                   <option
-                    v-for="ingrediente in ingredientes"
+                    v-for="ingrediente in ingredienteStore.ingredientes"
                     :key="ingrediente.id"
                     :value="ingrediente.id"
                   >
                     {{ ingrediente.nombre }}
                   </option>
                 </select>
+                <InputError class="mt-2" :message="errors.ingredientes?.[0]" />
               </div>
 
               <div class="mt-4 p-4 border border-amber-600 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
-                <ul class="list-disc pl-6">
+                <ul class="list-disc pl-6 marker:text-amber-600">
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
-                    :key="index"
-                    class="mt-2 bg-amber-50 p-2 rounded-md"
+                    :key="ingrediente.id"
+                    class="mt-2 bg-amber-50 p-2 rounded-md flex justify-between items-cente"
                   >
-                    {{ ingrediente.nombre }} - {{ ingrediente.cantidad }}
+                    <span
+                      >{{ ingrediente.nombre }} - {{ ingrediente.cantidad }}
+                      {{ ingrediente.unidad }}</span
+                    >
+                    <button
+                      @click="eliminarIngrediente(index)"
+                      class="ml-4 bg-red-600 hover:bg-red-800 text-white rounded-md px-3 py-1 font-bold"
+                    >
+                      <i class="fa-solid fa-xmark text-white"></i>
+                    </button>
                   </li>
                 </ul>
               </div>
 
               <div class="mt-4">
-                <InputLabel for="instruciones" value="Instrucciones" />
+                <InputLabel for="instrucciones" value="Instrucciones" />
                 <EditorTiny v-model="receta.instrucciones"></EditorTiny>
-                <!-- <InputError class="mt-2" :message="errors.descripcion?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.instrucciones?.[0]" />
               </div>
               <PrimaryButton
                 class="w-full mt-2"
@@ -191,14 +252,23 @@ const handleCantidadChange = () => {
           <h3 class="text-xl font-semibold">
             Añade la cantidad de {{ ingredienteSeleccionado?.nombre }}
           </h3>
-          <div class="mt-4">
-            <InputLabel for="cantidad" value="Cantidad" />
-            <TextInput
-              id="cantidad"
-              type="text"
-              v-model="cantidadIngrediente"
-              placeholder="Cantidad"
-            />
+          <div class="mt-4 flex gap-4">
+            <div>
+              <TextInput
+                id="cantidad"
+                type="text"
+                v-model="cantidadIngrediente"
+                placeholder="Cantidad"
+              />
+            </div>
+            <div>
+              <TextInput
+                id="unidad"
+                type="text"
+                v-model="unidadMedida"
+                placeholder="Unidad de medida"
+              />
+            </div>
           </div>
           <div class="mt-4 flex justify-end">
             <PrimaryButton @click="handleCantidadChange">Añadir</PrimaryButton>

@@ -42,7 +42,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   const nuevoIngrediente = async (processing, errors, formData) => {
     processing.value = true
     errors.value = {}
-    console.log(formData)
+    
     try {
       await csrf()
       const { data } = await axios.post('/api/ingredientes', formData, {
