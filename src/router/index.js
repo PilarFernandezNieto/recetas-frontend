@@ -40,6 +40,24 @@ const router = createRouter({
           name: 'editar-ingrediente',
           meta: { title: 'Editar Ingrediente', middleware: ['auth'] },
           component: () => import('@/views/admin/ingredientes/EditarIngrediente.vue'),
+        },
+        {
+          path: 'recetas',
+          name: 'recetas',
+          meta: { title: 'Recetas', middleware: ['auth'] },
+          component: () => import('@/views/admin/recetas/Recetas.vue'),
+        },
+        {
+          path: 'nueva-receta',
+          name: 'nueva-receta',
+          meta: { title: 'Nueva Receta', middleware: ['auth'] },
+          component: () => import('@/views/admin/recetas/NuevaReceta.vue'),
+        },
+        {
+          path: 'editar-receta/:id',
+          name: 'editar-receta',
+          meta: { title: 'Editar Receta', middleware: ['auth'] },
+          component: () => import('@/views/admin/recetas/EditarReceta.vue'),
         }
     
       ]

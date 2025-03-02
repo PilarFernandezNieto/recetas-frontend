@@ -52,7 +52,7 @@ const showAlert = (id) => {
       </div>
       <div class="flex lg:flex-col justify-between gap-5">
         <EditButton :to="{name: 'editar-ingrediente', params: {id: ingrediente.id}}">Editar</EditButton>
-        <DeleteButton :type="button" @click="showAlert(ingrediente.id)" > Eliminar </DeleteButton>
+        <DeleteButton @click="showAlert(ingrediente.id)" > Eliminar </DeleteButton>
       </div>
     </div>
   </div>
