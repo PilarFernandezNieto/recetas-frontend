@@ -8,6 +8,7 @@ import GoBackButton from '../../../components/GoBackButton.vue'
 import EditorTiny from '../../../components/EditorTiny.vue'
 import { dificultades as dificultadesDB } from '../../../data/dificultades'
 import { ingredientes as ingredientesDB } from '../../../data/ingredientes'
+import Modal from '../../../components/Modal.vue'
 
 const dificultades = ref(dificultadesDB)
 const ingredientes = ref(ingredientesDB)
@@ -20,34 +21,45 @@ const receta = ref({
   instrucciones: '',
   ingredientes: [],
 })
-const ingredientesSeleccionado = ref([]) // Para gestionar los ingredientes seleccionados con cantidades
+const ingredientesSeleccionados = ref([]) // Para gestionar los ingredientes seleccionados con cantidades
+const ingredienteSeleccionado = ref(null) // Ingrediente que se seleccionó para agregar cantidad
+const cantidadIngrediente = ref('') // Cantidad ingresada por el usuario
+const showModal = ref(false)
 
-const handleIngrediente = () => {
+const handleReceta = () => {
   // Guardar la receta y sus ingredientes con cantidades en la base de datos
   console.log('Receta:', receta.value)
-  console.log('Ingredientes seleccionados:', ingredientesSeleccionado.value)
+  receta.value.ingredientes = ingredientesSeleccionados.value
+  console.log('Ingredientes seleccionados:', ingredientesSeleccionados.value)
 }
 
 const handleIngredientChange = (event) => {
   // Obtener el ingrediente seleccionado y la cantidad
   const selectedId = event.target.value
-  const ingredienteSeleccionado = ingredientes.value.find(
-    (ingrediente) => ingrediente.id === parseInt(selectedId),
+  const ingrediente = ingredientes.value.find(
+    (ing) => ing.id === parseInt(selectedId),
   )
 
-  if (ingredienteSeleccionado) {
-    const cantidad = prompt(`Ingresa la cantidad para ${ingredienteSeleccionado.nombre}:`) // Pedir cantidad
-
-    if (cantidad) {
-      // Agregar el ingrediente seleccionado con su cantidad
-      ingredientesSeleccionado.value.push({
-        id: ingredienteSeleccionado.id,
-        nombre: ingredienteSeleccionado.nombre,
-        cantidad: cantidad,
-      })
-    }
+  if (ingrediente) {
+    ingredienteSeleccionado.value = ingrediente
+    showModal.value = true
   }
 }
+
+const handleCantidadChange = () => {
+  console.log('Cantidad:', cantidadIngrediente.value)
+  if(cantidadIngrediente.value){
+    ingredientesSeleccionados.value.push({
+      ...ingredienteSeleccionado.value,
+      cantidad: cantidadIngrediente.value,
+    })
+    cantidadIngrediente.value = ''
+    showModal.value = false
+  }
+}
+    
+
+
 </script>
 
 <template>
@@ -60,7 +72,7 @@ const handleIngredientChange = (event) => {
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Receta</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
-            <form @submit.prevent="handleIngrediente">
+            <form @submit.prevent="handleReceta">
               <div>
                 <InputLabel for="nombre" value="Nombre" />
                 <TextInput
@@ -127,6 +139,7 @@ const handleIngredientChange = (event) => {
                 <!-- <InputError class="mt-2" :message="errors.imagen?.[0]" /> -->
               </div>
 
+
               <!-- INGREDIENTES -->
               <div class="mt-2 md:mt-0">
                 <InputLabel for="ingredientes" value="Ingredientes" />
@@ -150,7 +163,7 @@ const handleIngredientChange = (event) => {
               <div class="mt-4 p-4 border border-amber-600 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
                 <ul class="list-disc pl-6">
-                  <li v-for="(ingrediente, index) in ingredientesSeleccionado" :key="index" class="mt-2 bg-amber-50 p-2 rounded-md">
+                  <li v-for="(ingrediente, index) in ingredientesSeleccionados" :key="index" class="mt-2 bg-amber-50 p-2 rounded-md">
                     {{ ingrediente.nombre }} - {{ ingrediente.cantidad }} 
                   </li>
                 </ul>
@@ -166,7 +179,7 @@ const handleIngredientChange = (event) => {
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
               >
-                Editar Ingrediente
+               Nueva Receta
               </PrimaryButton>
             </form>
             <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
@@ -174,5 +187,24 @@ const handleIngredientChange = (event) => {
         </div>
       </div>
     </div>
+    <Modal :show="showModal" @close="showModal = false">
+      <template #default>
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">Añade la cantidad de {{ ingredienteSeleccionado?.nombre }}</h3>
+          <div class="mt-4">
+            <InputLabel for="cantidad" value="Cantidad" />
+            <TextInput
+              id="cantidad"
+              type="text"
+              v-model="cantidadIngrediente"
+              placeholder="Cantidad"
+            />
+          </div>
+          <div class="mt-4 flex justify-end">
+            <PrimaryButton @click="handleCantidadChange">Añadir</PrimaryButton>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </AuthenticatedLayout>
 </template>
