@@ -85,9 +85,9 @@ const receta = computed(() => recetas.value.find((r) => r.id == id))
 
                 <!-- <InputError class="mt-2" :message="errors.imagen?.[0]" /> -->
               </div>
-              <!-- <div class="mb-4">
-                <img :src="getImagen" alt="imagen" class="w-40" />
-              </div> -->
+              <div class="mb-4">
+                <img :src="receta.imagen" alt="imagen" class="w-40" />
+              </div>
               <div>
                 <InputLabel for="instruciones" value="Instrucciones" />
                 <EditorTiny v-model="receta.instrucciones"></EditorTiny>
