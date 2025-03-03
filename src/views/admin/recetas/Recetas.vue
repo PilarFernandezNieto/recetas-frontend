@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
 import Receta from '../../../components/Receta.vue'
@@ -10,6 +10,16 @@ const recetaStore = useRecetaStore()
 
 onMounted(() => {
   recetaStore.fetchRecetas()
+})
+const buscar = ref('')
+
+const recetasFiltradas = computed(() => {
+  if (!buscar.value.trim()) {
+    return recetaStore.recetas // Si no hay búsqueda, mostrar todos los ingredientes
+  }
+  return recetaStore.recetas.filter((receta) => {
+    return receta.nombre.toLowerCase().includes(buscar.value.toLowerCase())
+  })
 })
 </script>
 
@@ -33,6 +43,7 @@ onMounted(() => {
                 type="text"
                 class="p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-600"
                 placeholder="Buscar receta"
+                v-model="buscar"
               />
               <i
                 class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-r-md border border-amber-500"
@@ -41,7 +52,7 @@ onMounted(() => {
             <NewElementLink :to="{ name: 'nueva-receta' }">Nueva Receta</NewElementLink>
           </div>
           <div class="grid grid-cols-1 gap-4">
-            <Receta v-for="receta in recetaStore.recetas" :key="receta.id" :receta="receta" />
+            <Receta v-for="receta in recetasFiltradas" :key="receta.id" :receta="receta" />
           </div>
         </div>
       </div>

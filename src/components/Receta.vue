@@ -5,7 +5,6 @@ import EditButton from './EditButton.vue'
 import DeleteButton from './DeleteButton.vue'
 import NewElementLink from './NewElementLink.vue'
 
-
 const swal = inject('$swal')
 
 const props = defineProps({
@@ -14,13 +13,18 @@ const props = defineProps({
     required: true,
   },
 })
-
 const filtrados = computed(() => {
-  const clavesPermitidas = ['dificultad', 'comensales', 'tiempo'];
-  return Object.fromEntries(Object.entries(props.receta).filter(([clave]) => clavesPermitidas.includes(clave)));
+  const clavesPermitidas = ['comensales', 'tiempo', 'origen']
+  return Object.fromEntries(
+    Object.entries(props.receta).filter(([clave]) => clavesPermitidas.includes(clave)),
+  )
 })
-// const imagenServer = computed(() => props.ingrediente.imagen.startsWith('http'))
-// const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
+const imagenServer = computed(() => {
+  if (props.receta.imagen !== null) {
+    props.receta.imagen.startsWith('http')
+  }
+})
+const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
 
 // const showAlert = (id) => {
 //     swal({
@@ -35,7 +39,6 @@ const filtrados = computed(() => {
 //     }
 //     })
 // }
-
 </script>
 <template>
   <div
@@ -51,22 +54,22 @@ const filtrados = computed(() => {
           <span class="font-medium">{{ valor }}</span>
         </li>
       </ul>
-      <NewElementLink :to="{ name: 'receta', params: {id: receta.id} }">Ver Receta</NewElementLink>
-      
+      <NewElementLink :to="{ name: 'receta', params: { id: receta.id } }"
+        >Ver Receta</NewElementLink
+      >
     </div>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div class="flex justify-center lg:mb-0">
-        <!-- <img
-          :src="[imagenServer ? ingrediente.imagen : getImagen(ingrediente.imagen)]"
-          :alt="ingrediente.nombre"
+        <img
+          :src="[imagenServer ? receta.imagen : getImagen(receta.imagen)]"
+          :alt="receta.nombre"
           class="w-full lg:w-40 rounded-md"
-        /> -->
-        <img :src="receta.imagen" :alt="receta.nombre" class="w-full lg:w-40 rounded-md" />
+        />
       </div>
       <div class="flex lg:flex-col justify-between gap-5">
-        <EditButton :to="{name: 'editar-receta', params: {id: receta.id}}">Editar</EditButton>
-        
-        <DeleteButton @click="showAlert(receta.id)" > Eliminar </DeleteButton>
+        <EditButton :to="{ name: 'editar-receta', params: { id: receta.id } }">Editar</EditButton>
+
+        <DeleteButton @click="showAlert(receta.id)"> Eliminar </DeleteButton>
       </div>
     </div>
   </div>

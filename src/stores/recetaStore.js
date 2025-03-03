@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router'
 
 export const useRecetaStore = defineStore('recetas', () => {
   const recetas = ref([])
-  const receta = ref({})
+  const receta = ref([])
   const dificultades = ref([])
   const loading = ref(true)
   const toastStore = useToastStore()
@@ -19,7 +19,6 @@ export const useRecetaStore = defineStore('recetas', () => {
       loading.value = true
       const { data } = await axios.get('/api/recetas')
       recetas.value = data.data
-      console.log(data)
     } catch (error) {
       console.log(error)
     } finally {
@@ -32,7 +31,10 @@ export const useRecetaStore = defineStore('recetas', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/recetas/${id}`)
+      console.log(data)
       receta.value = data
+      console.log("Receta", receta.value);
+      
     } catch (error) {
       console.log(error)
     } finally {
@@ -64,7 +66,6 @@ export const useRecetaStore = defineStore('recetas', () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(data)
       if(data.type === 'success'){
         toastStore.mostrarExito(data.message);
         router.push({name: 'recetas'})
