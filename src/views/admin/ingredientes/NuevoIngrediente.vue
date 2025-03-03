@@ -37,8 +37,8 @@ console.log('Desde nuevo ingrediente', errors.value)
       <h2 class="font-semibold text-xl text-gray-700 leading-tight">Ingredientes</h2>
     </template>
     <div class="py-12">
-      <div class="w-1/2 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
+      <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Nuevo Ingrediente</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
             <form @submit.prevent="handleIngrediente()">
