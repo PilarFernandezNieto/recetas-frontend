@@ -31,7 +31,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg px-4 py-4 md:px-8">
           <template v-if="recetaStore.loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />
@@ -39,7 +39,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
           </template>
           <div class="md:grid grid-cols-2 my-4">
             <div>
-              <h2 class="py-6 text-gray-900 mb-4 text-2xl font-medium">
+              <h2 class="my-4 text-gray-900 text-2xl uppercase font-bold">
                 {{ recetaStore.receta.nombre }}
               </h2>
               <ul>
@@ -50,7 +50,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
                 <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ recetaStore.receta.dificultad?.nombre }}</span></li>
               </ul>
               <div class="my-4">
-                <h3 class="uppercase">Ingredientes</h3>
+                <h3 class="uppercase text-lg">Ingredientes</h3>
                 <ul>
                   <li v-for="ingrediente in recetaStore.receta.ingredientes">
                     {{ ingrediente.nombre }} - {{ ingrediente.pivot.cantidad }} {{ ingrediente.pivot.unidad }}

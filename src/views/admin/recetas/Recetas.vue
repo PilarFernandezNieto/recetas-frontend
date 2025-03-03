@@ -30,7 +30,7 @@ const recetasFiltradas = computed(() => {
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
           <div class="py-6 text-gray-900 mb-4 text-3xl font-black">Listado de recetas</div>
           <template v-if="recetaStore.loading">
             <div class="flex justify-center mb-8">
@@ -41,7 +41,7 @@ const recetasFiltradas = computed(() => {
             <div class="flex items-center justify-center">
               <input
                 type="text"
-                class="p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-600"
+                class="w-full p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-600 placeholder-gray-500"
                 placeholder="Buscar receta"
                 v-model="buscar"
               />
