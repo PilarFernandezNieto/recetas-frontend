@@ -15,7 +15,7 @@ onMounted(() => {
   recetaStore.fetchReceta(id)
 })
 const filtrados = computed(() => {
-  const clavesPermitidas = ['dificultad', 'comensales', 'tiempo', 'origen']
+  const clavesPermitidas = ['comensales', 'tiempo', 'origen']
   return Object.fromEntries(
     Object.entries(recetaStore.receta).filter(([clave]) => clavesPermitidas.includes(clave)),
   )
@@ -30,8 +30,8 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
       <h1 class="font-semibold text-xl text-gray-700 leading-tight">Recetas</h1>
     </template>
     <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
+      <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
           <template v-if="recetaStore.loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />
@@ -44,10 +44,20 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
               </h2>
               <ul>
                 <li v-for="(valor, clave) in filtrados" :key="clave">
-                  <span class="font-semibold capitalize">{{ clave }}: </span>
-                  <span class="font-medium">{{ valor }}</span>
+                  <span v-if="valor != ''" class="font-semibold capitalize">{{ clave }}: </span>
+                  <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
                 </li>
+                <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ recetaStore.receta.dificultad?.nombre }}</span></li>
               </ul>
+              <div class="my-4">
+                <h3 class="uppercase">Ingredientes</h3>
+                <ul>
+                  <li v-for="ingrediente in recetaStore.receta.ingredientes">
+                    {{ ingrediente.nombre }} - {{ ingrediente.pivot.cantidad }} {{ ingrediente.pivot.unidad }}
+                  </li>
+                </ul>
+              </div>
+
             </div>
             <img
               :src="getImagen(recetaStore.receta.imagen)"

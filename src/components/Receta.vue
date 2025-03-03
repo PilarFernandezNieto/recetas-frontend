@@ -45,18 +45,14 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
     class="shadow-md p-4 space-y-4 md:grid md:grid-cols-[65%_35%] items-center bg-white justify-between"
   >
     <div class="space-y-2">
-      <p class="font-black text-2xl">
-        {{ receta.nombre }}
-      </p>
+        <RouterLink :to="{ name: 'receta', params: { id: receta.id } }" class="hover:bg-amber-500 font-black hover:text-white text-2xl cursor-pointer hover:px-2 hover:py-1 rounded-md transition duration-150 ease-in-out" title="Ver receta">{{ receta.nombre }}</RouterLink>
       <ul>
         <li v-for="(valor, clave) in filtrados" :key="clave">
-          <span class="font-semibold capitalize">{{ clave }}: </span>
-          <span class="font-medium">{{ valor }}</span>
+          <span v-if="valor != ''" class="font-semibold capitalize">{{ clave }}: </span>
+          <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
         </li>
+        <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad.nombre }}</span></li>
       </ul>
-      <NewElementLink :to="{ name: 'receta', params: { id: receta.id } }"
-        >Ver Receta</NewElementLink
-      >
     </div>
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div class="flex justify-center lg:mb-0">

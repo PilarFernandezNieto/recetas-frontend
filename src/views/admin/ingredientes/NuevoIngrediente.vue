@@ -38,7 +38,7 @@ console.log('Desde nuevo ingrediente', errors.value)
     </template>
     <div class="py-12">
       <div class="w-1/2 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Nuevo Ingrediente</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
             <form @submit.prevent="handleIngrediente()">
@@ -71,7 +71,7 @@ console.log('Desde nuevo ingrediente', errors.value)
                 <textarea
                   id="descripcion"
                   v-model="form.descripcion"
-                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-600 focus:ring-amber-600 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
+                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-600 focus:ring-amber-600 shadow-sm rounded-md file:bg-amber-100 file:rounded-md"
                 ></textarea>
 
                 <InputError class="mt-2" :message="errors.descripcion?.[0]" />

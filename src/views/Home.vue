@@ -15,7 +15,7 @@ const laravelVersion = data?.Laravel ?? ''
 <template>
   <GuestLayout>
     <div
-      class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-amber-50 selection:bg-amber-500 selection:text-white"
+      class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-amber-100 selection:bg-amber-500 selection:text-white"
     >
       <div class="sm:absolute sm:top-0 sm:left-0 p-6 text-right">
         <div

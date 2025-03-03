@@ -104,7 +104,7 @@ const handleImageChange = (e) => {
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Receta</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
             <form @submit.prevent="handleReceta">
@@ -212,7 +212,7 @@ const handleImageChange = (e) => {
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
                     :key="ingrediente.id"
-                    class="mt-2 bg-amber-50 p-2 rounded-md flex justify-between items-cente"
+                    class="mt-2 bg-amber-100 p-2 rounded-md flex justify-between items-cente"
                   >
                     <span
                       >{{ ingrediente.nombre }} - {{ ingrediente.cantidad }}
