@@ -57,6 +57,7 @@ const decodedInstrucciones = computed(() => {
                 <h3 class="uppercase text-lg font-bold">Ingredientes</h3>
                 <ul>
                   <li v-for="ingrediente in recetaStore.receta.ingredientes">
+                    <!-- <pre>{{ ingrediente }}</pre> -->
                     {{ ingrediente.nombre }} - {{ ingrediente.pivot.cantidad }} {{ ingrediente.pivot.unidad }}
                   </li>
                 </ul>
