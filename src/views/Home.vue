@@ -1,15 +1,28 @@
 <script setup>
-import { version } from 'vue'
+import { onMounted, ref, version } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import GuestLayout from '../layouts/GuestLayout.vue'
 import axios from '../utils/axios'
 
 const { isLoggedIn } = useAuthStore()
-
-const { data } = await axios.get('/')
-
+const {data} = axios.get('/')
 const laravelVersion = data?.Laravel ?? ''
+const recetas = ref([])
+onMounted(async () => {
+  await getRecetasIndex()
+})
+
+const getRecetasIndex = async () => {
+  try {
+    const { data } = await axios.get('/api/recetas')
+    recetas.value = data.data
+    console.log(recetas.value);
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
 <template>

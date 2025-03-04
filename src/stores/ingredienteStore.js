@@ -18,7 +18,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get('/api/ingredientes')
+      const { data } = await axios.get('/api/admin/ingredientes')
       ingredientes.value = data.data
     } catch (error) {
       console.error(error)
@@ -30,7 +30,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get(`/api/ingredientes/${id}`)
+      const { data } = await axios.get(`/api/admin/ingredientes/${id}`)
       ingrediente.value = data
     } catch (error) {
       console.error(error)
@@ -45,7 +45,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     
     try {
       await csrf()
-      const { data } = await axios.post('/api/ingredientes', formData, {
+      const { data } = await axios.post('/api/admin/ingredientes', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -72,7 +72,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     
     try {
       await csrf()
-      const { data } = await axios.post(`/api/ingredientes/${id}`, formData, {
+      const { data } = await axios.post(`/api/admin/ingredientes/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -95,7 +95,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   const eliminarIngrediente = async (id) => {
     try {
       await csrf()
-      const { data } = await axios.delete(`/api/ingredientes/${id}`)
+      const { data } = await axios.delete(`/api/admin/ingredientes/${id}`)
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
         ingredientes.value = ingredientes.value.filter(ingredienteStore => ingredienteStore.id !== id)

@@ -17,7 +17,7 @@ export const useRecetaStore = defineStore('recetas', () => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get('/api/recetas')
+      const { data } = await axios.get('/apiadmin/recetas')
       recetas.value = data.data
     } catch (error) {
       console.log(error)
@@ -30,7 +30,7 @@ export const useRecetaStore = defineStore('recetas', () => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get(`/api/recetas/${id}`)
+      const { data } = await axios.get(`/api/admin/recetas/${id}`)
       receta.value = data
     } catch (error) {
       console.log(error)
@@ -42,7 +42,7 @@ export const useRecetaStore = defineStore('recetas', () => {
   const fetchDificultades = async () => {
     try {
       await csrf()
-      const { data } = await axios.get('/api/dificultades')
+      const { data } = await axios.get('/api/admin/dificultades')
       dificultades.value = data.data
     } catch (error) {
       console.log(error)
@@ -58,7 +58,7 @@ export const useRecetaStore = defineStore('recetas', () => {
     errors.value = {}
     try {
       await csrf()
-      const { data } = await axios.post('/api/recetas', formData, {
+      const { data } = await axios.post('/api/admin/recetas', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -86,7 +86,7 @@ export const useRecetaStore = defineStore('recetas', () => {
     // }
     try {
       await csrf()
-      const { data } = await axios.post(`/api/recetas/${id}`, formData, {
+      const { data } = await axios.post(`/api/admin/recetas/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
