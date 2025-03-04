@@ -31,10 +31,7 @@ export const useRecetaStore = defineStore('recetas', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/recetas/${id}`)
-      console.log(data)
       receta.value = data
-      console.log("Receta", receta.value);
-      
     } catch (error) {
       console.log(error)
     } finally {
@@ -66,9 +63,9 @@ export const useRecetaStore = defineStore('recetas', () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      if(data.type === 'success'){
-        toastStore.mostrarExito(data.message);
-        router.push({name: 'recetas'})
+      if (data.type === 'success') {
+        toastStore.mostrarExito(data.message)
+        router.push({ name: 'recetas' })
       }
     } catch (error) {
       if (error?.response?.status === 422) {
@@ -81,10 +78,38 @@ export const useRecetaStore = defineStore('recetas', () => {
     }
   }
 
+  const editarReceta = async (id, processing, errors, formData) => {
+    processing.value = true
+    errors.value = {}
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}:`, value)
+    // }
+    try {
+      await csrf()
+      const { data } = await axios.post(`/api/recetas/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      console.log(data)
+      if (data.type === 'success') {
+        toastStore.mostrarExito(data.message)
+        router.push({ name: 'recetas' })
+      }
+    } catch (error) {
+      if (error?.response?.status === 422) {
+        errors.value = error.response.data.errors
+      }
+    } finally {
+      processing.value = false
+    }
+  }
+
   return {
     fetchRecetas,
     fetchReceta,
     nuevaReceta,
+    editarReceta,
     fetchDificultades,
     dificultades,
     loading,

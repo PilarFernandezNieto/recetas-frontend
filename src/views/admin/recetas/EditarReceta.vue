@@ -1,21 +1,112 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
 import TextInput from '../../../components/TextInput.vue'
 import PrimaryButton from '../../../components/PrimaryButton.vue'
 import GoBackButton from '../../../components/GoBackButton.vue'
 import EditorTiny from '../../../components/EditorTiny.vue'
-import { recetas as recetasDB } from '../../../data/recetas'
-import { dificultades as dificultadesDB } from '../../../data/dificultades'
+import Modal from '../../../components/Modal.vue'
+import { useRecetaStore } from '../../../stores/recetaStore'
+import { useIngredienteStore } from '../../../stores/ingredienteStore'
 
 const route = useRoute()
+const router = useRouter()
+const recetaStore = useRecetaStore()
+const ingredienteStore = useIngredienteStore()
+const receta = ref(null)
+const ingredientesSeleccionados = ref([])
+const ingredienteSeleccionado = ref(null)
+const cantidadIngrediente = ref('')
+const unidadMedida = ref('')
+const showModal = ref(false)
+const processing = ref(false)
+const errors = ref({})
 const id = route.params.id
-const recetas = ref(recetasDB)
-const dificultades = ref(dificultadesDB)
+const nuevaImagen = ref(null)
 
-const receta = computed(() => recetas.value.find((r) => r.id == id))
+onMounted(async () => {
+  await recetaStore.fetchReceta(id)
+  await ingredienteStore.fetchIngredientes()
+  await recetaStore.fetchDificultades()
+  // Inicializar ingredientes seleccionados
+  ingredientesSeleccionados.value = recetaStore.receta.ingredientes.map((ing) => ({
+    id: ing.id,
+    nombre: ing.nombre,
+    cantidad: ing.pivot?.cantidad,
+    unidad: ing.pivot?.unidad,
+  }))
+  console.log('ingredientes seleccionados al cargar el formulario', ingredientesSeleccionados.value)
+})
+
+const handleImageChange = (e) => {
+  nuevaImagen.value = event.target.files[0]
+}
+const handleIngredientChange = (event) => {
+  // Obtener el ingrediente seleccionado y la cantidad
+  const selectedId = event.target.value
+  const ingrediente = ingredienteStore.ingredientes.find((ing) => ing.id === parseInt(selectedId))
+  console.log('ingrediente', ingrediente)
+
+  if (ingrediente) {
+    ingredienteSeleccionado.value = ingrediente
+    showModal.value = true
+  }
+}
+const eliminarIngrediente = (index) => {
+  ingredientesSeleccionados.value.splice(index, 1)
+}
+
+const handleCantidadChange = () => {
+  if (cantidadIngrediente.value) {
+    ingredientesSeleccionados.value.push({
+      ...ingredienteSeleccionado.value,
+      cantidad: cantidadIngrediente.value,
+      unidad: unidadMedida.value,
+    })
+    console.log("ingredientes al añadir cantidad en edición", ingredientesSeleccionados.value)
+    console.log('cantidad', cantidadIngrediente.value)
+    console.log('unidad', unidadMedida.value)
+
+    cantidadIngrediente.value = ''
+    unidadMedida.value = ''
+    showModal.value = false
+  }
+  console.log('ingredientes seleccionados si se añade uno', ingredientesSeleccionados.value)
+}
+
+const handleReceta = async () => {
+  
+  recetaStore.receta.ingredientes = ingredientesSeleccionados.value
+  const formData = new FormData()
+  formData.append('_method', 'PUT')
+  formData.append('nombre', recetaStore.receta.nombre)
+  formData.append('origen', recetaStore.receta.origen)
+  formData.append('tiempo', recetaStore.receta.tiempo)
+  formData.append('comensales', recetaStore.receta.comensales)
+  formData.append('dificultad_id', recetaStore.receta.dificultad_id)
+  formData.append('instrucciones', recetaStore.receta.instrucciones)
+  console.log('ingredientes en la receta al enviar el formulario', recetaStore.receta.ingredientes)
+
+  recetaStore.receta.ingredientes.forEach((ing, index) => {
+    formData.append(`ingredientes[${index}][ingrediente_id]`, ing.id)
+    formData.append(`ingredientes[${index}][cantidad]`, ing.cantidad)
+    formData.append(`ingredientes[${index}][unidad]`, ing.unidad)
+  })
+
+  if (nuevaImagen.value) {
+    formData.append('imagen', nuevaImagen.value)
+  }
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}:`, value)
+  }
+  await recetaStore.editarReceta(id, processing, errors, formData)
+}
+
+const getImagen = computed(
+  () => `${import.meta.env.VITE_APP_BACKEND_URL}${recetaStore.ingrediente.imagen}`,
+)
 </script>
 
 <template>
@@ -28,51 +119,68 @@ const receta = computed(() => recetas.value.find((r) => r.id == id))
         <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Receta</div>
           <div class="bg-white shadow-sm p-4 rounded-lg">
-            <form @submit.prevent="handleIngrediente">
+            <form @submit.prevent="handleReceta">
               <div>
                 <InputLabel for="nombre" value="Nombre" />
                 <TextInput
                   id="nombre"
                   type="text"
                   class="mt-2 block w-full"
-                  v-model="receta.nombre"
+                  v-model="recetaStore.receta.nombre"
                   autofocus
                 />
 
-                <!-- <InputError class="mt-2" :message="errors.nombre?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.nombre?.[0]" />
               </div>
-              <div class="mt-2 md:grid grid-cols-3 gap-4">
+              <div class="mt-2 md:grid grid-cols-4 gap-4">
                 <div>
                   <InputLabel for="origen" value="Origen" />
                   <TextInput
                     id="origen"
                     type="text"
                     class="mt-2 block w-full"
-                    v-model="receta.origen"
-                    autofocus
+                    v-model="recetaStore.receta.origen"
+                  />
+                  <InputError class="mt-2" :message="errors.origen?.[0]" />
+                </div>
+                <div class="mt-2 md:mt-0">
+                  <InputLabel for="comensales" value="Comensales" />
+                  <TextInput
+                    id="comensales"
+                    type="number"
+                    class="mt-2 block w-full"
+                    v-model="recetaStore.receta.comensales"
                   />
                 </div>
                 <div class="mt-2 md:mt-0">
                   <InputLabel for="tiempo" value="Tiempo" />
                   <TextInput
                     id="tiempo"
-                    type="text"
+                    type="number"
                     class="mt-2 block w-full"
-                    v-model="receta.tiempo"
-                    autofocus
+                    v-model="recetaStore.receta.tiempo"
                   />
+                  <InputError class="mt-2" :message="errors.tiempo?.[0]" />
                 </div>
                 <div class="mt-2 md:mt-0">
                   <InputLabel for="dificultad" value="Dificultad" />
-                  <select name="dificultades" id="dificultades" class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm">
-                    <option value="0" selected>-------------</option>
-                    <option v-for="dificultad in dificultades" :key="dificultad.id" :value="dificultad.id" :selected="receta.dificultad === dificultad.id">
+                  <select
+                    v-model="recetaStore.receta.dificultad_id"
+                    id="dificultades"
+                    class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm"
+                  >
+                    <option value="" selected>-------------</option>
+                    <option
+                      v-for="dificultad in recetaStore.dificultades"
+                      :key="dificultad.id"
+                      :value="dificultad.id"
+                      :selected="recetaStore.receta.dificultad.id === dificultad.id"
+                    >
                       {{ dificultad.nombre }}
                     </option>
                   </select>
+                  <InputError class="mt-2" :message="errors.dificultad_id?.[0]" />
                 </div>
-
-                <!-- <InputError class="mt-2" :message="errors.nombre?.[0]" /> -->
               </div>
               <div class="my-8">
                 <label
@@ -83,24 +191,63 @@ const receta = computed(() => recetas.value.find((r) => r.id == id))
                 </label>
                 <input type="file" id="imagen" @change="handleImageChange" class="hidden" />
 
-                <!-- <InputError class="mt-2" :message="errors.imagen?.[0]" /> -->
+                <InputError class="mt-2" :message="errors.imagen?.[0]" />
               </div>
-              <div class="mb-4">
-                <img :src="receta.imagen" alt="imagen" class="w-40" />
-              </div>
-              <div>
-                <InputLabel for="instruciones" value="Instrucciones" />
-                <EditorTiny v-model="receta.instrucciones"></EditorTiny>
-   
 
-                <!-- <InputError class="mt-2" :message="errors.descripcion?.[0]" /> -->
+              <!-- INGREDIENTES -->
+              <div class="mt-2 md:mt-0">
+                <InputLabel for="ingredientes" value="Ingredientes" />
+                <select
+                  name="ingredientes"
+                  id="ingredientes"
+                  class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm"
+                  @change="handleIngredientChange"
+                >
+                  <option selected>-------------</option>
+                  <option
+                    v-for="ingrediente in ingredienteStore.ingredientes"
+                    :key="ingrediente.id"
+                    :value="ingrediente.id"
+                  >
+                    {{ ingrediente.nombre }}
+                  </option>
+                </select>
+                <InputError class="mt-2" :message="errors.ingredientes?.[0]" />
+              </div>
+
+              <div class="mt-4 p-4 border border-amber-600 rounded-md">
+                <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
+                <ul class="list-disc marker:text-amber-600">
+                  <li
+                    v-for="(ingrediente, index) in ingredientesSeleccionados"
+                    :key="ingrediente.id"
+                    class="mt-2 bg-amber-100 p-2 rounded-md flex justify-between items-center"
+                  >
+                    <span
+                      >{{ ingrediente.nombre }} - {{ ingrediente.cantidad }}
+                      {{ ingrediente.unidad }}</span
+                    >
+                    <button
+                      @click="eliminarIngrediente(index)"
+                      class="ml-4 bg-red-600 hover:bg-red-800 text-white rounded-md px-3 py-1 font-bold"
+                    >
+                      <i class="fa-solid fa-xmark text-white"></i>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-4">
+                <InputLabel for="instrucciones" value="Instrucciones" />
+                <EditorTiny v-model="recetaStore.receta.instrucciones"></EditorTiny>
+                <InputError class="mt-2" :message="errors.instrucciones?.[0]" />
               </div>
               <PrimaryButton
                 class="w-full mt-2"
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
               >
-                Editar Ingrediente
+                Nueva Receta
               </PrimaryButton>
             </form>
             <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
@@ -108,5 +255,35 @@ const receta = computed(() => recetas.value.find((r) => r.id == id))
         </div>
       </div>
     </div>
+    <Modal :show="showModal" @close="showModal = false">
+      <template #default>
+        <div class="p-4">
+          <h3 class="text-xl font-semibold text-center">
+            Añade la cantidad de {{ ingredienteSeleccionado?.nombre }}
+          </h3>
+          <div class="mt-4 flex flex-col md:flex-row items-center md:justify-center gap-4">
+            <div>
+              <TextInput
+                id="cantidad"
+                type="text"
+                v-model="cantidadIngrediente"
+                placeholder="Cantidad"
+              />
+            </div>
+            <div>
+              <TextInput
+                id="unidad"
+                type="text"
+                v-model="unidadMedida"
+                placeholder="Unidad de medida"
+              />
+            </div>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <PrimaryButton @click="handleCantidadChange">Añadir</PrimaryButton>
+          </div>
+        </div>
+      </template>
+    </Modal>
   </AuthenticatedLayout>
 </template>

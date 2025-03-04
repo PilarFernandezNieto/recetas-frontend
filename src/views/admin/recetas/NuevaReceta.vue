@@ -93,7 +93,7 @@ const handleCantidadChange = () => {
 
 const handleImageChange = (e) => {
   receta.value.imagen = e.target.files[0]
-  console.log(form.value.imagen)
+  
 }
 </script>
 
@@ -135,7 +135,7 @@ const handleImageChange = (e) => {
                   <InputLabel for="comensales" value="Comensales" />
                   <TextInput
                     id="comensales"
-                    type="text"
+                    type="number"
                     class="mt-2 block w-full"
                     v-model="receta.comensales"
                   />
@@ -144,7 +144,7 @@ const handleImageChange = (e) => {
                   <InputLabel for="tiempo" value="Tiempo" />
                   <TextInput
                     id="tiempo"
-                    type="text"
+                    type="number"
                     class="mt-2 block w-full"
                     v-model="receta.tiempo"
                   />
@@ -205,7 +205,7 @@ const handleImageChange = (e) => {
 
               <div class="mt-4 p-4 border border-amber-600 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
-                <ul class="list-disc pl-6 marker:text-amber-600">
+                <ul class="list-disc marker:text-amber-600">
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
                     :key="ingrediente.id"
