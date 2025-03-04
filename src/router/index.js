@@ -13,6 +13,12 @@ const router = createRouter({
       component: Home,
     },
     {
+      path: '/ver-receta/:id',
+      name: 'ver-receta',
+      meta: { title: 'Receta', middleware: [] },
+      component: () => import('../views/FichaRecetaPortada.vue'),
+    },
+    {
       path: '/admin',
       name: 'admin',
       meta: { title: 'Admin', middleware: ['auth'] },

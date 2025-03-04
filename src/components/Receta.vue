@@ -46,6 +46,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
   >
     <div class="space-y-2">
         <RouterLink :to="{ name: 'receta', params: { id: receta.id } }" class="hover:bg-amber-500 font-black hover:text-white text-2xl cursor-pointer hover:px-2 hover:py-1 rounded-md transition duration-150 ease-in-out" title="Ver receta">{{ receta.nombre }}</RouterLink>
+        <p class="text-lg">{{ receta.intro }}</p>
       <ul>
         <li v-for="(valor, clave) in filtrados" :key="clave">
           <span v-if="valor != ''" class="font-semibold capitalize">{{ clave }}: </span>
@@ -59,7 +60,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
         <img
           :src="[imagenServer ? receta.imagen : getImagen(receta.imagen)]"
           :alt="receta.nombre"
-          class="w-full lg:w-40 rounded-md"
+          class="w-full lg:w-40 rounded-md object-cover"
         />
       </div>
       <div class="flex lg:flex-col justify-between gap-5">

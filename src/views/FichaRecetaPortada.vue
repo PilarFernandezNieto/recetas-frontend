@@ -1,38 +1,50 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
-import NewElementLink from '../../../components/NewElementLink.vue'
-import GoBackButton from '../../../components/GoBackButton.vue'
+import axios from '../utils/axios'
+import GuestLayout from '../layouts/GuestLayout.vue'
+import NewElementLink from '../components/NewElementLink.vue'
+import GoBackButton from '../components/GoBackButton.vue'
 import { FwbSpinner } from 'flowbite-vue'
-import { useRecetaStore } from '@/stores/recetaStore'
 
-const recetaStore = useRecetaStore()
 const route = useRoute()
 const id = route.params.id
+const receta = ref([]);
+const loading = ref(true)
+console.log(id);
 
-onMounted(() => {
-  recetaStore.fetchReceta(id)
+onMounted( async () => {
+  await getRecetaPortada(id);
 })
+
+const getRecetaPortada = async () => {
+  try {
+    const {data} = await axios.get(`/api/recetas/${id}`)
+    receta.value = data
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false
+  }
+}
+
 const filtrados = computed(() => {
   const clavesPermitidas = ['comensales', 'tiempo', 'origen']
   return Object.fromEntries(
-    Object.entries(recetaStore.receta).filter(([clave]) => clavesPermitidas.includes(clave)),
+    Object.entries(receta.value).filter(([clave]) => clavesPermitidas.includes(clave)),
   )
 })
-
 const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
 </script>
 
 <template>
-  <AuthenticatedLayout>
-    <template #header>
-      <h1 class="font-semibold text-xl text-gray-700 leading-tight">Recetas</h1>
-    </template>
+  <GuestLayout>
     <div class="py-12">
-      <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg px-4 py-4 md:px-8">
-          <template v-if="recetaStore.loading">
+      <div
+          class="w-full max-w-7xl mx-auto p-4 lg:p-8 bg-fondo-fruta bg-cover bg-center shadow-md rounded-lg"
+        >
+          <div class="bg-white opacity-90 rounded-lg p-4">
+          <template v-if="loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />
             </div>
@@ -40,20 +52,20 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
           <div class="md:grid grid-cols-2 my-4">
             <div>
               <h2 class="my-4 text-gray-900 text-2xl uppercase font-bold">
-                {{ recetaStore.receta.nombre }}
+                {{ receta.nombre }}
               </h2>
-              <p class="text-lg">{{ recetaStore.receta.intro }}</p>
+              <p class="text-lg">{{ receta.intro }}</p>
               <ul class="mt-4">
                 <li v-for="(valor, clave) in filtrados" :key="clave">
                   <span v-if="valor != ''" class="font-semibold capitalize">{{ clave }}: </span>
                   <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
                 </li>
-                <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ recetaStore.receta.dificultad?.nombre }}</span></li>
+                <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad?.nombre }}</span></li>
               </ul>
               <div class="my-4">
                 <h3 class="uppercase text-lg font-bold">Ingredientes</h3>
                 <ul>
-                  <li v-for="ingrediente in recetaStore.receta.ingredientes">
+                  <li v-for="ingrediente in receta.ingredientes">
                     {{ ingrediente.nombre }} - {{ ingrediente.pivot.cantidad }} {{ ingrediente.pivot.unidad }}
                   </li>
                 </ul>
@@ -61,8 +73,8 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
 
             </div>
             <img
-              :src="getImagen(recetaStore.receta.imagen)"
-              :alt="recetaStore.receta.nombre"
+              :src="getImagen(receta.imagen)"
+              :alt="receta.nombre"
               class="w-full rounded"
             />
           </div>
@@ -70,13 +82,14 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
           <div>
             <h3 class="uppercase text-lg font-bold">Instrucciones</h3>
             <div
-              class="my-4 text-lg bg-white p-4 rounded-md"
-              v-html="recetaStore.receta.instrucciones"
+              class="text-lg bg-white py-4"
+              v-html="receta.instrucciones"
             ></div>
           </div>
-          <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
+          
         </div>
+        <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
       </div>
     </div>
-  </AuthenticatedLayout>
+  </GuestLayout>
 </template>

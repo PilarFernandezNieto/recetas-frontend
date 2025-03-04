@@ -65,7 +65,7 @@ const handleCantidadChange = () => {
       cantidad: cantidadIngrediente.value,
       unidad: unidadMedida.value,
     })
-    console.log("ingredientes al añadir cantidad en edición", ingredientesSeleccionados.value)
+    console.log('ingredientes al añadir cantidad en edición', ingredientesSeleccionados.value)
     console.log('cantidad', cantidadIngrediente.value)
     console.log('unidad', unidadMedida.value)
 
@@ -77,7 +77,6 @@ const handleCantidadChange = () => {
 }
 
 const handleReceta = async () => {
-  
   recetaStore.receta.ingredientes = ingredientesSeleccionados.value
   const formData = new FormData()
   formData.append('_method', 'PUT')
@@ -86,6 +85,7 @@ const handleReceta = async () => {
   formData.append('tiempo', recetaStore.receta.tiempo)
   formData.append('comensales', recetaStore.receta.comensales)
   formData.append('dificultad_id', recetaStore.receta.dificultad_id)
+  formData.append('intro', recetaStore.receta.intro)
   formData.append('instrucciones', recetaStore.receta.instrucciones)
   console.log('ingredientes en la receta al enviar el formulario', recetaStore.receta.ingredientes)
 
@@ -131,6 +131,17 @@ const getImagen = computed(
                 />
 
                 <InputError class="mt-2" :message="errors.nombre?.[0]" />
+              </div>
+              <div class="mt-2">
+                <InputLabel for="intro" value="Introducción" />
+                <TextInput
+                  id="intro"
+                  type="text"
+                  class="mt-2 block w-full"
+                  v-model="recetaStore.receta.intro"
+                />
+
+                <InputError class="mt-2" :message="errors.intro?.[0]" />
               </div>
               <div class="mt-2 md:grid grid-cols-4 gap-4">
                 <div>

@@ -20,6 +20,7 @@ const receta = ref({
   comensales: '',
   dificultad_id: 0,
   imagen: '',
+  intro: '',
   instrucciones: '',
   ingredientes: [],
 })
@@ -48,6 +49,7 @@ const handleReceta = async () => {
   formData.append('tiempo', receta.value.tiempo)
   formData.append('comensales', receta.value.comensales)
   formData.append('dificultad_id', receta.value.dificultad_id)
+  formData.append('intro', receta.value.intro)
   formData.append('instrucciones', receta.value.instrucciones)
 
   receta.value.ingredientes.forEach((ing, index) => {
@@ -90,10 +92,8 @@ const handleCantidadChange = () => {
   }
 }
 
-
 const handleImageChange = (e) => {
   receta.value.imagen = e.target.files[0]
-  
 }
 </script>
 
@@ -119,6 +119,17 @@ const handleImageChange = (e) => {
                 />
 
                 <InputError class="mt-2" :message="errors.nombre?.[0]" />
+              </div>
+              <div class="mt-2">
+                <InputLabel for="intro" value="Introducción" />
+                <TextInput
+                  id="intro"
+                  type="text"
+                  class="mt-2 block w-full"
+                  v-model="receta.intro"
+                />
+
+                <InputError class="mt-2" :message="errors.intro?.[0]" />
               </div>
               <div class="mt-2 md:grid grid-cols-4 gap-4">
                 <div>
