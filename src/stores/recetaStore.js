@@ -104,12 +104,25 @@ export const useRecetaStore = defineStore('recetas', () => {
       processing.value = false
     }
   }
+  const eliminarReceta = async (id) => {
+    try {
+      await csrf()
+      const { data } = await axios.delete(`/api/admin/recetas/${id}`)
+      if (data.type === 'success') {
+        toastStore.mostrarExito(data.message)
+        recetas.value = recetas.value.filter(ingredienteStore => ingredienteStore.id !== id)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return {
     fetchRecetas,
     fetchReceta,
     nuevaReceta,
     editarReceta,
+    eliminarReceta,
     fetchDificultades,
     dificultades,
     loading,

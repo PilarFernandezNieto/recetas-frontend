@@ -4,8 +4,10 @@ import { computed, inject } from 'vue'
 import EditButton from './EditButton.vue'
 import DeleteButton from './DeleteButton.vue'
 import NewElementLink from './NewElementLink.vue'
+import { useRecetaStore } from '../stores/recetaStore'
 
 const swal = inject('$swal')
+const recetaStore = useRecetaStore();
 
 const props = defineProps({
   receta: {
@@ -26,19 +28,19 @@ const imagenServer = computed(() => {
 })
 const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
 
-// const showAlert = (id) => {
-//     swal({
-//         icon: 'warning',
-//         text: '¿Seguro que desea eliminar el ingrediente',
-//         showDenyButton: true,
-//         confirmButtonText: "Adelante",
-//         denyButtonText: "No"
-//     }).then((result) => {
-//     if (result.isConfirmed) {
-//         ingredienteStore.eliminarIngrediente(id);
-//     }
-//     })
-// }
+const showAlert = (id) => {
+    swal({
+        icon: 'warning',
+        text: '¿Seguro que desea eliminar esta receta?',
+        showDenyButton: true,
+        confirmButtonText: "Adelante",
+        denyButtonText: "No"
+    }).then((result) => {
+    if (result.isConfirmed) {
+      recetaStore.eliminarReceta(id);
+    }
+    })
+}
 </script>
 <template>
   <div

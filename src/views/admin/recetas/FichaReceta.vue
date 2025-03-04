@@ -22,6 +22,9 @@ const filtrados = computed(() => {
 })
 
 const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
+const decodedInstrucciones = computed(() => {
+  return decodeURIComponent(recetaStore.receta.instrucciones);
+});
 </script>
 
 <template>
@@ -71,7 +74,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
             <h3 class="uppercase text-lg font-bold">Instrucciones</h3>
             <div
               class="my-4 text-lg bg-white p-4 rounded-md"
-              v-html="recetaStore.receta.instrucciones"
+              v-html="decodedInstrucciones"
             ></div>
           </div>
           <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
@@ -80,3 +83,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
     </div>
   </AuthenticatedLayout>
 </template>
+<style>
+
+
+</style>
