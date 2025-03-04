@@ -91,7 +91,7 @@ export const useRecetaStore = defineStore('recetas', () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      console.log(data)
+      
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
         router.push({ name: 'recetas' })

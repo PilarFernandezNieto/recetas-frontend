@@ -105,7 +105,7 @@ const handleReceta = async () => {
 }
 
 const getImagen = computed(
-  () => `${import.meta.env.VITE_APP_BACKEND_URL}${recetaStore.ingrediente.imagen}`,
+  () => `${import.meta.env.VITE_APP_BACKEND_URL}${recetaStore.receta.imagen}`,
 )
 </script>
 
@@ -193,6 +193,9 @@ const getImagen = computed(
 
                 <InputError class="mt-2" :message="errors.imagen?.[0]" />
               </div>
+              <div class="mb-4">
+                <img :src="getImagen" alt="imagen" class="w-40" />
+              </div>
 
               <!-- INGREDIENTES -->
               <div class="mt-2 md:mt-0">
@@ -247,7 +250,7 @@ const getImagen = computed(
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
               >
-                Nueva Receta
+                Editar Receta
               </PrimaryButton>
             </form>
             <GoBackButton class="w-full mt-2">Atrás</GoBackButton>
