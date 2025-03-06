@@ -152,7 +152,12 @@ const showingNavigationDropdown = ref(false)
         </div>
       </div>
     </nav>
-
+    <!-- Page Heading -->
+    <header class="bg-amber-50 dark:bg-gray-800 " v-if="$slots.header">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <slot name="header" />
+      </div>
+    </header>
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 overflow-hidden">
       <!-- Aquí se mostrará la pagina principal y todas las vistas que no necesiten login -->
       <slot />
