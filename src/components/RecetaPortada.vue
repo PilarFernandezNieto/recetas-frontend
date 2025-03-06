@@ -21,7 +21,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
     <div class="flex-1 px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ receta.nombre }}</div>
       <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
+        {{ receta.intro }}
       </p>
       <ul class="my-4">
         <li v-for="(valor, clave) in filtrados" :key="clave">
@@ -33,6 +33,6 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
     <NewElementLink :to="{ name: 'ver-receta', params: {id: receta.id} }">Ver receta</NewElementLink>
     
     </div>
-    <img class="max-h-72 w-full object-cover object-center" :src="getImagen(receta.imagen)" alt="" />
+    <img class="w-full h-full object-cover object-center" :src="getImagen(receta.imagen)" alt="" />
   </div>
 </template>

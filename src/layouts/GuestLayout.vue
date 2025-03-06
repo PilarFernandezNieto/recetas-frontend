@@ -8,6 +8,7 @@ import NavLink from '../components/NavLink.vue'
 import ResponsiveNavLink from '../components/ResponsiveNavLink.vue'
 import ResponsiveNavButton from '../components/ResponsiveNavButton.vue'
 import { useAuthStore } from '../stores/auth'
+import DropdownLink from '../components/DropdownLink.vue'
 
 const route = useRoute()
 
@@ -33,14 +34,7 @@ const showingNavigationDropdown = ref(false)
             <!-- Navigation Links -->
 
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <NavLink
-                v-if="isLoggedIn"
-                :to="{name: 'dashboard'}"
-                class="font-semibold text-gray-600 hover:text-gray-900"
-                >Dashboard</NavLink
-              >
-
-              <template v-else>
+              <template v-if="!isLoggedIn">
                 <NavLink
                   :to="{ name: 'login' }"
                   class="font-semibold text-gray-600 hover:text-gray-900"
@@ -81,8 +75,8 @@ const showingNavigationDropdown = ref(false)
                       </button>
                     </span>
                   </template>
-
                   <template #content>
+                    <DropdownLink   :to="{name: 'dashboard'}">Administrador</DropdownLink>
                     <DropdownButton @click="logout()">Ciera sesión</DropdownButton>
                   </template>
                 </Dropdown>
