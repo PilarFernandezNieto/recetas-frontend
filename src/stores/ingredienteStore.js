@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router'
 
 export const useIngredienteStore = defineStore('ingredientes', () => {
   const ingredientes = ref([])
+  const ingredientesFormulario = ref([])
   const ingrediente = ref({})
   const loading = ref(true)
   const toastStore = useToastStore()
@@ -14,16 +15,26 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
 
   const csrf = () => axios.get('/sanctum/csrf-cookie')
 
-  const fetchIngredientes = async () => {
+  const fetchIngredientes = async (page = 1) => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get('/api/admin/ingredientes')
-      ingredientes.value = data.data
+      const { data } = await axios.get(`/api/admin/ingredientes?page=${page}`)
+      ingredientes.value = data
     } catch (error) {
       console.error(error)
     } finally {
       loading.value = false
+    }
+  }
+
+  const fetchIngredientesFormulario = async() => {
+    try {
+      await csrf();
+      const {data} = await axios.get('/api/admin/ingredientes-formulario');
+      ingredientesFormulario.value = data.data
+    } catch (error) {
+      console.log(error)
     }
   }
   const fetchIngrediente = async (id) => {
@@ -107,8 +118,10 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
 
   return {
     ingredientes,
+    ingredientesFormulario,
     ingrediente,
     fetchIngredientes,
+    fetchIngredientesFormulario,
     fetchIngrediente,
     loading,
     nuevoIngrediente,

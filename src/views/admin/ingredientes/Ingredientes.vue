@@ -6,9 +6,10 @@ import NewElementLink from '../../../components/NewElementLink.vue'
 import Ingrediente from '@/components/Ingrediente.vue'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
 import { FwbSpinner } from 'flowbite-vue'
+import { TailwindPagination } from 'laravel-vue-pagination';
 
 const ingredienteStore = useIngredienteStore()
-console.log(ingredienteStore.ingredientes)
+console.log("ing", ingredienteStore.ingredientes)
 
 onMounted(() => {
   ingredienteStore.fetchIngredientes()
@@ -18,9 +19,9 @@ const buscar = ref('')
 
 const ingredientesFiltrados = computed(() => {
   if (!buscar.value.trim()) {
-    return ingredienteStore.ingredientes // Si no hay búsqueda, mostrar todos los ingredientes
+    return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
   }
-  return ingredienteStore.ingredientes.filter((ingrediente) => {
+  return ingredienteStore.ingredientes.data.filter((ingrediente) => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
@@ -62,6 +63,9 @@ const ingredientesFiltrados = computed(() => {
               :ingrediente="ingrediente"
             />
           </div>
+        </div>
+        <div class="mt-10 flex justify-center">
+          <TailwindPagination :data="ingredienteStore.ingredientes" @pagination-change-page="ingredienteStore.fetchIngredientes" />
         </div>
       </div>
     </div>
