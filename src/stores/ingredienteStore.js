@@ -20,7 +20,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/ingredientes?page=${page}`)
-      ingredientes.value = data
+      ingredientes.value = data.data
     } catch (error) {
       console.error(error)
     } finally {

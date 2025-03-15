@@ -72,6 +72,7 @@ export const useRecetaStore = defineStore('recetas', () => {
         errors.value = error.response.data.errors
       } else {
         console.log('Error en nueva receta', error)
+        toastStore.mostrarError(error.response.data.message)
       }
     } finally {
       processing.value = false

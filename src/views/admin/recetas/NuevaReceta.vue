@@ -34,7 +34,7 @@ const errors = ref({})
 
 onMounted(async () => {
   await recetaStore.fetchDificultades()
-  await ingredienteStore.fetchIngredientes()
+  await ingredienteStore.fetchIngredientesFormulario()
 })
 
 const handleReceta = async () => {
@@ -67,7 +67,7 @@ const handleReceta = async () => {
 const handleIngredientChange = (event) => {
   // Obtener el ingrediente seleccionado y la cantidad
   const selectedId = event.target.value
-  const ingrediente = ingredienteStore.ingredientes.find((ing) => ing.id === parseInt(selectedId))
+  const ingrediente = ingredienteStore.ingredientesFormulario.find((ing) => ing.id === parseInt(selectedId))
 
   if (ingrediente) {
     ingredienteSeleccionado.value = ingrediente
@@ -204,7 +204,7 @@ const handleImageChange = (e) => {
                 >
                   <option selected>-------------</option>
                   <option
-                    v-for="ingrediente in ingredienteStore.ingredientes"
+                    v-for="ingrediente in ingredienteStore.ingredientesFormulario"
                     :key="ingrediente.id"
                     :value="ingrediente.id"
                   >
@@ -216,7 +216,7 @@ const handleImageChange = (e) => {
 
               <div class="mt-4 p-4 border border-amber-600 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
-                <ul class="list-disc marker:text-amber-600">
+                <ul class="list-disc marker:text-amber-600 pl-0">
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
                     :key="ingrediente.id"
