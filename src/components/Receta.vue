@@ -44,9 +44,9 @@ const showAlert = (id) => {
 </script>
 <template>
   <div
-    class="shadow-md p-4 space-y-4 md:grid md:grid-cols-[65%_35%] items-center bg-white justify-between"
+    class="shadow-md p-4 space-y-4 flex flex-col items-center bg-white justify-between rounded-md"
   >
-    <div class="space-y-2">
+    <div class="space-y-2 w-full">
         <RouterLink :to="{ name: 'receta', params: { id: receta.id } }" class="hover:bg-amber-500 font-black hover:text-white text-2xl cursor-pointer hover:px-2 hover:py-1 rounded-md transition duration-150 ease-in-out" title="Ver receta">{{ receta.nombre }}</RouterLink>
         <p class="text-lg">{{ receta.intro }}</p>
       <ul>
@@ -57,19 +57,13 @@ const showAlert = (id) => {
         <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad.nombre }}</span></li>
       </ul>
     </div>
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <div class="flex justify-center lg:mb-0">
-        <img
-          :src="[imagenServer ? receta.imagen : getImagen(receta.imagen)]"
-          :alt="receta.nombre"
-          class="w-full lg:w-40 rounded-md object-cover"
-        />
-      </div>
-      <div class="flex lg:flex-col justify-between gap-5">
-        <EditButton :to="{ name: 'editar-receta', params: { id: receta.id } }">Editar</EditButton>
-
-        <DeleteButton @click="showAlert(receta.id)"> Eliminar </DeleteButton>
+    <div class="flex flex-col gap-4">
+      <img :src="[imagenServer ? receta.imagen : getImagen(receta.imagen)]" :alt="receta.nombre" class="w-full rounded-md object-cover"/>
+      <div class="flex flex-col gap-4 w-full">
+          <EditButton :to="{ name: 'editar-receta', params: { id: receta.id } }" >Editar</EditButton>
+          <DeleteButton @click="showAlert(receta.id)"> Eliminar </DeleteButton>
       </div>
     </div>
+    
   </div>
 </template>

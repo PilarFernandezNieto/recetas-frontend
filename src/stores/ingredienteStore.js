@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router'
 
 export const useIngredienteStore = defineStore('ingredientes', () => {
   const ingredientes = ref([])
-  const ingredientesFormulario = ref([])
+  const ingredientesTodos = ref([])
   const ingrediente = ref({})
   const loading = ref(true)
   const toastStore = useToastStore()
@@ -20,7 +20,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/ingredientes?page=${page}`)
-      ingredientes.value = data.data
+      ingredientes.value = data
     } catch (error) {
       console.error(error)
     } finally {
@@ -28,11 +28,13 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     }
   }
 
-  const fetchIngredientesFormulario = async() => {
+  const fetchAllIngredientes = async() => {
     try {
       await csrf();
-      const {data} = await axios.get('/api/admin/ingredientes-formulario');
-      ingredientesFormulario.value = data.data
+      const {data} = await axios.get('/api/admin/ingredientes-todos');
+      ingredientesTodos.value = data.data
+      console.log(ingredientesTodos.value);
+      
     } catch (error) {
       console.log(error)
     }
@@ -118,10 +120,10 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
 
   return {
     ingredientes,
-    ingredientesFormulario,
+    ingredientesTodos,
     ingrediente,
     fetchIngredientes,
-    fetchIngredientesFormulario,
+    fetchAllIngredientes,
     fetchIngrediente,
     loading,
     nuevoIngrediente,

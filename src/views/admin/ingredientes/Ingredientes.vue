@@ -6,13 +6,13 @@ import NewElementLink from '../../../components/NewElementLink.vue'
 import Ingrediente from '@/components/Ingrediente.vue'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
 import { FwbSpinner } from 'flowbite-vue'
-import { TailwindPagination } from 'laravel-vue-pagination';
+import { TailwindPagination } from 'laravel-vue-pagination'
 
 const ingredienteStore = useIngredienteStore()
-console.log("ing", ingredienteStore.ingredientes)
 
 onMounted(() => {
   ingredienteStore.fetchIngredientes()
+  ingredienteStore.fetchAllIngredientes()
 })
 
 const buscar = ref('')
@@ -21,7 +21,7 @@ const ingredientesFiltrados = computed(() => {
   if (!buscar.value.trim()) {
     return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
   }
-  return ingredienteStore.ingredientes.data.filter((ingrediente) => {
+  return ingredienteStore.ingredientesTodos.filter((ingrediente) => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
@@ -54,7 +54,7 @@ const ingredientesFiltrados = computed(() => {
                 class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-r-md border border-amber-500"
               ></i>
             </div>
-            <NewElementLink :to="{name: 'nuevo-ingrediente'}">Nuevo ingrediente</NewElementLink>
+            <NewElementLink :to="{ name: 'nuevo-ingrediente' }">Nuevo ingrediente</NewElementLink>
           </div>
           <div class="grid grid-cols-1 gap-4">
             <Ingrediente
@@ -65,7 +65,10 @@ const ingredientesFiltrados = computed(() => {
           </div>
         </div>
         <div class="mt-10 flex justify-center">
-          <TailwindPagination :data="ingredienteStore.ingredientes" @pagination-change-page="ingredienteStore.fetchIngredientes" />
+          <TailwindPagination
+            :data="ingredienteStore.ingredientes"
+            @pagination-change-page="ingredienteStore.fetchIngredientes"
+          />
         </div>
       </div>
     </div>

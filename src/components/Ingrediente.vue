@@ -36,7 +36,7 @@ const showAlert = (id) => {
   <div
     class="shadow-md p-4 space-y-4 md:grid md:grid-cols-[65%_35%] items-center bg-white justify-between"
   >
-    <div class="space-y-2">
+    <div class="space-y-2 pr-2">
       <p class="font-black text-2xl">
         {{ ingrediente.nombre }}
       </p>
