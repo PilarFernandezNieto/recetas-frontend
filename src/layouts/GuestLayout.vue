@@ -76,7 +76,7 @@ const showingNavigationDropdown = ref(false)
                     </span>
                   </template>
                   <template #content>
-                    <DropdownLink   :to="{name: 'dashboard'}">Administrador</DropdownLink>
+                    <DropdownLink :to="{ name: 'dashboard' }">Administrador</DropdownLink>
                     <DropdownButton @click="logout()">Ciera sesión</DropdownButton>
                   </template>
                 </Dropdown>
@@ -125,35 +125,48 @@ const showingNavigationDropdown = ref(false)
         }"
         class="sm:hidden"
       >
-        <div class="pt-2 pb-3 space-y-1">
-          <ResponsiveNavLink :to="{ name: 'home' }"> Inicio </ResponsiveNavLink>
-          <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
-            Panel de administración
-          </ResponsiveNavLink>
-          <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'usuarios'">
-            Usuarios
-          </ResponsiveNavLink>
-        </div>
+        <template v-if="!isLoggedIn">
+          <ResponsiveNavLink
+            :to="{ name: 'login' }"
+            class="font-semibold text-gray-600 hover:text-gray-900"
+            >Inicia sesión</ResponsiveNavLink
+          >
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-          <div class="px-4">
-            <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-              {{ user?.name }}
-            </div>
-            <div class="font-medium text-sm text-gray-500">
-              {{ user?.email }}
-            </div>
+          <ResponsiveNavLink
+            :to="{ name: 'register' }"
+            class="font-semibold text-gray-600 hover:text-gray-900"
+            >Registro</ResponsiveNavLink
+          >
+        </template>
+        <div v-else>
+          <div class="pt-2 pb-3 space-y-1">
+            <ResponsiveNavLink :to="{ name: 'home' }"> Inicio </ResponsiveNavLink>
+            <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
+              Panel de administración
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'usuarios'">
+              Usuarios
+            </ResponsiveNavLink>
           </div>
-
-          <div class="mt-3 space-y-1">
-            <ResponsiveNavButton @click="logout()">Cierra sesión</ResponsiveNavButton>
+          <!-- Responsive Settings Options -->
+          <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+            <div class="px-4">
+              <div class="font-medium text-base text-gray-800 dark:text-gray-200">
+                {{ user?.name }}
+              </div>
+              <div class="font-medium text-sm text-gray-500">
+                {{ user?.email }}
+              </div>
+            </div>
+            <div class="mt-3 space-y-1">
+              <ResponsiveNavButton @click="logout()">Cierra sesión</ResponsiveNavButton>
+            </div>
           </div>
         </div>
       </div>
     </nav>
     <!-- Page Heading -->
-    <header class="bg-amber-50 dark:bg-gray-800 " v-if="$slots.header">
+    <header class="bg-amber-50 dark:bg-gray-800" v-if="$slots.header">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <slot name="header" />
       </div>
