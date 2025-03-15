@@ -43,9 +43,9 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
       <h2 class="font-titulares text-3xl font-medium text-center my-4">Mis Recetas</h2>
     </template>
       <div
-          class="w-full max-w-7xl mx-auto p-4 lg:p-8 bg-fondo-fruta bg-cover bg-center shadow-md rounded-lg"
+          class="w-full max-w-7xl mx-auto p-4 lg:p-8 bg-fondo-fruta bg-cover bg-center shadow-md rounded-md"
         >
-          <div class="bg-white opacity-90 rounded-lg p-4">
+          <div class="bg-white opacity-90 rounded-md p-4">
           <template v-if="loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />

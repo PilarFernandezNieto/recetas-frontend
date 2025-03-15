@@ -34,7 +34,7 @@ const decodedInstrucciones = computed(() => {
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-lg px-4 py-4 md:px-8">
+        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md px-4 py-4 md:px-8">
           <template v-if="recetaStore.loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />

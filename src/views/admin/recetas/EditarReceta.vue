@@ -119,9 +119,9 @@ const getImagen = computed(
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-lg py-4 px-4 md:px-8">
+        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Receta</div>
-          <div class="bg-white shadow-sm p-4 rounded-lg">
+          <div class="bg-white shadow-sm p-4 rounded-md">
             <form @submit.prevent="handleReceta">
               <div>
                 <InputLabel for="nombre" value="Nombre" />
@@ -234,7 +234,7 @@ const getImagen = computed(
 
               <div class="mt-4 p-4 border border-amber-600 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
-                <ul class="list-disc marker:text-amber-600">
+                <ul class="list-disc marker:text-amber-600 pl-0">
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
                     :key="ingrediente.id"

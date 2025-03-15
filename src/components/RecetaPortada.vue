@@ -17,7 +17,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
 </script>
 
 <template>
-  <div class="md:grid md:grid-cols-2 rounded-lg overflow-hidden bg-white shadow mb-4 border border-gray-300">
+  <div class="md:grid md:grid-cols-2 rounded-md overflow-hidden bg-white shadow mb-4 border border-gray-300">
     <div class="flex-1 px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ receta.nombre }}</div>
       <p class="text-gray-700 text-base">

@@ -63,7 +63,7 @@ const recetasFiltradasLimitadas = computed(() => {
        
    
         <Buscador v-model="buscar"/>
-          <div class="bg-none md:bg-white opacity-90 rounded-lg p-4">
+          <div class="bg-none md:bg-white opacity-90 rounded-md p-4">
               <RecetaPortada v-for="receta in recetasFiltradasLimitadas" :key="receta.id" :receta="receta" />
           </div>
         
