@@ -50,7 +50,7 @@ const recetasFiltradasLimitadas = computed(() => {
       <h2 class="font-titulares text-3xl font-medium text-center my-4">Mis Recetas</h2>
     </template>
     <div
-      class="relative flex flex-col justify-center items-center min-h-screen bg-amber-50 selection:bg-amber-500 selection:text-white"
+      class="relative flex flex-col justify-center items-center min-h-screen selection:bg-amber-500 selection:text-white"
     >
  
       

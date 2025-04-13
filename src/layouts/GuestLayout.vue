@@ -2,13 +2,15 @@
 import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import ApplicationLogo from '../components/ApplicationLogo.vue'
+import DropdownLink from '../components/DropdownLink.vue'
+import Footer from '../components/Footer.vue'
 import Dropdown from '../components/Dropdown.vue'
 import DropdownButton from '../components/DropdownButton.vue'
 import NavLink from '../components/NavLink.vue'
 import ResponsiveNavLink from '../components/ResponsiveNavLink.vue'
 import ResponsiveNavButton from '../components/ResponsiveNavButton.vue'
 import { useAuthStore } from '../stores/auth'
-import DropdownLink from '../components/DropdownLink.vue'
+
 
 const route = useRoute()
 
@@ -19,10 +21,10 @@ const showingNavigationDropdown = ref(false)
 
 <!-- PARA TODAS LA VISTAS QUE NO NECESITAN LOGIN -->
 <template>
-  <div class="min-h-screen pt-6 sm:pt-0 bg-amber-50">
+  <div class="min-h-screen pt-6 sm:pt-0 ">
     <nav class="shadow">
       <!-- Navegación principal -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-amber-100">
         <div class="flex justify-between">
           <!-- Logo -->
           <div class="flex items-center flex-shrink-0">
@@ -166,14 +168,18 @@ const showingNavigationDropdown = ref(false)
       </div>
     </nav>
     <!-- Page Heading -->
-    <header class="bg-amber-50 dark:bg-gray-800" v-if="$slots.header">
+    <header class="dark:bg-gray-800" v-if="$slots.header">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <slot name="header" />
       </div>
     </header>
+
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 overflow-hidden">
       <!-- Aquí se mostrará la pagina principal y todas las vistas que no necesiten login -->
       <slot />
+    </div>
+    <div class="w-full px-4 sm:px-6 lg:px-8 mt-6 overflow-hidden bg-indigo-500">
+      <Footer />
     </div>
   </div>
 </template>
