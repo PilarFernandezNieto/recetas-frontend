@@ -18,6 +18,7 @@ const buscar = ref('')
 onMounted(async () => {
   await getRecetasIndex()
 })
+
 const getRecetasIndex = async () => {
   try {
     const { data } = await axios.get('/api/recetas')
@@ -31,7 +32,7 @@ const getRecetasIndex = async () => {
 
 const recetasFiltradas = computed(() => {
   if (!buscar.value.trim()) {
-    return recetas.value 
+    return recetas.value
   }
   return recetas.value.filter((receta) => {
     return receta.nombre.toLowerCase().includes(buscar.value.toLowerCase())
@@ -41,7 +42,6 @@ const recetasFiltradas = computed(() => {
 const recetasFiltradasLimitadas = computed(() => {
   return recetasFiltradas.value.slice(0, 3)
 })
-
 </script>
 
 <template>
@@ -52,21 +52,23 @@ const recetasFiltradasLimitadas = computed(() => {
     <div
       class="relative flex flex-col justify-center items-center min-h-screen selection:bg-amber-500 selection:text-white"
     >
- 
-      
       <section class="w-full max-w-7xl mx-auto lg:p-8 bg-fondo-fruta bg-cover bg-center">
         <template v-if="loading">
-            <div class="flex justify-center mb-8">
-              <fwb-spinner size="10" color="green" />
-            </div>
-          </template>
-       
-   
-        <Buscador v-model="buscar"/>
-          <div class="bg-none md:bg-white opacity-90 rounded-md p-4">
-              <RecetaPortada v-for="receta in recetasFiltradasLimitadas" :key="receta.id" :receta="receta" />
+          <div class="flex justify-center mb-8">
+            <fwb-spinner size="10" color="green" />
           </div>
-        
+        </template>
+
+        <Buscador v-model="buscar" />
+        <div class="bg-none md:bg-white opacity-90 rounded-md p-4">
+          
+          <RecetaPortada
+            v-for="receta in recetasFiltradasLimitadas"
+            :key="receta.id"
+            :receta="receta"
+  
+          />
+        </div>
       </section>
     </div>
   </GuestLayout>

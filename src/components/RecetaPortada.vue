@@ -29,8 +29,8 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
             <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
         </li>
         <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad?.nombre }}</span></li>
-    </ul>
-    <NewElementLink :to="{ name: 'ver-receta', params: {id: receta.id} }">Ver receta</NewElementLink>
+      </ul>
+      <NewElementLink :to="{ name: 'ver-receta', params: {id: receta.id} }">Ver receta</NewElementLink>
     
     </div>
     <img class="w-full h-full object-cover object-center" :src="getImagen(receta.imagen)" alt="" />

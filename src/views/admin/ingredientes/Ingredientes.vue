@@ -25,17 +25,7 @@ const ingredientesFiltrados = computed(() => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
-const paginationClasses = {
-  wrapper: 'flex justify-center mt-6 space-x-2', // El contenedor
-  element: 'mx-1', // Espaciado entre los elementos
-  activeElement: 'font-bold text-white bg-custom-red rounded px-3 py-1', // Estilos para el elemento activo
-  link: 'px-3 py-1 text-sm rounded hover:bg-custom-red hover:text-white transition-colors duration-300', // Estilos para los enlaces
-  activeLink: '', // Aquí puedes dejarlo vacío, ya que lo controlamos con activeElement
-  disabledElement: 'opacity-50 cursor-not-allowed', // Estilo para los elementos deshabilitados
-  disabledLink: '', // Si lo necesitas puedes agregar algo para enlaces deshabilitados
-  nextButton: '', // Si quieres estilizar los botones de "Siguiente"
-  previousButton: '', // Si quieres estilizar los botones de "Anterior"
-}
+const paginationClasses = ['bg-bg-amber-600', 'text-white', 'border-amber-600']
 </script>
 
 <template>
@@ -78,6 +68,8 @@ const paginationClasses = {
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="ingredienteStore.ingredientes"
+            :active-classes="['border-amber-700', 'text-amber-700', 'hover:bg-amber-100']"
+            :keepLength="true"
             @pagination-change-page="ingredienteStore.fetchIngredientes"
           />
         </div>

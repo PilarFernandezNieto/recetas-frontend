@@ -22,9 +22,9 @@ const showingNavigationDropdown = ref(false)
 <!-- PARA TODAS LA VISTAS QUE NO NECESITAN LOGIN -->
 <template>
   <div class="min-h-screen pt-6 sm:pt-0 ">
-    <nav class="shadow">
+    <nav class="shadow bg-amber-100">
       <!-- Navegación principal -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-amber-100">
+      <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8 ">
         <div class="flex justify-between">
           <!-- Logo -->
           <div class="flex items-center flex-shrink-0">
