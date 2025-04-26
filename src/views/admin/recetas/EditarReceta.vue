@@ -38,7 +38,6 @@ onMounted(async () => {
     cantidad: ing.pivot?.cantidad,
     unidad: ing.pivot?.unidad,
   }))
-  console.log('ingredientes seleccionados al cargar el formulario', ingredientesSeleccionados.value)
 })
 
 const handleImageChange = (e) => {
@@ -46,12 +45,10 @@ const handleImageChange = (e) => {
 }
 const handleIngredientChange = (event) => {
   // Obtener el ingrediente seleccionado y la cantidad
-  console.log("en editar", ingredienteStore.ingredientesTodos);
-  
   const selectedId = event.target.value
-  const ingrediente = ingredienteStore.ingredientesTodos.find((ing) => ing.id === parseInt(selectedId))
-  console.log('ingrediente', ingrediente)
-
+  const ingrediente = ingredienteStore.ingredientesTodos.find(
+    (ing) => ing.id === parseInt(selectedId),
+  )
   if (ingrediente) {
     ingredienteSeleccionado.value = ingrediente
     showModal.value = true
@@ -68,15 +65,10 @@ const handleCantidadChange = () => {
       cantidad: cantidadIngrediente.value,
       unidad: unidadMedida.value,
     })
-    console.log('ingredientes al añadir cantidad en edición', ingredientesSeleccionados.value)
-    console.log('cantidad', cantidadIngrediente.value)
-    console.log('unidad', unidadMedida.value)
-
     cantidadIngrediente.value = ''
     unidadMedida.value = ''
     showModal.value = false
   }
-  console.log('ingredientes seleccionados si se añade uno', ingredientesSeleccionados.value)
 }
 
 const handleReceta = async () => {
@@ -90,7 +82,6 @@ const handleReceta = async () => {
   formData.append('dificultad_id', recetaStore.receta.dificultad_id)
   formData.append('intro', recetaStore.receta.intro)
   formData.append('instrucciones', recetaStore.receta.instrucciones)
-  console.log('ingredientes en la receta al enviar el formulario', recetaStore.receta.ingredientes)
 
   recetaStore.receta.ingredientes.forEach((ing, index) => {
     formData.append(`ingredientes[${index}][ingrediente_id]`, ing.id)
@@ -101,9 +92,9 @@ const handleReceta = async () => {
   if (nuevaImagen.value) {
     formData.append('imagen', nuevaImagen.value)
   }
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}:`, value)
-  }
+  // for (let [key, value] of formData.entries()) {
+  //   console.log(`${key}:`, value)
+  // }
   await recetaStore.editarReceta(id, processing, errors, formData)
 }
 
