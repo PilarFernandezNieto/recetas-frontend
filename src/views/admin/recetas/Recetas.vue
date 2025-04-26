@@ -32,9 +32,9 @@ watch(buscar, (nuevoValor) => {
 
 const recetasFiltradas = computed(() => {
   if (!buscar.value.trim()) {
-    return recetaStore.recetas.data // Si no hay búsqueda, mostrar todas las recetas
+    return recetaStore.recetas // Si no hay búsqueda, mostrar todas las recetas
   }
-  return recetaStore.recetas.data.filter((receta) => {
+  return recetaStore.recetas.filter((receta) => {
     return receta.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
@@ -58,18 +58,18 @@ const recetasFiltradas = computed(() => {
             <div class="flex items-center justify-center">
               <input
                 type="text"
-                class="w-full p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-600 placeholder-gray-500"
+                class="w-full p-2 border border-amber-700 rounded-l-md focus:outline-none focus:border-amber-700 focus:ring-amber-700 placeholder-gray-500"
                 placeholder="Buscar receta"
                 v-model="buscar"
               />
               <!-- Icono "X" para limpiar el campo de búsqueda -->
               <i
                 v-if="buscar.trim() !== ''"
-                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-amber-500"
+                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-amber-700"
                 @click="limpiarBusqueda"
               ></i>
               <i v-else
-                class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-r-md border border-amber-500 focus:ring-amber-600"
+                class="fa-solid fa-magnifying-glass bg-amber-700 hover:bg-amber-700 text-white p-3 rounded-r-md border border-amber-700 focus:ring-amber-700"
               ></i>
             </div>
             <NewElementLink :to="{ name: 'nueva-receta' }">Nueva Receta</NewElementLink>

@@ -53,7 +53,7 @@ const handleForgotPassword = async () =>
         </PrimaryButton>
       </div>
     </form>
-    <RouterLink :to="{ name: 'home' }" class="mt-4 flex justify-center hover:text-amber-600"
+    <RouterLink :to="{ name: 'home' }" class="mt-4 flex justify-center hover:text-amber-700"
     >Atrás</RouterLink>
   </AuthLayout>
 </template>

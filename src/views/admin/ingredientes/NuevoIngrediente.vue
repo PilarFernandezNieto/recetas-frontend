@@ -57,7 +57,7 @@ console.log('Desde nuevo ingrediente', errors.value)
               <div class="my-8">
                 <label
                   for="imagen"
-                  class="cursor-pointer bg-amber-600 text-white mb-2 py-2 px-4 rounded-md hover:bg-amber-700 focus:ring-2 focus:ring-amber-600"
+                  class="cursor-pointer bg-amber-700 text-white mb-2 py-2 px-4 rounded-md hover:bg-amber-800 focus:ring-2 focus:ring-amber-700"
                 >
                   Subir imagen
                 </label>
@@ -71,7 +71,7 @@ console.log('Desde nuevo ingrediente', errors.value)
                 <textarea
                   id="descripcion"
                   v-model="form.descripcion"
-                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-600 focus:ring-amber-600 shadow-sm rounded-md file:bg-amber-100 file:rounded-md"
+                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-700 focus:ring-amber-700 shadow-sm rounded-md file:bg-amber-100 file:rounded-md"
                 ></textarea>
 
                 <InputError class="mt-2" :message="errors.descripcion?.[0]" />

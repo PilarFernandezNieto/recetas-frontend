@@ -47,7 +47,7 @@ const showAlert = (id) => {
     class="shadow-md p-4 space-y-4 flex flex-col items-center bg-white justify-between rounded-md"
   >
     <div class="space-y-2 w-full">
-        <RouterLink :to="{ name: 'receta', params: { id: receta.id } }" class="hover:bg-amber-500 font-black hover:text-white text-2xl cursor-pointer hover:px-2 hover:py-1 rounded-md transition duration-150 ease-in-out" title="Ver receta">{{ receta.nombre }}</RouterLink>
+        <RouterLink :to="{ name: 'receta', params: { id: receta.id } }" class="hover:bg-amber-700 font-black hover:text-white text-2xl cursor-pointer hover:px-2 hover:py-1 rounded-md transition duration-150 ease-in-out" title="Ver receta">{{ receta.nombre }}</RouterLink>
         <p class="text-lg">{{ receta.intro }}</p>
       <ul>
         <li v-for="(valor, clave) in filtrados" :key="clave">

@@ -25,7 +25,7 @@ const ingredientesFiltrados = computed(() => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
-const paginationClasses = ['bg-bg-amber-600', 'text-white', 'border-amber-600']
+const paginationClasses = ['bg-bg-amber-700', 'text-white', 'border-amber-700']
 </script>
 
 <template>
@@ -37,7 +37,7 @@ const paginationClasses = ['bg-bg-amber-600', 'text-white', 'border-amber-600']
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
-          <div class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de ingredientes</div>
+          <h3 class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de ingredientes</h3>
           <template v-if="ingredienteStore.loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />
@@ -45,14 +45,17 @@ const paginationClasses = ['bg-bg-amber-600', 'text-white', 'border-amber-600']
           </template>
           <div class="flex flex-col gap-4 lg:flex-row mb-4 justify-end">
             <div class="flex items-center justify-center">
+              
+              <label for="buscar" class="sr-only">Buscar ingrediente</label>
               <input
+                id="buscar"
                 type="text"
-                class="w-full p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-600 placeholder-gray-400"
+                class="w-full p-2 border border-amber-700 rounded-l-md focus:outline-none focus:border-amber-700 focus:ring-amber-700 placeholder-gray-400"
                 placeholder="Buscar ingrediente"
                 v-model="buscar"
               />
               <i
-                class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-r-md border border-amber-500"
+                class="fa-solid fa-magnifying-glass bg-amber-700 hover:bg-amber-700 text-white p-3 rounded-r-md border border-amber-700"
               ></i>
             </div>
             <NewElementLink :to="{ name: 'nuevo-ingrediente' }">Nuevo ingrediente</NewElementLink>
@@ -68,7 +71,7 @@ const paginationClasses = ['bg-bg-amber-600', 'text-white', 'border-amber-600']
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="ingredienteStore.ingredientes"
-            :active-classes="['border-amber-700', 'text-amber-700', 'hover:bg-amber-100']"
+            :active-classes="['border-amber-800', 'text-amber-800', 'hover:bg-amber-100']"
             :keepLength="true"
             @pagination-change-page="ingredienteStore.fetchIngredientes"
           />

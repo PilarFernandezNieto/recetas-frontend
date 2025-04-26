@@ -80,13 +80,13 @@ const handleLogin = async () => await login(processing, errors, form.value)
       <div class="flex flex-col items-center my-4">
         <RouterLink
           :to="{ name: 'forgot-password' }"
-          class="underline text-sm text-gray-600 hover:text-amber-600 rounded-md focus:outline-none"
+          class="underline text-sm text-gray-600 hover:text-amber-700 rounded-md focus:outline-none"
         >
           ¿Has olvidado tu contraseña?
         </RouterLink>
         <RouterLink
           :to="{ name: 'register' }"
-          class="underline text-sm text-gray-600 hover:text-amber-600 rounded-md focus:outline-none"
+          class="underline text-sm text-gray-600 hover:text-amber-700 rounded-md focus:outline-none"
         >
           ¿Todavía no tienes cuenta?
         </RouterLink>
@@ -96,7 +96,7 @@ const handleLogin = async () => await login(processing, errors, form.value)
         Inicia sesión
       </PrimaryButton>
     </form>
-    <RouterLink :to="{name: 'home'}" class="mt-4 flex justify-center hover:text-amber-600">Volver</RouterLink>
+    <RouterLink :to="{name: 'home'}" class="mt-4 flex justify-center hover:text-amber-700">Volver</RouterLink>
   </AuthLayout>
 </template>
 

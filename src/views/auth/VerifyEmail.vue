@@ -42,7 +42,7 @@ const handleResendEmailVerification = async () => await resendEmailVerification(
 
         <button
           @click="logout()"
-          class="underline text-sm text-gray-600 hover:text-amber-600"
+          class="underline text-sm text-gray-600 hover:text-amber-700"
         >
           Cierra Sesión
         </button>

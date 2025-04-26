@@ -181,7 +181,7 @@ const getImagen = computed(
                   <select
                     v-model="recetaStore.receta.dificultad_id"
                     id="dificultades"
-                    class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm"
+                    class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
                   >
                     <option value="" selected>-------------</option>
                     <option
@@ -199,7 +199,7 @@ const getImagen = computed(
               <div class="my-8">
                 <label
                   for="imagen"
-                  class="cursor-pointer bg-amber-600 text-white py-2 px-4 rounded-md hover:bg-amber-700 focus:ring-2 focus:ring-amber-600"
+                  class="cursor-pointer bg-amber-700 text-white py-2 px-4 rounded-md hover:bg-amber-800 focus:ring-2 focus:ring-amber-700"
                 >
                   Subir imagen
                 </label>
@@ -217,7 +217,7 @@ const getImagen = computed(
                 <select
                   name="ingredientes"
                   id="ingredientes"
-                  class="mt-2 w-full border-gray-300 focus:border-amber-600 focus:ring-amber-600 rounded-md shadow-sm"
+                  class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
                   @change="handleIngredientChange"
                 >
                   <option selected>-------------</option>
@@ -232,9 +232,9 @@ const getImagen = computed(
                 <InputError class="mt-2" :message="errors.ingredientes?.[0]" />
               </div>
 
-              <div class="mt-4 p-4 border border-amber-600 rounded-md">
+              <div class="mt-4 p-4 border border-amber-700 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
-                <ul class="list-disc marker:text-amber-600 pl-0">
+                <ul class="list-disc marker:text-amber-700 pl-0">
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
                     :key="ingrediente.id"

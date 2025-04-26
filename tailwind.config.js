@@ -18,6 +18,9 @@ module.exports = {
       backgroundImage: {
         'fondo-fruta': "url('/img/fondo_fruta_vegetales.jpg')",
       },
+      colors: {
+        'fondo-boton': '#F59E0B'
+      }
     },
   },
   plugins: [forms, require('flowbite/plugin')],
