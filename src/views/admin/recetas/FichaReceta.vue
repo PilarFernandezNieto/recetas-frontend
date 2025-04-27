@@ -52,6 +52,7 @@ const decodedInstrucciones = computed(() => {
                   <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
                 </li>
                 <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ recetaStore.receta.dificultad?.nombre }}</span></li>
+                <li> <span class="font-semibold capitalize">Categoría: </span class="font-medium"><span>{{ recetaStore.receta.categoria?.nombre }}</span></li>
               </ul>
               <div class="my-4">
                 <h3 class="uppercase text-lg font-bold">Ingredientes</h3>

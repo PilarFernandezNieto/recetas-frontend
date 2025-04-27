@@ -10,15 +10,18 @@ import EditorTiny from '../../../components/EditorTiny.vue'
 import Modal from '../../../components/Modal.vue'
 import { useRecetaStore } from '../../../stores/recetaStore'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
+import { useCategoriaStore } from '../../../stores/categoriaStore'
 
 const recetaStore = useRecetaStore()
 const ingredienteStore = useIngredienteStore()
+const categoriaStore = useCategoriaStore()
 const receta = ref({
   nombre: '',
   origen: '',
   tiempo: '',
   comensales: '',
   dificultad_id: 0,
+  categoria_id: 0,
   imagen: '',
   intro: '',
   instrucciones: '',
@@ -35,6 +38,7 @@ const errors = ref({})
 onMounted(async () => {
   await recetaStore.fetchDificultades()
   await ingredienteStore.fetchAllIngredientes()
+  await categoriaStore.fetchCategorias()
 })
 
 const handleReceta = async () => {
@@ -49,6 +53,7 @@ const handleReceta = async () => {
   formData.append('tiempo', receta.value.tiempo)
   formData.append('comensales', receta.value.comensales)
   formData.append('dificultad_id', receta.value.dificultad_id)
+  formData.append('categoria_id', receta.value.categoria_id)
   formData.append('intro', receta.value.intro)
   formData.append('instrucciones', receta.value.instrucciones)
 
@@ -131,7 +136,9 @@ const handleImageChange = (e) => {
 
                 <InputError class="mt-2" :message="errors.intro?.[0]" />
               </div>
-              <div class="mt-2 md:grid grid-cols-4 gap-4">
+
+
+              <div class="mt-2 md:grid grid-cols-3 gap-4">
                 <div>
                   <InputLabel for="origen" value="Origen" />
                   <TextInput
@@ -161,6 +168,28 @@ const handleImageChange = (e) => {
                   />
                   <InputError class="mt-2" :message="errors.tiempo?.[0]" />
                 </div>
+              </div>
+              <div class="mt-2 md:grid grid-cols-2 gap-4">
+                <div class="mt-2 md:mt-0">
+                  <InputLabel for="categoria" value="Categoría" />
+                  <select
+                    v-model="receta.categoria_id"
+                    id="categoria"
+                    class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
+                  >
+                    <option value="" selected>-------------</option>
+                    <option
+                      v-for="categoria in categoriaStore.categorias"
+                      :key="categoria.id"
+                      :value="categoria.id"
+                      :selected="receta.categoria_id === categoria.id"
+                    >
+                      {{ categoria.nombre }}
+                    </option>
+                  </select>
+                  <InputError class="mt-2" :message="errors.categoria_id?.[0]" />
+                </div>
+
                 <div class="mt-2 md:mt-0">
                   <InputLabel for="dificultad" value="Dificultad" />
                   <select

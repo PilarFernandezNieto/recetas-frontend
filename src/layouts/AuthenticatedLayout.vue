@@ -39,6 +39,9 @@ const showingNavigationDropdown = ref(false)
               <NavLink :to="{ name: 'ingredientes' }" :active="route.name == 'ingredientes'">
                 Ingredientes
               </NavLink>
+              <NavLink :to="{ name: 'categorias' }" :active="route.name == 'categorias'">
+                Categorías
+              </NavLink>
               <NavLink :to="{ name: 'recetas' }" :active="route.name == 'recetas'">
                 Recetas
               </NavLink>
@@ -128,6 +131,9 @@ const showingNavigationDropdown = ref(false)
           </ResponsiveNavLink>
           <ResponsiveNavLink :to="{ name: 'ingredientes' }" :active="route.name == 'ingredientes'">
             Ingredientes
+          </ResponsiveNavLink>
+          <ResponsiveNavLink :to="{ name: 'categorias' }" :active="route.name == 'categorias'">
+            Categorías
           </ResponsiveNavLink>
           <ResponsiveNavLink :to="{ name: 'recetas' }" :active="route.name == 'recetas'">
             Recetas

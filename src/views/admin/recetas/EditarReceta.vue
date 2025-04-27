@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
+import InputError from '../../../components/InputError.vue'
 import TextInput from '../../../components/TextInput.vue'
 import PrimaryButton from '../../../components/PrimaryButton.vue'
 import GoBackButton from '../../../components/GoBackButton.vue'
@@ -10,11 +11,13 @@ import EditorTiny from '../../../components/EditorTiny.vue'
 import Modal from '../../../components/Modal.vue'
 import { useRecetaStore } from '../../../stores/recetaStore'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
+import { useCategoriaStore } from '../../../stores/categoriaStore'
 
 const route = useRoute()
 const router = useRouter()
 const recetaStore = useRecetaStore()
 const ingredienteStore = useIngredienteStore()
+const categoriaStore = useCategoriaStore()
 const receta = ref(null)
 const ingredientesSeleccionados = ref([])
 const ingredienteSeleccionado = ref(null)
@@ -31,6 +34,8 @@ onMounted(async () => {
   await ingredienteStore.fetchIngredientes()
   await ingredienteStore.fetchAllIngredientes()
   await recetaStore.fetchDificultades()
+  await categoriaStore.fetchCategorias()
+
   // Inicializar ingredientes seleccionados
   ingredientesSeleccionados.value = recetaStore.receta.ingredientes.map((ing) => ({
     id: ing.id,
@@ -80,6 +85,7 @@ const handleReceta = async () => {
   formData.append('tiempo', recetaStore.receta.tiempo)
   formData.append('comensales', recetaStore.receta.comensales)
   formData.append('dificultad_id', recetaStore.receta.dificultad_id)
+  formData.append('categoria_id', recetaStore.receta.categoria_id)
   formData.append('intro', recetaStore.receta.intro)
   formData.append('instrucciones', recetaStore.receta.instrucciones)
 
@@ -123,7 +129,6 @@ const getImagen = computed(
                   v-model="recetaStore.receta.nombre"
                   autofocus
                 />
-
                 <InputError class="mt-2" :message="errors.nombre?.[0]" />
               </div>
               <div class="mt-2">
@@ -137,7 +142,8 @@ const getImagen = computed(
 
                 <InputError class="mt-2" :message="errors.intro?.[0]" />
               </div>
-              <div class="mt-2 md:grid grid-cols-4 gap-4">
+
+              <div class="mt-2 md:grid grid-cols-3 gap-4">
                 <div>
                   <InputLabel for="origen" value="Origen" />
                   <TextInput
@@ -167,6 +173,27 @@ const getImagen = computed(
                   />
                   <InputError class="mt-2" :message="errors.tiempo?.[0]" />
                 </div>
+              </div>
+
+              <div class="mt-2 md:grid grid-cols-2 gap-4">
+                <div class="mt-2 md:mt-0">
+                  <InputLabel for="categoria" value="Categoría" />
+                  <select
+                    v-model="recetaStore.receta.categoria_id"
+                    id="categoria"
+                    class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
+                  >
+                    <option value="" selected>-------------</option>
+                    <option
+                      v-for="categoria in categoriaStore.categorias"
+                      :key="categoria.id"
+                      :value="categoria.id"
+                    >
+                      {{ categoria.nombre }}
+                    </option>
+                  </select>
+                  <InputError class="mt-2" :message="errors.categoria_id?.[0]" />
+                </div>
                 <div class="mt-2 md:mt-0">
                   <InputLabel for="dificultad" value="Dificultad" />
                   <select
@@ -179,7 +206,6 @@ const getImagen = computed(
                       v-for="dificultad in recetaStore.dificultades"
                       :key="dificultad.id"
                       :value="dificultad.id"
-                      :selected="recetaStore.receta.dificultad.id === dificultad.id"
                     >
                       {{ dificultad.nombre }}
                     </option>
@@ -263,6 +289,7 @@ const getImagen = computed(
         </div>
       </div>
     </div>
+    <div class="fixed inset-0 bg-black opacity-50" v-if="processing"></div>
     <Modal :show="showModal" @close="showModal = false">
       <template #default>
         <div class="p-4">

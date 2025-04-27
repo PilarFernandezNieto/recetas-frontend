@@ -23,7 +23,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
       loading.value = true
       const { data } = await axios.get(`/api/admin/categorias`)
       categorias.value = data.data
-      
+      console.log("Categorias", categorias.value);
     } catch (error) {
       console.error(error)
     } finally {

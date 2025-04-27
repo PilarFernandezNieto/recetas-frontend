@@ -55,6 +55,7 @@ const showAlert = (id) => {
           <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
         </li>
         <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad.nombre }}</span></li>
+        <li> <span class="font-semibold capitalize">Categoría: </span class="font-medium"><span>{{ receta.categoria.nombre }}</span></li>
       </ul>
     </div>
     <div class="flex flex-col gap-4">
