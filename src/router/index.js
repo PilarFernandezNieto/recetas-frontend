@@ -70,7 +70,25 @@ const router = createRouter({
           name: 'editar-receta',
           meta: { title: 'Editar Receta', middleware: ['auth'] },
           component: () => import('@/views/admin/recetas/EditarReceta.vue'),
-        }
+        },
+        {
+          path: 'categorias',
+          name: 'categorias',
+          meta: { title: 'Categorías', middleware: ['auth'] },
+          component: () => import('@/views/admin/categorias/Categorias.vue'),
+        },
+        {
+          path: 'nueva-categoria',
+          name: 'nueva-categoria',
+          meta: { title: 'Nueva Categoría', middleware: ['auth'] },
+          component: () => import('@/views/admin/categorias/NuevaCategoria.vue'),
+        },
+        {
+          path: 'editar-categoria/:id',
+          name: 'editar-categoria',
+          meta: { title: 'Editar Categoría', middleware: ['auth'] },
+          component: () => import('@/views/admin/categorias/EditarCategoria.vue'),
+        },
     
       ]
     },
