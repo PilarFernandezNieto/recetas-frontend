@@ -11,7 +11,6 @@ import ResponsiveNavLink from '../components/ResponsiveNavLink.vue'
 import ResponsiveNavButton from '../components/ResponsiveNavButton.vue'
 import { useAuthStore } from '../stores/auth'
 
-
 const route = useRoute()
 
 const { user, logout, isLoggedIn } = useAuthStore()
@@ -21,10 +20,10 @@ const showingNavigationDropdown = ref(false)
 
 <!-- PARA TODAS LA VISTAS QUE NO NECESITAN LOGIN -->
 <template>
-  <div class="min-h-screen pt-6 sm:pt-0 ">
+  <div class="min-h-screen pt-6 sm:pt-0">
     <nav class="shadow bg-amber-100">
       <!-- Navegación principal -->
-      <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8 ">
+      <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
         <div class="flex justify-between">
           <!-- Logo -->
           <div class="flex items-center flex-shrink-0">
@@ -167,18 +166,20 @@ const showingNavigationDropdown = ref(false)
         </div>
       </div>
     </nav>
-    <!-- Page Heading -->
-    <header class="dark:bg-gray-800" v-if="$slots.header">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <slot name="header" />
-      </div>
-    </header>
+    <div class="fondo-base">
+      <!-- Page Heading -->
+      <header class="dark:bg-gray-800" v-if="$slots.header">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <slot name="header" />
+        </div>
+      </header>
 
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 overflow-hidden">
-      <!-- Aquí se mostrará la pagina principal y todas las vistas que no necesiten login -->
-      <slot />
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <!-- Aquí se mostrará la pagina principal y todas las vistas que no necesiten login -->
+        <slot />
+      </div>
     </div>
-    <div class="w-full px-4 sm:px-6 lg:px-8 mt-6 overflow-hidden bg-indigo-500">
+    <div class="w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-amber-100">
       <Footer />
     </div>
   </div>

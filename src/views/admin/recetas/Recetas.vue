@@ -34,10 +34,12 @@ const recetasFiltradas = computed(() => {
   if (!buscar.value.trim()) {
     return recetaStore.recetas // Si no hay búsqueda, mostrar todas las recetas
   }
+  
   return recetaStore.recetas.filter((receta) => {
-    return receta.nombre.toLowerCase().includes(buscar.value.toLowerCase())
+    return receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) || receta.categoria.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
+
 </script>
 
 <template>

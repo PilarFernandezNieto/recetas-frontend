@@ -24,11 +24,13 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
         {{ receta.intro }}
       </p>
       <ul class="my-4">
+        <li> <span class="font-semibold capitalize">Categoría: </span class="font-medium"><span>{{ receta.categoria?.nombre }}</span></li>
         <li v-for="(valor, clave) in filtrados" :key="clave">
             <span v-if="valor != ''" class="font-semibold capitalize">{{ clave }}: </span>
             <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
         </li>
         <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad?.nombre }}</span></li>
+        
       </ul>
       <NewElementLink :to="{ name: 'ver-receta', params: {id: receta.id} }">Ver receta</NewElementLink>
     

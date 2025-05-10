@@ -21,6 +21,7 @@ const getRecetaPortada = async () => {
   try {
     const {data} = await axios.get(`/api/recetas/${id}`)
     receta.value = data
+    console.log(receta.value);
   } catch (error) {
     console.log(error);
   } finally {
@@ -43,7 +44,7 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
       <h2 class="font-titulares text-3xl font-medium text-center my-4">Mis Recetas</h2>
     </template>
       <div
-          class="w-full max-w-7xl mx-auto p-4 lg:p-8 bg-fondo-fruta bg-cover bg-center shadow-md rounded-md"
+          class="w-full max-w-7xl mx-auto p-4 lg:p-8 bg-cover bg-center shadow-md rounded-md"
         >
           <div class="bg-white opacity-90 rounded-md p-4">
           <template v-if="loading">
@@ -58,6 +59,8 @@ const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND
               </h2>
               <p class="text-lg">{{ receta.intro }}</p>
               <ul class="mt-4">
+                <li> <span class="font-semibold capitalize">Categoría: </span class="font-medium"><span>{{ receta.categoria?.nombre }}</span></li>
+
                 <li v-for="(valor, clave) in filtrados" :key="clave">
                   <span v-if="valor != ''" class="font-semibold capitalize">{{ clave }}: </span>
                   <span v-if="valor >0 || valor != ''" class="font-medium">{{ valor }}</span>
