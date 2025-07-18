@@ -9,8 +9,8 @@ import { FwbSpinner } from 'flowbite-vue'
 import axios from '../utils/axios'
 
 const { isLoggedIn } = useAuthStore()
-const { data } = await axios.get('/')
-const laravelVersion = data?.Laravel ?? ''
+// const { data } = await axios.get('/')
+// const laravelVersion = data?.Laravel ?? ''
 const recetas = ref([])
 const loading = ref(true)
 const buscar = ref('')
