@@ -47,15 +47,20 @@ export const useAuthStore = defineStore('auth', () => {
   const register = async (processing, errors, { ...data }) => {
     processing.value = true
     errors.value = {}
-
+    console.log(data)
     try {
       await csrf()
 
       await axios.post('/register', data)
 
       await fetchUser()
+      if(!user.value.verified_email_at){
+        router.push({name: 'verify-email'})
+      } else {
+        router.push({ name: 'dashboard' })
+      }
 
-      router.push({ name: 'dashboard' })
+      
     } catch (error) {
       if (error.response.status === 422) {
         errors.value = error.response.data.errors
@@ -74,8 +79,7 @@ export const useAuthStore = defineStore('auth', () => {
       await csrf()
 
       const { data } = await axios.post('/forgot-password', { email })
-      console.log(data);
-      
+      console.log(data)
 
       status.value = data.status
     } catch (error) {
