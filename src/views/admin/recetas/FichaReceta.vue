@@ -21,7 +21,11 @@ const filtrados = computed(() => {
   )
 })
 
-const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
+const getImagen = (imagen) => {
+  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
+  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
+  return `${base}/${path}`;
+}
 const decodedInstrucciones = computed(() => {
   return decodeURIComponent(recetaStore.receta.instrucciones);
 });

@@ -14,8 +14,13 @@ const props = defineProps({
     required: true,
   },
 })
-const imagenServer = computed(() => props.ingrediente.imagen.startsWith('http'))
-const getImagen = computed(() => (imagen) => `${import.meta.env.VITE_APP_BACKEND_URL}${imagen}`)
+const imagenServer = computed(() => props.ingrediente.imagen.startsWith('https'))
+const getImagen = (imagen) => {
+  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
+  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
+  return `${base}/${path}`;
+}
+
 
 const showAlert = (id) => {
     swal({

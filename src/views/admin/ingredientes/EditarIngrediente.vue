@@ -35,9 +35,11 @@ const handleIngrediente = async () => {
   await ingredienteStore.editarIngrediente(id, processing, errors, formData)
 }
 
-const getImagen = computed(
-  () => `${import.meta.env.VITE_APP_BACKEND_URL}${ingredienteStore.ingrediente.imagen}`,
-)
+const getImagen = (imagen) => {
+  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
+  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
+  return `${base}/${path}`;
+}
 </script>
 <template>
   <AuthenticatedLayout>

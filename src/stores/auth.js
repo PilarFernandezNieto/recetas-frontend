@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchUser = async () => {
     try {
       const { data } = await axios.get('/api/user')
-
+  console.log("fetchUser", data)
       user.value = data
     } catch (error) {
       if (error.response.status === 409) {
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', () => {
       await axios.post('/login', data)
 
       await fetchUser()
-
+    console.log("USER", user.value)
       router.push({ name: 'dashboard' })
     } catch (error) {
       if (error.response.status === 422) {

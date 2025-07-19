@@ -104,9 +104,11 @@ const handleReceta = async () => {
   await recetaStore.editarReceta(id, processing, errors, formData)
 }
 
-const getImagen = computed(
-  () => `${import.meta.env.VITE_APP_BACKEND_URL}${recetaStore.receta.imagen}`,
-)
+const getImagen = (imagen) => {
+  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
+  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
+  return `${base}/${path}`;
+}
 </script>
 
 <template>
@@ -225,7 +227,7 @@ const getImagen = computed(
                 <InputError class="mt-2" :message="errors.imagen?.[0]" />
               </div>
               <div class="mb-4">
-                <img :src="getImagen" alt="imagen" class="w-40" />
+                <img :src="getImagen(recetaStore.receta.imagen)" alt="imagen" class="w-40" />
               </div>
 
               <!-- INGREDIENTES -->
