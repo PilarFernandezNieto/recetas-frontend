@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
       await axios.post('/register', data)
 
       await fetchUser()
-      if (!user.value.verified_email_at) {
+      if (!user.value.email_verified_at) {
         router.push({ name: 'verify-email' })
       } else {
         router.push({ name: 'dashboard' })
