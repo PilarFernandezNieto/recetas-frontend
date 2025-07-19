@@ -50,6 +50,16 @@ export const useAuthStore = defineStore('auth', () => {
 
     try {
       await csrf()
+      // Obtener token XSRF-TOKEN desde la cookie
+      const token = decodeURIComponent(
+        document.cookie
+          .split('; ')
+          .find((row) => row.startsWith('XSRF-TOKEN='))
+          ?.split('=')[1] || '',
+      )
+
+      // Forzar el header X-XSRF-TOKEN en axios
+      axios.defaults.headers.common['X-XSRF-TOKEN'] = token
 
       await axios.post('/register', data)
 
