@@ -19,7 +19,6 @@ export const useRecetaStore = defineStore('recetas', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/recetas?page=${page}&buscar=${search}`)
-      console.log("recetas", data.data)
       recetas.value = data.data
     } catch (error) {
       console.log(error)
@@ -48,7 +47,6 @@ export const useRecetaStore = defineStore('recetas', () => {
       loading.value = true
       const { data } = await axios.get(`/api/admin/recetas/${id}`)
       receta.value = data
-      console.log('Receta', receta.value)
     } catch (error) {
       console.log(error)
     } finally {
@@ -127,7 +125,6 @@ export const useRecetaStore = defineStore('recetas', () => {
       const { data } = await axios.delete(`/api/admin/recetas/${id}`)
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
-        console.log(recetas.value)
 
         recetas.value = recetas.value.filter((ingredienteStore) => ingredienteStore.id !== id)
       }

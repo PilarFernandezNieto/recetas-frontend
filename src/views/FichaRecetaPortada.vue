@@ -11,7 +11,7 @@ const route = useRoute()
 const id = route.params.id
 const receta = ref([]);
 const loading = ref(true)
-console.log(id);
+
 
 onMounted( async () => {
   await getRecetaPortada(id);
@@ -21,7 +21,7 @@ const getRecetaPortada = async () => {
   try {
     const {data} = await axios.get(`/api/recetas/${id}`)
     receta.value = data
-    console.log(receta.value);
+    
   } catch (error) {
     console.log(error);
   } finally {

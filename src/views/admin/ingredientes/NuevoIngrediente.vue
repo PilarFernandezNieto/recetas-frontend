@@ -20,7 +20,6 @@ const errors = ref({})
 
 const handleImageChange = (e) => {
   form.value.imagen = e.target.files[0]
-  console.log(form.value.imagen)
 }
 const handleIngrediente = async () => {
   const formData = new FormData()
@@ -29,7 +28,6 @@ const handleIngrediente = async () => {
   formData.append('imagen', form.value.imagen)
   await ingredienteStore.nuevoIngrediente(processing, errors, formData)
 }
-console.log('Desde nuevo ingrediente', errors.value)
 </script>
 <template>
   <AuthenticatedLayout>

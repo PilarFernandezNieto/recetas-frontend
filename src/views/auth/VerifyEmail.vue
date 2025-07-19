@@ -9,7 +9,6 @@ const { user, resendEmailVerification, logout } = useAuthStore()
 
 const router = useRouter()
 
-
 if (user?.email_verified_at) {
   router.push('/dashboard')
 }
@@ -41,10 +40,7 @@ const handleResendEmailVerification = async () => await resendEmailVerification(
           Reenviar correo de verificación
         </PrimaryButton>
 
-        <button
-          @click="logout()"
-          class="underline text-sm text-gray-600 hover:text-amber-700"
-        >
+        <button @click="logout()" class="underline text-sm text-gray-600 hover:text-amber-700">
           Cierra Sesión
         </button>
       </div>

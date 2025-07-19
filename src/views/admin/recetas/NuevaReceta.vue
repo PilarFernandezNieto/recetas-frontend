@@ -43,8 +43,6 @@ onMounted(async () => {
 
 const handleReceta = async () => {
   // Guardar la receta y sus ingredientes con cantidades en la base de datos
-  console.log('Receta:', receta.value)
-  console.log('Ingredientes seleccionados:', ingredientesSeleccionados.value)
   receta.value.ingredientes = ingredientesSeleccionados.value
 
   const formData = new FormData()
@@ -72,7 +70,9 @@ const handleReceta = async () => {
 const handleIngredientChange = (event) => {
   // Obtener el ingrediente seleccionado y la cantidad
   const selectedId = event.target.value
-  const ingrediente = ingredienteStore.ingredientesTodos.find((ing) => ing.id === parseInt(selectedId))
+  const ingrediente = ingredienteStore.ingredientesTodos.find(
+    (ing) => ing.id === parseInt(selectedId),
+  )
 
   if (ingrediente) {
     ingredienteSeleccionado.value = ingrediente
@@ -81,7 +81,6 @@ const handleIngredientChange = (event) => {
 }
 const eliminarIngrediente = (index) => {
   ingredientesSeleccionados.value.splice(index, 1)
-  console.log('Ingredientes después de eliminar:', ingredientesSeleccionados.value)
 }
 
 const handleCantidadChange = () => {
@@ -136,7 +135,6 @@ const handleImageChange = (e) => {
 
                 <InputError class="mt-2" :message="errors.intro?.[0]" />
               </div>
-
 
               <div class="mt-2 md:grid grid-cols-3 gap-4">
                 <div>
