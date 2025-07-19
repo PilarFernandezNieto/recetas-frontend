@@ -9,9 +9,6 @@ const { user, resendEmailVerification, logout } = useAuthStore()
 
 const router = useRouter()
 
-if (user?.email_verified_at) {
-  router.push('/dashboard')
-}
 
 const processing = ref(false)
 const status = ref(null)
