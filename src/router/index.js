@@ -89,8 +89,19 @@ const router = createRouter({
           meta: { title: 'Editar Categoría', middleware: ['auth'] },
           component: () => import('@/views/admin/categorias/EditarCategoria.vue'),
         },
-    
-      ]
+        {
+          path: 'users',
+          name: 'users',
+          meta: { title: 'Usuarios', middleware: ['auth'] },
+          component: () => import('@/views/admin/users/Users.vue'),
+        },
+        {
+          path: 'editar-user/:id',
+          name: 'editar-user',
+          meta: { title: 'Editar Usuario', middleware: ['auth'] },
+          component: () => import('@/views/admin/users/EditarUser.vue'),
+        },
+      ],
     },
     {
       path: '/auth',
@@ -129,8 +140,6 @@ const router = createRouter({
         },
       ],
     },
-
- 
   ],
 })
 
