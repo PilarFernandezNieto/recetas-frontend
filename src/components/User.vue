@@ -3,9 +3,9 @@ import { RouterLink } from 'vue-router'
 import { computed, inject } from 'vue'
 import EditButton from './EditButton.vue'
 import DeleteButton from './DeleteButton.vue'
-import { useUserStore } from '../stores/userStore'
+import { useUsuarioStore } from '../stores/usuarioStore'
 
-const userSTore = useUserStore()
+const usuarioStore = useUsuarioStore()
 const swal = inject('$swal')
 
 const props = defineProps({
@@ -24,12 +24,10 @@ const showAlert = (id) => {
     denyButtonText: 'No',
   }).then((result) => {
     if (result.isConfirmed) {
-      userSTore.eliminarUser(id)
+      usuarioStore.eliminarUser(id)
     }
   })
 }
-
-
 const is_admin = computed(() => {
   return props.user.is_admin ? "Admin" : "User"
 })

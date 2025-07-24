@@ -8,26 +8,26 @@ import PrimaryButton from '../../../components/PrimaryButton.vue'
 import GoBackButton from '../../../components/GoBackButton.vue'
 import InputError from '../../../components/InputError.vue'
 import Checkbox from '../../../components/Checkbox.vue'
-import { useUserStore } from '../../../stores/userStore'
-const userStore = useUserStore()
+import { useUsuarioStore } from '../../../stores/usuarioStore'
+const usuarioStore = useUsuarioStore()
 const route = useRoute()
 const id = route.params.id
 
 onMounted(async () => {
-  await userStore.fetchUser(id)
+  await usuarioStore.fetchUser(id)
 })
 
 const processing = ref(false)
 const errors = ref({})
 
 const handleUser = async () => {
-  await userStore.editarUser(id, processing, errors, userStore.user)
+  await usuarioStore.editarUser(id, processing, errors, usuarioStore.user)
 }
 
 const adminChecked = computed({
-  get: () => !!userStore.user.is_admin,
+  get: () => !!usuarioStore.user.is_admin,
   set: (val) => {
-    userStore.user.is_admin = val ? true : false  },
+    usuarioStore.user.is_admin = val ? true : false  },
 })
 </script>
 <template>
@@ -48,7 +48,7 @@ const adminChecked = computed({
                   id="name"
                   type="text"
                   class="mt-2 block w-full"
-                  v-model="userStore.user.name"
+                  v-model="usuarioStore.user.name"
                   autofocus
                 />
                 <InputError class="mt-2" :message="errors.name?.[0]" />
@@ -59,7 +59,7 @@ const adminChecked = computed({
                   id="email"
                   type="email"
                   class="mt-2 block w-full"
-                  v-model="userStore.user.email"
+                  v-model="usuarioStore.user.email"
                   autofocus
                 />
                 <InputError class="mt-2" :message="errors.email?.[0]" />
@@ -69,7 +69,7 @@ const adminChecked = computed({
                   id="password"
                   type="hidden"
                   class="mt-2 block w-full"
-                  v-model="userStore.user.password"
+                  v-model="usuarioStore.user.password"
                   autofocus
                   
                 />

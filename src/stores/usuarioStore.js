@@ -4,7 +4,7 @@ import axios from '../utils/axios'
 import { useToastStore } from './toastStore'
 import { useRouter } from 'vue-router'
 
-export const useUserStore = defineStore('users', () => {
+export const useUsuarioStore = defineStore('users', () => {
   const users = ref([])
 
   const user = ref({})
@@ -18,7 +18,7 @@ export const useUserStore = defineStore('users', () => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get(`/api/admin/users`)
+      const { data } = await axios.get(`/api/admin/usuarios`)
       users.value = data.data
     } catch (error) {
       console.error(error)
@@ -31,7 +31,7 @@ export const useUserStore = defineStore('users', () => {
     try {
       await csrf()
       loading.value = true
-      const { data } = await axios.get(`/api/admin/users/${id}`)
+      const { data } = await axios.get(`/api/admin/usuarios/${id}`)
       user.value = data.data
     } catch (error) {
       console.error(error)
@@ -46,7 +46,7 @@ export const useUserStore = defineStore('users', () => {
     processing.value = true
     try {
       await csrf()
-      const { data } = await axios.put(`/api/admin/users/${id}`, datos, {
+      const { data } = await axios.put(`/api/admin/usuarios/${id}`, datos, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -69,10 +69,10 @@ export const useUserStore = defineStore('users', () => {
   const eliminarUser = async (id) => {
     try {
       await csrf()
-      const { data } = await axios.delete(`/api/admin/users/${id}`)
+      const { data } = await axios.delete(`/api/admin/usuarios/${id}`)
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
-        users.value = users.value.filter((userSTore) => userSTore.id !== id)
+        users.value = users.value.filter((usuarioStore) => usuarioStore.id !== id)
       }
     } catch (error) {
       console.error(error)

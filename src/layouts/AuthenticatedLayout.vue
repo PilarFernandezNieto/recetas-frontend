@@ -34,9 +34,6 @@ const showingNavigationDropdown = ref(false)
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
               <NavLink :to="{ name: 'home' }"> Inicio </NavLink>
               <NavLink :to="{ name: 'users' }"> Usuarios </NavLink>
-              <NavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
-                Panel Administrador
-              </NavLink>
               <NavLink :to="{ name: 'ingredientes' }" :active="route.name == 'ingredientes'">
                 Ingredientes
               </NavLink>
@@ -128,9 +125,6 @@ const showingNavigationDropdown = ref(false)
         <div class="pt-2 pb-3 space-y-1">
           <ResponsiveNavLink :to="{ name: 'home' }"> Inicio </ResponsiveNavLink>
           <ResponsiveNavLink :to="{ name: 'users' }"> Usuarios </ResponsiveNavLink>
-          <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
-            Dashboard
-          </ResponsiveNavLink>
           <ResponsiveNavLink :to="{ name: 'ingredientes' }" :active="route.name == 'ingredientes'">
             Ingredientes
           </ResponsiveNavLink>

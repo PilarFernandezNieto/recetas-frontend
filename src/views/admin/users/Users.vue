@@ -5,11 +5,11 @@ import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
 import { FwbSpinner } from 'flowbite-vue'
 import User from '../../../components/User.vue'
-import { useUserStore } from '../../../stores/userStore'
+import { useUsuarioStore } from '../../../stores/usuarioStore'
 
-const userStore = useUserStore()
+const usuarioStore = useUsuarioStore()
 onMounted(() => {
-  userStore.fetchUsers()
+  usuarioStore.fetchUsers()
 })
 </script>
 
@@ -23,14 +23,14 @@ onMounted(() => {
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
           <h3 class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de usuarios</h3>
-          <template v-if="userStore.loading">
+          <template v-if="usuarioStore.loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />
             </div>
           </template>
           <div class="grid grid-cols-1 gap-4">
             <User
-              v-for="user in userStore.users"
+              v-for="user in usuarioStore.users"
               :key="user.id"
               :user="user"
             />
