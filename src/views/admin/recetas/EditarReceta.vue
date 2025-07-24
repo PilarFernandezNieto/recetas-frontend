@@ -105,9 +105,11 @@ const handleReceta = async () => {
 }
 
 const getImagen = (imagen) => {
-  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
-  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
-  return `${base}/${path}`;
+  if (imagen) {
+    const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, '') // quita slash final
+    const path = imagen.replace(/^\/+/, '') // quita slash inicial
+    return `${base}/${path}`
+  }
 }
 </script>
 

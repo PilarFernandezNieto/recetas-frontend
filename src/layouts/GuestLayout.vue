@@ -13,7 +13,7 @@ import { useAuthStore } from '../stores/auth'
 
 const route = useRoute()
 
-const { user, logout, isLoggedIn } = useAuthStore()
+const { user, logout, isLoggedIn, isAdmin } = useAuthStore()
 
 const showingNavigationDropdown = ref(false)
 </script>
@@ -77,7 +77,10 @@ const showingNavigationDropdown = ref(false)
                     </span>
                   </template>
                   <template #content>
-                    <DropdownLink :to="{ name: 'dashboard' }">Administrador</DropdownLink>
+                    <div v-if="isAdmin">
+                      <DropdownLink :to="{ name: 'dashboard' }">Administrador</DropdownLink>
+                    </div>
+                 
                     <DropdownButton @click="logout()">Ciera sesión</DropdownButton>
                   </template>
                 </Dropdown>

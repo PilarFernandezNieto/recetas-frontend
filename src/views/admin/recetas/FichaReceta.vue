@@ -22,9 +22,11 @@ const filtrados = computed(() => {
 })
 
 const getImagen = (imagen) => {
-  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
+  if(imagen){
+      const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
   const path = imagen.replace(/^\/+/, ''); // quita slash inicial
   return `${base}/${path}`;
+  }
 }
 const decodedInstrucciones = computed(() => {
   return decodeURIComponent(recetaStore.receta.instrucciones);
@@ -63,7 +65,7 @@ const decodedInstrucciones = computed(() => {
                 <ul>
                   <li v-for="ingrediente in recetaStore.receta.ingredientes">
                     <!-- <pre>{{ ingrediente }}</pre> -->
-                    {{ ingrediente.nombre }} - {{ ingrediente.pivot.cantidad }} {{ ingrediente.pivot.unidad }}
+                    {{ ingrediente.nombre }} - {{ ingrediente.pivot.cantidad }} {{ ingrediente?.pivot.unidad }}
                   </li>
                 </ul>
               </div>

@@ -21,85 +21,85 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      meta: { title: 'Admin', middleware: ['auth'] },
+      meta: { title: 'Admin', middleware: ['auth', 'is_admin'] },
       children: [
         {
           path: 'dashboard',
           name: 'dashboard',
-          meta: { title: 'Dashboard', middleware: ['auth', 'verified'] },
+          meta: { title: 'Dashboard', middleware: ['auth', 'verified', 'is_admin'] },
           component: () => import('../views/Dashboard.vue'),
         },
         {
           path: 'ingredientes',
           name: 'ingredientes',
-          meta: { title: 'Ingredientes', middleware: ['auth'] },
+          meta: { title: 'Ingredientes', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/ingredientes/Ingredientes.vue'),
         },
         {
           path: 'nuevo-ingrediente',
           name: 'nuevo-ingrediente',
-          meta: { title: 'Nuevo Ingrediente', middleware: ['auth'] },
+          meta: { title: 'Nuevo Ingrediente', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/ingredientes/NuevoIngrediente.vue'),
         },
         {
           path: 'editar-ingrediente/:id',
           name: 'editar-ingrediente',
-          meta: { title: 'Editar Ingrediente', middleware: ['auth'] },
+          meta: { title: 'Editar Ingrediente', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/ingredientes/EditarIngrediente.vue'),
         },
         {
           path: 'recetas',
           name: 'recetas',
-          meta: { title: 'Recetas', middleware: ['auth'] },
+          meta: { title: 'Recetas', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/recetas/Recetas.vue'),
         },
         {
           path: 'receta/:id',
           name: 'receta',
-          meta: { title: 'Receta', middleware: ['auth'] },
+          meta: { title: 'Receta', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/recetas/FichaReceta.vue'),
         },
         {
           path: 'nueva-receta',
           name: 'nueva-receta',
-          meta: { title: 'Nueva Receta', middleware: ['auth'] },
+          meta: { title: 'Nueva Receta', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/recetas/NuevaReceta.vue'),
         },
         {
           path: 'editar-receta/:id',
           name: 'editar-receta',
-          meta: { title: 'Editar Receta', middleware: ['auth'] },
+          meta: { title: 'Editar Receta', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/recetas/EditarReceta.vue'),
         },
         {
           path: 'categorias',
           name: 'categorias',
-          meta: { title: 'Categorías', middleware: ['auth'] },
+          meta: { title: 'Categorías', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/categorias/Categorias.vue'),
         },
         {
           path: 'nueva-categoria',
           name: 'nueva-categoria',
-          meta: { title: 'Nueva Categoría', middleware: ['auth'] },
+          meta: { title: 'Nueva Categoría', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/categorias/NuevaCategoria.vue'),
         },
         {
           path: 'editar-categoria/:id',
           name: 'editar-categoria',
-          meta: { title: 'Editar Categoría', middleware: ['auth'] },
+          meta: { title: 'Editar Categoría', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/categorias/EditarCategoria.vue'),
         },
         {
-          path: 'users',
-          name: 'users',
-          meta: { title: 'Usuarios', middleware: ['auth'] },
-          component: () => import('@/views/admin/users/Users.vue'),
+          path: 'usuarios',
+          name: 'usuarios',
+          meta: { title: 'Usuarios', middleware: ['auth', 'is_admin'] },
+          component: () => import('@/views/admin/usuarios/Usuarios.vue'),
         },
         {
-          path: 'editar-user/:id',
-          name: 'editar-user',
-          meta: { title: 'Editar Usuario', middleware: ['auth'] },
-          component: () => import('@/views/admin/users/EditarUser.vue'),
+          path: 'editar-usuario/:id',
+          name: 'editar-usuario',
+          meta: { title: 'Editar Usuario', middleware: ['auth', 'is_admin']  },
+          component: () => import('@/views/admin/usuarios/EditarUsuario.vue'),
         },
       ],
     },
@@ -160,6 +160,7 @@ router.beforeEach(async (to, from, next) => {
   )
     next({ name: 'verify-email' })
   else if (to.meta.middleware.includes('auth') && !auth.isLoggedIn) next({ name: 'login' })
+    else if (to.meta.middleware.includes('is_admin') && !auth.isAdmin) next({ name: 'home' })
   else next()
 })
 

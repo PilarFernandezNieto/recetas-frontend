@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
 import { FwbSpinner } from 'flowbite-vue'
-import User from '../../../components/User.vue'
+import Usuario from '../../../components/Usuario.vue'
 import { useUsuarioStore } from '../../../stores/usuarioStore'
 
 const usuarioStore = useUsuarioStore()
@@ -29,10 +29,10 @@ onMounted(() => {
             </div>
           </template>
           <div class="grid grid-cols-1 gap-4">
-            <User
-              v-for="user in usuarioStore.users"
-              :key="user.id"
-              :user="user"
+            <Usuario
+              v-for="usuario in usuarioStore.usuarios"
+              :key="usuario.id"
+              :usuario="usuario"
             />
           </div>
         </div>

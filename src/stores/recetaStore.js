@@ -19,7 +19,8 @@ export const useRecetaStore = defineStore('recetas', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/recetas?page=${page}&buscar=${search}`)
-      recetas.value = data.data
+      recetas.value = data
+      console.log('Recetas cargadas:', recetas.value)
     } catch (error) {
       console.log(error)
     } finally {

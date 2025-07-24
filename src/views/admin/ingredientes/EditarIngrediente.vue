@@ -36,9 +36,12 @@ const handleIngrediente = async () => {
 }
 
 const getImagen = (imagen) => {
-  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
-  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
-  return `${base}/${path}`;
+if(imagen){
+    const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
+    const path = imagen.replace(/^\/+/, ''); // quita slash inicial
+    return `${base}/${path}`;
+  }
+  
 }
 </script>
 <template>
@@ -77,7 +80,7 @@ const getImagen = (imagen) => {
                 <InputError class="mt-2" :message="errors.imagen?.[0]" />
               </div>
               <div class="mb-4">
-                <img :src="getImagen" alt="imagen" class="w-40" />
+                <img :src="getImagen(ingredienteStore.ingrediente.imagen)" alt="imagen" class="w-40" />
               </div>
               <div>
                 <InputLabel for="descripcion" value="Descripción" />

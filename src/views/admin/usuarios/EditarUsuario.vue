@@ -21,13 +21,13 @@ const processing = ref(false)
 const errors = ref({})
 
 const handleUser = async () => {
-  await usuarioStore.editarUser(id, processing, errors, usuarioStore.user)
+  await usuarioStore.editarUser(id, processing, errors, usuarioStore.usuario)
 }
 
 const adminChecked = computed({
-  get: () => !!usuarioStore.user.is_admin,
+  get: () => !!usuarioStore.usuario.is_admin,
   set: (val) => {
-    usuarioStore.user.is_admin = val ? true : false  },
+    usuarioStore.usuario.is_admin = val ? true : false  },
 })
 </script>
 <template>
@@ -48,7 +48,7 @@ const adminChecked = computed({
                   id="name"
                   type="text"
                   class="mt-2 block w-full"
-                  v-model="usuarioStore.user.name"
+                  v-model="usuarioStore.usuario.name"
                   autofocus
                 />
                 <InputError class="mt-2" :message="errors.name?.[0]" />
@@ -59,7 +59,7 @@ const adminChecked = computed({
                   id="email"
                   type="email"
                   class="mt-2 block w-full"
-                  v-model="usuarioStore.user.email"
+                  v-model="usuarioStore.usuario.email"
                   autofocus
                 />
                 <InputError class="mt-2" :message="errors.email?.[0]" />
@@ -69,7 +69,7 @@ const adminChecked = computed({
                   id="password"
                   type="hidden"
                   class="mt-2 block w-full"
-                  v-model="usuarioStore.user.password"
+                  v-model="usuarioStore.usuario.password"
                   autofocus
                   
                 />

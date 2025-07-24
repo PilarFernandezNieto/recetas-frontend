@@ -55,7 +55,7 @@ const showAlert = (id) => {
           class="w-full lg:w-40 rounded-md"
         />
       </div>
-      <div class="flex lg:flex-col justify-between gap-5">
+      <div class="flex md:flex-col justify-between gap-5">
         <EditButton :to="{name: 'editar-ingrediente', params: {id: ingrediente.id}}">Editar</EditButton>
         <DeleteButton @click="showAlert(ingrediente.id)" > Eliminar </DeleteButton>
       </div>

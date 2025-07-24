@@ -32,14 +32,16 @@ watch(buscar, (nuevoValor) => {
 
 const recetasFiltradas = computed(() => {
   if (!buscar.value.trim()) {
-    return recetaStore.recetas // Si no hay búsqueda, mostrar todas las recetas
+    return recetaStore.recetas.data // Si no hay búsqueda, mostrar todas las recetas
   }
-  
+
   return recetaStore.recetas.filter((receta) => {
-    return receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) || receta.categoria.nombre.toLowerCase().includes(buscar.value.toLowerCase())
+    return (
+      receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) ||
+      receta.categoria.nombre.toLowerCase().includes(buscar.value.toLowerCase())
+    )
   })
 })
-
 </script>
 
 <template>
@@ -70,7 +72,8 @@ const recetasFiltradas = computed(() => {
                 class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-amber-700"
                 @click="limpiarBusqueda"
               ></i>
-              <i v-else
+              <i
+                v-else
                 class="fa-solid fa-magnifying-glass bg-amber-700 hover:bg-amber-700 text-white p-3 rounded-r-md border border-amber-700 focus:ring-amber-700"
               ></i>
             </div>
@@ -83,6 +86,7 @@ const recetasFiltradas = computed(() => {
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="recetaStore.recetas"
+            :active-classes="['border-amber-800', 'text-amber-800', 'hover:bg-amber-100']"
             @pagination-change-page="recetaStore.fetchRecetas"
           />
         </div>

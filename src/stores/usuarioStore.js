@@ -4,10 +4,10 @@ import axios from '../utils/axios'
 import { useToastStore } from './toastStore'
 import { useRouter } from 'vue-router'
 
-export const useUsuarioStore = defineStore('users', () => {
-  const users = ref([])
+export const useUsuarioStore = defineStore('usuarios', () => {
+  const usuarios = ref([])
 
-  const user = ref({})
+  const usuario = ref({})
   const loading = ref(true)
   const toastStore = useToastStore()
   const router = useRouter()
@@ -19,7 +19,7 @@ export const useUsuarioStore = defineStore('users', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/usuarios`)
-      users.value = data.data
+      usuarios.value = data.data
     } catch (error) {
       console.error(error)
     } finally {
@@ -32,7 +32,7 @@ export const useUsuarioStore = defineStore('users', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/usuarios/${id}`)
-      user.value = data.data
+      usuario.value = data.data
     } catch (error) {
       console.error(error)
     } finally {
@@ -41,7 +41,7 @@ export const useUsuarioStore = defineStore('users', () => {
   }
 
 
-  const editarUser = async (id, processing, errors, datos) => {
+  const EditarUusuario = async (id, processing, errors, datos) => {
     
     processing.value = true
     try {
@@ -66,13 +66,13 @@ export const useUsuarioStore = defineStore('users', () => {
     }
   }
 
-  const eliminarUser = async (id) => {
+  const eliminarUsuario = async (id) => {
     try {
       await csrf()
       const { data } = await axios.delete(`/api/admin/usuarios/${id}`)
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
-        users.value = users.value.filter((usuarioStore) => usuarioStore.id !== id)
+        usuarios.value = usuarios.value.filter((usuarioStore) => usuarioStore.id !== id)
       }
     } catch (error) {
       console.error(error)
@@ -82,10 +82,10 @@ export const useUsuarioStore = defineStore('users', () => {
   return {
     fetchUsers,
     fetchUser,
-    users,
-    user,
-    editarUser,
-    eliminarUser,
+    usuarios,
+    usuario,
+    EditarUusuario,
+    eliminarUsuario,
     loading,
   }
 })

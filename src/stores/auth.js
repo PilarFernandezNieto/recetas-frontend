@@ -6,13 +6,14 @@ import axios from '../utils/axios'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const isLoggedIn = computed(() => !!user.value)
+  const isAdmin = computed(() => user.value?.is_admin)
 
   const router = useRouter()
 
   const fetchUser = async () => {
     try {
       const { data } = await axios.get('/api/user')
-  console.log("fetchUser", data)
+  
       user.value = data
     } catch (error) {
       if (error.response.status === 409) {
@@ -33,7 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
       await axios.post('/login', data)
 
       await fetchUser()
-    console.log("USER", user.value)
+    
       router.push({ name: 'dashboard' })
     } catch (error) {
       if (error.response.status === 422) {
@@ -143,6 +144,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     user,
     isLoggedIn,
+    isAdmin,
     fetchUser,
     login,
     register,
