@@ -19,9 +19,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/ingredientes?page=${page}`)
-      console.log('Ingredientes cargadas:', data)
       ingredientes.value = data
-      console.log('Ingredientes cargados:', ingredientes.value)
     } catch (error) {
       console.error(error)
     } finally {
@@ -29,6 +27,9 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     }
   }
 
+  /**
+   * Carga todos los ingredientes para el select de ingredientes en la receta
+   */
   const fetchAllIngredientes = async () => {
     try {
       await csrf()
