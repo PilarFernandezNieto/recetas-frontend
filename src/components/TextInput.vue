@@ -5,6 +5,7 @@ defineProps({
   modelValue: {
     type: [String, Number],
     required: true,
+    default: ''
   },
 })
 
