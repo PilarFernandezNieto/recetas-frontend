@@ -11,6 +11,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   const loading = ref(true)
   const toastStore = useToastStore()
   const router = useRouter()
+  let eliminandoId = null
 
   const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -105,17 +106,29 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   }
 
   const eliminarIngrediente = async (id) => {
+    if (eliminandoId === id) return; // sale de aquí si ya se está eliminando este ingrediente
+    eliminandoId = id // Evita múltiples clics
     try {
       await csrf()
       const { data } = await axios.delete(`/api/admin/ingredientes/${id}`)
+
       if (data.type === 'success') {
+        console.log('Éxito:', data.message)
         toastStore.mostrarExito(data.message)
-        ingredientes.value = ingredientes.value.filter(
-          (ingredienteStore) => ingredienteStore.id !== id,
-        )
+        ingredientes.value = {
+          ...ingredientes.value,
+          data: ingredientes.value.data.filter((ingredienteStore) => ingredienteStore.id !== id),
+        }
       }
     } catch (error) {
-      console.error(error)
+      console.log('Error:', error.response?.status, error.response?.data)
+      if (error.response?.status === 409) {
+        toastStore.mostrarError(error.response.data.message)
+      } else {
+        toastStore.mostrarError('Error al eliminar el ingrediente')
+      }
+    } finally {
+      eliminandoId = null // Resetea el ID al finalizar
     }
   }
 

@@ -6,7 +6,6 @@ import { useRouter } from 'vue-router'
 
 export const useRecetaStore = defineStore('recetas', () => {
   const recetas = ref([])
-  const recetasTodas = ref([])
   const receta = ref([])
   const dificultades = ref([])
   const loading = ref(true)
@@ -20,23 +19,8 @@ export const useRecetaStore = defineStore('recetas', () => {
       loading.value = true
       const { data } = await axios.get(`/api/admin/recetas?page=${page}&buscar=${search}`)
       recetas.value = data
-      console.log('Recetas cargadas:', recetas.value)
     } catch (error) {
       console.log(error)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  // No se usa
-  const fetchAllRecetas = async () => {
-    try {
-      await csrf()
-      loading.value = true
-      const { data } = await axios.get('/api/admin/recetas-todas')
-      recetasTodas.value = data.data
-    } catch (error) {
-      console.log('Error al cargar recetas')
     } finally {
       loading.value = false
     }
@@ -127,7 +111,10 @@ export const useRecetaStore = defineStore('recetas', () => {
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
 
-        recetas.value = recetas.value.filter((ingredienteStore) => ingredienteStore.id !== id)
+        recetas.value = {
+          ...recetas.value,
+          data: recetas.value.data.filter((receta) => receta.id !== id),
+        }
       }
     } catch (error) {
       console.error(error)
