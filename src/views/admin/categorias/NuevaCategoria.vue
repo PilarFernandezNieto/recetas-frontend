@@ -28,7 +28,7 @@ const handleCategoria = async () => {
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
+        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Nueva Categoría</div>
           <div class="bg-white shadow-sm p-4 rounded-md">
             <form @submit.prevent="handleCategoria()">

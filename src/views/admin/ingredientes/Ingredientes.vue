@@ -38,8 +38,8 @@ const paginationClasses = ['bg-bg-amber-700', 'text-white', 'border-amber-700']
     </template>
 
     <div class="py-12">
-      <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
+      <div class="w-[90%] max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
           <h3 class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de ingredientes</h3>
           <template v-if="ingredienteStore.loading">
             <div class="flex justify-center mb-8">
@@ -80,7 +80,7 @@ const paginationClasses = ['bg-bg-amber-700', 'text-white', 'border-amber-700']
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="ingredienteStore.ingredientes"
-            :active-classes="['border-amber-800', 'text-amber-800', 'hover:bg-amber-100']"
+            :active-classes="['border-amber-800', 'text-amber-800', 'hover:bg-amber-50']"
             :keepLength="true"
             @pagination-change-page="ingredienteStore.fetchIngredientes"
           />

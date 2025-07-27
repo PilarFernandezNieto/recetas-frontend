@@ -60,7 +60,7 @@ const recetasFiltradas = computed(() => {
 <template>
   <GuestLayout>
     <template #header>
-      <h2 class="font-titulares text-3xl font-medium text-center mt-4">Mis Recetas</h2>
+      <h2 class="font-titulares text-3xl font-medium text-center mt-4">Recetas</h2>
     </template>
     <div
       class="relative flex flex-col justify-center items-center min-h-screen selection:bg-amber-700 selection:text-white"
@@ -73,7 +73,8 @@ const recetasFiltradas = computed(() => {
         </template>
 
         <Buscador v-model="buscar" />
-        <div class="bg-none md:bg-white opacity-90 rounded-md p-4 mb-6">
+
+        <div class="bg-none grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
           <RecetaPortada v-for="receta in recetasFiltradas" :key="receta.id" :receta="receta" />
         </div>
         <div class="mt-10 flex justify-center">

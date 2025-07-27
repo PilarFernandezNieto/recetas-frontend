@@ -51,7 +51,7 @@ if(imagen){
     </template>
     <div class="py-12">
       <div class="w-[90%] md:w-3/4 mx-auto sm:px-6 lg:px-8">
-        <div class="bg-amber-100 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
+        <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
           <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Ingrediente</div>
           <div class="bg-white shadow-sm p-4 rounded-md">
             <form @submit.prevent="handleIngrediente">
@@ -88,7 +88,7 @@ if(imagen){
                 <textarea
                   id="descripcion"
                   v-model="ingredienteStore.ingrediente.descripcion"
-                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-700 focus:ring-amber-700 shadow-sm rounded-md file:bg-amber-100 file:rounded-md"
+                  class="mt-2 w-full p-2 bg-white border border-gray-300 focus:border-amber-700 focus:ring-amber-700 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
                 ></textarea>
 
                 <InputError class="mt-2" :message="errors.descripcion?.[0]" />

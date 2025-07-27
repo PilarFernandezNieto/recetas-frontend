@@ -21,8 +21,8 @@ const showingNavigationDropdown = ref(false)
 <!-- PARA TODAS LA VISTAS QUE NO NECESITAN LOGIN -->
 <template>
   <div class="min-h-screen pt-6 sm:pt-0">
-    <nav class="shadow bg-amber-100">
-      <!-- Navegación principal -->
+    <!-- Navegación principal -->
+    <nav class="shadow bg-amber-50 text-white">
       <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
         <div class="flex justify-between">
           <!-- Logo -->
@@ -31,9 +31,8 @@ const showingNavigationDropdown = ref(false)
               <ApplicationLogo class="block w-40" />
             </RouterLink>
           </div>
+          <!-- Navigation Links -->
           <div class="flex">
-            <!-- Navigation Links -->
-
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
               <template v-if="!isLoggedIn">
                 <NavLink
@@ -41,12 +40,11 @@ const showingNavigationDropdown = ref(false)
                   class="font-semibold text-gray-600 hover:text-gray-900"
                   >Inicia sesión</NavLink
                 >
-
-                <NavLink
+                <!-- <NavLink
                   :to="{ name: 'register' }"
                   class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
                   >Registro</NavLink
-                >
+                > -->
               </template>
             </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -80,7 +78,7 @@ const showingNavigationDropdown = ref(false)
                     <div v-if="isAdmin">
                       <DropdownLink :to="{ name: 'dashboard' }">Administrador</DropdownLink>
                     </div>
-                 
+
                     <DropdownButton @click="logout()">Ciera sesión</DropdownButton>
                   </template>
                 </Dropdown>
@@ -169,7 +167,9 @@ const showingNavigationDropdown = ref(false)
         </div>
       </div>
     </nav>
-    <div class="fondo-base">
+
+
+    <main>
       <!-- Page Heading -->
       <header class="dark:bg-gray-800" v-if="$slots.header">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -181,8 +181,8 @@ const showingNavigationDropdown = ref(false)
         <!-- Aquí se mostrará la pagina principal y todas las vistas que no necesiten login -->
         <slot />
       </div>
-    </div>
-    <div class="w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-amber-100">
+    </main>
+    <div class="w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-amber-50">
       <Footer />
     </div>
   </div>
