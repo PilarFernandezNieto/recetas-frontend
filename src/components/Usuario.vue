@@ -24,7 +24,7 @@ const showAlert = (id) => {
     denyButtonText: 'No',
   }).then((result) => {
     if (result.isConfirmed) {
-      usuarioStore.eliminarUser(id)
+      usuarioStore.eliminarUsuario(id)
     }
   })
 }
