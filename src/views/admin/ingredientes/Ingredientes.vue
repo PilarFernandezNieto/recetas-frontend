@@ -16,6 +16,9 @@ onMounted(() => {
 })
 
 const buscar = ref('')
+const limpiarBusqueda = () => {
+  buscar.value = ''
+}
 
 const ingredientesFiltrados = computed(() => {
   if (!buscar.value.trim()) {
@@ -45,7 +48,6 @@ const paginationClasses = ['bg-bg-amber-700', 'text-white', 'border-amber-700']
           </template>
           <div class="flex flex-col gap-4 lg:flex-row mb-4 justify-end">
             <div class="flex items-center justify-center">
-              
               <label for="buscar" class="sr-only">Buscar ingrediente</label>
               <input
                 id="buscar"
@@ -54,8 +56,15 @@ const paginationClasses = ['bg-bg-amber-700', 'text-white', 'border-amber-700']
                 placeholder="Buscar ingrediente"
                 v-model="buscar"
               />
+              <!-- Icono "X" para limpiar el campo de búsqueda -->
               <i
-                class="fa-solid fa-magnifying-glass bg-amber-700 hover:bg-amber-700 text-white p-3 rounded-r-md border border-amber-700"
+                v-if="buscar.trim() !== ''"
+                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-amber-700"
+                @click="limpiarBusqueda"
+              ></i>
+              <i
+                v-else
+                class="fa-solid fa-magnifying-glass bg-amber-700 hover:bg-amber-700 text-white p-3 rounded-r-md border border-amber-700 focus:ring-amber-700"
               ></i>
             </div>
             <NewElementLink :to="{ name: 'nuevo-ingrediente' }">Nuevo ingrediente</NewElementLink>
