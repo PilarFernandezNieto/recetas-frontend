@@ -38,7 +38,6 @@ const getRecetasIndex = async (page = 1, search = '') => {
   try {
     const { data } = await axios.get(`/api/recetas?page=${page}&buscar=${search}`)
     recetas.value = data
-    console.log('recetas', recetas.value.data)
   } catch (error) {
     console.log(error)
   } finally {
