@@ -36,9 +36,11 @@ const filtrados = computed(() => {
   )
 })
 const getImagen = (imagen) => {
+  if(imagen){
   const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
   const path = imagen.replace(/^\/+/, ''); // quita slash inicial
   return `${base}/${path}`;
+  }
 }
 </script>
 

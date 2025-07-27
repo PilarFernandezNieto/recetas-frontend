@@ -36,6 +36,8 @@ watch(buscar, (nuevoValor) => {
 const getRecetasIndex = async () => {
   try {
     const { data } = await axios.get(`/api/recetas?buscar=${buscar.value}`)
+   
+    console.log(data)
     recetas.value = data.data
   } catch (error) {
     console.log(error)

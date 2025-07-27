@@ -36,6 +36,7 @@ const recetasFiltradas = computed(() => {
   }
 
   return recetaStore.recetas.filter((receta) => {
+
     return (
       receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) ||
       receta.categoria.nombre.toLowerCase().includes(buscar.value.toLowerCase())
