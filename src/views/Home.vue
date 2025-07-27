@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import GuestLayout from '../layouts/GuestLayout.vue'
 import RecetaPortada from '../components/RecetaPortada.vue'
+import { TailwindPagination } from 'laravel-vue-pagination'
 import Buscador from '../components/Buscador.vue'
 import { FwbSpinner } from 'flowbite-vue'
 import axios from '../utils/axios'
@@ -33,12 +34,11 @@ watch(buscar, (nuevoValor) => {
   }
 })
 
-const getRecetasIndex = async () => {
+const getRecetasIndex = async (page = 1, search = '') => {
   try {
-    const { data } = await axios.get(`/api/recetas?buscar=${buscar.value}`)
-   
-    console.log(data)
-    recetas.value = data.data
+    const { data } = await axios.get(`/api/recetas?page=${page}&buscar=${search}`)
+    recetas.value = data
+    console.log('recetas', recetas.value.data)
   } catch (error) {
     console.log(error)
   } finally {
@@ -46,22 +46,17 @@ const getRecetasIndex = async () => {
   }
 }
 
-
 const recetasFiltradas = computed(() => {
   if (!buscar.value.trim()) {
-    return recetas.value
+    return recetas.value.data
   }
 
-  return recetas.value.filter((receta) => {
+  return recetas.value.data.filter((receta) => {
     return (
       receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) ||
       receta.categoria?.nombre.toLowerCase().includes(buscar.value.toLowerCase())
     )
   })
-})
-
-const recetasFiltradasLimitadas = computed(() => {
-  return recetasFiltradas.value.slice(0, 4)
 })
 </script>
 
@@ -82,10 +77,13 @@ const recetasFiltradasLimitadas = computed(() => {
 
         <Buscador v-model="buscar" />
         <div class="bg-none md:bg-white opacity-90 rounded-md p-4 mb-6">
-          <RecetaPortada
-            v-for="receta in recetasFiltradasLimitadas"
-            :key="receta.id"
-            :receta="receta"
+          <RecetaPortada v-for="receta in recetasFiltradas" :key="receta.id" :receta="receta" />
+        </div>
+        <div class="mt-10 flex justify-center">
+          <TailwindPagination
+            :data="recetas"
+            :active-classes="['border-amber-800', 'text-amber-800', 'hover:bg-amber-100']"
+            @pagination-change-page="getRecetasIndex"
           />
         </div>
       </section>
