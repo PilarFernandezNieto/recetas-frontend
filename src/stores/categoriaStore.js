@@ -13,6 +13,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
   const loading = ref(true)
   const toastStore = useToastStore()
   const router = useRouter()
+    let eliminandoId = null
 
   const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -90,15 +91,25 @@ export const useCategoriaStore = defineStore('categorias', () => {
   }
 
   const eliminarCategoria = async (id) => {
+    if (eliminandoId === id) return // sale de aquí si ya se está eliminando este ingrediente
+    eliminandoId = id // Evita múltiples clics
     try {
       await csrf()
       const { data } = await axios.delete(`/api/admin/categorias/${id}`)
+
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
         categorias.value = categorias.value.filter((categoriaStore) => categoriaStore.id !== id)
       }
     } catch (error) {
-      console.error(error)
+      console.log('Error:', error.response?.status, error.response?.data)
+      if (error.response?.status === 409) {
+        toastStore.mostrarError(error.response.data.message)
+      } else {
+        toastStore.mostrarError('Error al eliminar la categorñia')
+      }
+    } finally {
+      eliminandoId = null // Resetea el ID al finalizar
     }
   }
 

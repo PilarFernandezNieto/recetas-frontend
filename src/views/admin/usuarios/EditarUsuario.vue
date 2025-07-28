@@ -27,18 +27,18 @@ const handleUser = async () => {
 const adminChecked = computed({
   get: () => !!usuarioStore.usuario.is_admin,
   set: (val) => {
-    usuarioStore.usuario.is_admin = val ? true : false  },
+    usuarioStore.usuario.is_admin = val ? true : false
+  },
 })
 </script>
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Usuarios</h2>
+      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Editar usuario</h2>
     </template>
     <div class="py-12">
       <div class="w-[90%] lg:w-full md:w-3/4 mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
-          <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Editar Usuario</div>
           <div class="bg-white shadow-sm p-4 rounded-md">
             <form @submit.prevent="handleUser">
               <div class="mb-4">
@@ -71,7 +71,6 @@ const adminChecked = computed({
                   class="mt-2 block w-full"
                   v-model="usuarioStore.usuario.password"
                   autofocus
-                  
                 />
                 <InputError class="mt-2" :message="errors.password?.[0]" />
               </div>

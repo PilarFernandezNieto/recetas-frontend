@@ -16,13 +16,12 @@ onMounted(() => {
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Usuarios</h2>
+      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Listado de usuarios</h2>
     </template>
 
     <div class="py-12">
       <div class="w-[90%] lg:w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
-          <h3 class="py-6 text-gray-900 mb-4 text-2xl font-medium">Listado de usuarios</h3>
           <template v-if="usuarioStore.loading">
             <div class="flex justify-center mb-8">
               <fwb-spinner size="10" color="green" />

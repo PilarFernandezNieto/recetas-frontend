@@ -19,18 +19,16 @@ const errors = ref({})
 const handleCategoria = async () => {
   await categoriaStore.nuevaCategoria(processing, errors, categoria.value)
 }
-
 </script>
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Categorías</h2>
+      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Nueva Categoría</h2>
     </template>
     <div class="py-12">
       <div class="w-[90%] lg:w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
-          <div class="py-4 text-gray-900 mb-4 text-2xl font-medium">Nueva Categoría</div>
-          <div class="bg-white shadow-sm p-4 rounded-md">
+          <div class="bg-white shadow-sm p-4 rounded-md w-full lg:w-2/6 mx-auto">
             <form @submit.prevent="handleCategoria()">
               <div>
                 <InputLabel for="nombre" value="Nombre" />
