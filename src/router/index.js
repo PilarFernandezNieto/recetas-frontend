@@ -9,7 +9,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      meta: { title: 'Home', middleware: [] },
+      meta: { title: 'Inicio', middleware: [] },
       component: Home,
     },
     {
@@ -144,7 +144,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  document.title = to.meta.title + ' :: ' + import.meta.env.VITE_APP_NAME
+  document.title =  import.meta.env.VITE_APP_NAME  + ' | ' +  to.meta.title;
 
   const auth = useAuthStore()
 

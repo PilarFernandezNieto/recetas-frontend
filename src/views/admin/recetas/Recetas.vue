@@ -51,7 +51,7 @@ const recetasFiltradas = computed(() => {
       <h2 class="font-semibold text-xl text-gray-700 leading-tight">Recetas</h2>
     </template>
     <div class="py-12">
-      <div class="w-[90%] max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div class="w-[90%] lg:w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-amber-50 overflow-hidden shadow-sm sm:rounded-md py-4 px-4 md:px-8">
           <div class="py-6 text-gray-900 mb-4 text-3xl font-black">Listado de recetas</div>
           <template v-if="recetaStore.loading">

@@ -50,7 +50,7 @@ const getImagen = (imagen) => {
       <h2 class="font-titulares text-3xl font-medium text-center my-4">Mis Recetas</h2>
     </template>
       <div
-          class="w-full max-w-7xl mx-auto p-4 lg:p-8 bg-cover bg-center shadow-md rounded-md"
+          class="w-full shadow-md rounded-md lg:p-4 mb-4 lg:bg-amber-50"
         >
           <div class="bg-white opacity-90 rounded-md p-4">
           <template v-if="loading">
@@ -58,9 +58,9 @@ const getImagen = (imagen) => {
               <fwb-spinner size="10" color="green" />
             </div>
           </template>
-          <div class="md:grid grid-cols-2 my-4">
-            <div>
-              <h2 class="my-4 text-gray-900 text-2xl uppercase font-bold">
+          <div class="md:grid md:grid-cols-12 gap-6 my-4">
+            <div class="md:col-span-7">
+              <h2 class="mb-4 text-gray-900 text-2xl uppercase font-bold">
                 {{ receta.nombre }}
               </h2>
               <p class="text-lg">{{ receta.intro }}</p>
@@ -86,7 +86,7 @@ const getImagen = (imagen) => {
             <img
               :src="getImagen(receta.imagen)"
               :alt="receta.nombre"
-              class="w-full rounded"
+              class="w-full rounded md:col-span-5"
             />
           </div>
 

@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false)
 
 <!-- PARA TODAS LA VISTAS QUE NO NECESITAN LOGIN -->
 <template>
-  <div class="min-h-screen pt-6 sm:pt-0">
+  <div class="min-h-screen sm:pt-0">
     <!-- Navegación principal -->
     <nav class="shadow bg-amber-50 text-white">
       <div class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
