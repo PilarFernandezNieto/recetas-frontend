@@ -90,7 +90,7 @@ const showingNavigationDropdown = ref(false)
           <div class="-mr-2 flex items-center sm:hidden">
             <button
               @click="showingNavigationDropdown = !showingNavigationDropdown"
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-amber-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-amber-500 transition duration-150 ease-in-out"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-green-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-green-800 transition duration-150 ease-in-out"
             >
               <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path
@@ -146,7 +146,6 @@ const showingNavigationDropdown = ref(false)
             <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
               Panel de administración
             </ResponsiveNavLink>
-
           </div>
           <!-- Responsive Settings Options -->
           <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -166,9 +165,11 @@ const showingNavigationDropdown = ref(false)
       </div>
     </nav>
 
-
     <main>
       <!-- Page Heading -->
+      <div
+        class="bg-banner-principal bg-cover bg-center bg-no-repeat h-64 sm:h-80 md:h-96 lg:h-[680px]"
+      ></div>
       <header class="dark:bg-gray-800" v-if="$slots.header">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <slot name="header" />

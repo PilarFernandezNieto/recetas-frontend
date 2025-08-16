@@ -59,11 +59,10 @@ const recetasFiltradas = computed(() => {
 
 <template>
   <GuestLayout>
-    <template #header>
-      <h2 class="font-titulares text-3xl font-medium text-center mt-4">Recetas</h2>
-    </template>
+    
+
     <div
-      class="relative flex flex-col justify-center items-center min-h-screen selection:bg-amber-500 selection:text-white"
+      class="relative flex flex-col justify-center items-center min-h-screen selection:bg-green-800 selection:text-white"
     >
       <section class="w-full max-w-7xl mx-auto lg:p-8 bg bg-cover bg-center">
         <template v-if="loading">
@@ -80,7 +79,7 @@ const recetasFiltradas = computed(() => {
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="recetas"
-            :active-classes="['border-amber-600', 'text-amber-600', 'hover:bg-amber-100']"
+            :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-100']"
             @pagination-change-page="getRecetasIndex"
           />
         </div>

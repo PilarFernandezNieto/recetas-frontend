@@ -17,6 +17,7 @@ module.exports = {
       },
       backgroundImage: {
         'fondo-fruta': "url('/img/fondo_fruta_vegetales.jpg')",
+        'banner-principal': "url('/img/banner.png')"
       },
       colors: {
         'fondo-boton': '#F59E0B'

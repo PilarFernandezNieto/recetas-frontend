@@ -14,13 +14,13 @@ const onInput = (event) => {
   <div class=" w-72 mx-auto flex justify-center py-5">
     <input
       type="text"
-      class="w-full p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-500 placeholder-gray-500"
+      class="w-full p-2 border border-green-900 rounded-l-md focus:outline-none  focus:ring-green-900 placeholder-gray-500"
       placeholder="Buscar"
       :v-model="modelValue"
       @input="onInput"
     />
     <i
-      class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-500 text-white p-3 rounded-r-md border border-amber-500"
+      class="fa-solid fa-magnifying-glass bg-green-900 hover:bg-green-950 text-white p-3 rounded-r-md border border-green-900"
     ></i>
   </div>
 </template>

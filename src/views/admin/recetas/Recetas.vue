@@ -61,19 +61,19 @@ const recetasFiltradas = computed(() => {
             <div class="flex items-center justify-center">
               <input
                 type="text"
-                class="w-full p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-500 placeholder-gray-500"
+                class="w-full p-2 border border-green-800 rounded-l-md focus:outline-none focus:border-green-800 focus:ring-green-800 placeholder-gray-500"
                 placeholder="Buscar receta"
                 v-model="buscar"
               />
               <!-- Icono "X" para limpiar el campo de búsqueda -->
               <i
                 v-if="buscar.trim() !== ''"
-                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-amber-500"
+                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-green-800"
                 @click="limpiarBusqueda"
               ></i>
               <i
                 v-else
-                class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-500 text-white p-3 rounded-r-md border border-amber-500 focus:ring-amber-500"
+                class="fa-solid fa-magnifying-glass bg-green-800 hover:bg-green-800 text-white p-3 rounded-r-md border border-green-800 focus:ring-green-800"
               ></i>
             </div>
             <NewElementLink :to="{ name: 'nueva-receta' }">Nueva Receta</NewElementLink>
@@ -85,7 +85,7 @@ const recetasFiltradas = computed(() => {
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="recetaStore.recetas"
-            :active-classes="['border-amber-600', 'text-amber-600', 'hover:bg-amber-50']"
+            :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-50']"
             @pagination-change-page="recetaStore.fetchRecetas"
           />
         </div>

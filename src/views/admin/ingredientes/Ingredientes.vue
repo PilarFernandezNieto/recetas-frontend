@@ -28,7 +28,7 @@ const ingredientesFiltrados = computed(() => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
-const paginationClasses = ['bg-bg-amber-500', 'text-white', 'border-amber-500']
+const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
 </script>
 
 <template>
@@ -51,19 +51,19 @@ const paginationClasses = ['bg-bg-amber-500', 'text-white', 'border-amber-500']
               <input
                 id="buscar"
                 type="text"
-                class="w-full p-2 border border-amber-500 rounded-l-md focus:outline-none focus:border-amber-500 focus:ring-amber-500 placeholder-gray-400"
+                class="w-full p-2 border border-green-800 rounded-l-md focus:outline-none focus:border-green-800 focus:ring-green-800 placeholder-gray-400"
                 placeholder="Buscar ingrediente"
                 v-model="buscar"
               />
               <!-- Icono "X" para limpiar el campo de búsqueda -->
               <i
                 v-if="buscar.trim() !== ''"
-                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-amber-500"
+                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-green-800"
                 @click="limpiarBusqueda"
               ></i>
               <i
                 v-else
-                class="fa-solid fa-magnifying-glass bg-amber-500 hover:bg-amber-500 text-white p-3 rounded-r-md border border-amber-500 focus:ring-amber-500"
+                class="fa-solid fa-magnifying-glass bg-green-800 hover:bg-green-800 text-white p-3 rounded-r-md border border-green-800 focus:ring-green-800"
               ></i>
             </div>
             <NewElementLink :to="{ name: 'nuevo-ingrediente' }">Nuevo ingrediente</NewElementLink>
@@ -79,7 +79,7 @@ const paginationClasses = ['bg-bg-amber-500', 'text-white', 'border-amber-500']
         <div class="mt-10 flex justify-center">
           <TailwindPagination
             :data="ingredienteStore.ingredientes"
-            :active-classes="['border-amber-600', 'text-amber-600', 'hover:bg-amber-50']"
+            :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-50']"
             :keepLength="true"
             @pagination-change-page="ingredienteStore.fetchIngredientes"
           />

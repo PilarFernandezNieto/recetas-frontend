@@ -69,7 +69,7 @@ const getImagen = (imagen) => {
               <div class="my-8">
                 <label
                   for="imagen"
-                  class="cursor-pointer bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 focus:ring-2 focus:ring-amber-500"
+                  class="cursor-pointer bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-900 focus:ring-2 focus:ring-green-800"
                 >
                   Subir imagen
                 </label>
@@ -90,7 +90,7 @@ const getImagen = (imagen) => {
                 <textarea
                   id="descripcion"
                   v-model="ingredienteStore.ingrediente.descripcion"
-                  class="mt-2 w-full min-h-[7rem] p-2 bg-white border border-gray-300 focus:border-amber-500 focus:ring-amber-500 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
+                  class="mt-2 w-full min-h-[7rem] p-2 bg-white border border-gray-300 focus:border-green-800 focus:ring-green-800 shadow-sm rounded-md file:bg-amber-50 file:rounded-md"
                 ></textarea>
 
                 <InputError class="mt-2" :message="errors.descripcion?.[0]" />
