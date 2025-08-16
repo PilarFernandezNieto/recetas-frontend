@@ -48,9 +48,6 @@ const decodedInstrucciones = computed(() => {
           </template>
           <div class="md:grid grid-cols-2 my-4">
             <div>
-              <h2 class="my-4 text-gray-900 text-2xl uppercase font-bold">
-                {{ recetaStore.receta.nombre }}
-              </h2>
               <p class="text-lg">{{ recetaStore.receta.intro }}</p>
               <ul class="mt-4">
                 <li v-for="(valor, clave) in filtrados" :key="clave">

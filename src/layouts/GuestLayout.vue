@@ -146,9 +146,7 @@ const showingNavigationDropdown = ref(false)
             <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
               Panel de administración
             </ResponsiveNavLink>
-            <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'usuarios'">
-              Usuarios
-            </ResponsiveNavLink>
+
           </div>
           <!-- Responsive Settings Options -->
           <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -182,7 +180,7 @@ const showingNavigationDropdown = ref(false)
         <slot />
       </div>
     </main>
-    <div class="w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-amber-50">
+    <div class="w-full py-8 sm:px-6 lg:px-8 overflow-hidden bg-amber-50">
       <Footer />
     </div>
   </div>

@@ -47,7 +47,7 @@ const getImagen = (imagen) => {
 <template>
   <GuestLayout>
     <template #header>
-      <h2 class="font-titulares text-3xl font-medium text-center my-4">Mis Recetas</h2>
+      <h2 class="font-titulares text-3xl font-medium text-center my-4" >{{ receta.nombre }}</h2>
     </template>
       <div
           class="w-full shadow-md rounded-md lg:p-4 mb-4 lg:bg-amber-50"
@@ -60,9 +60,6 @@ const getImagen = (imagen) => {
           </template>
           <div class="md:grid md:grid-cols-12 gap-6 my-4">
             <div class="md:col-span-7">
-              <h2 class="mb-4 text-gray-900 text-2xl uppercase font-bold">
-                {{ receta.nombre }}
-              </h2>
               <p class="text-lg">{{ receta.intro }}</p>
               <ul class="mt-4">
                 <li> <span class="font-semibold capitalize">Categoría: </span class="font-medium"><span>{{ receta.categoria?.nombre }}</span></li>
