@@ -172,7 +172,7 @@ const handleImageChange = (e) => {
                   <select
                     v-model="receta.categoria_id"
                     id="categoria"
-                    class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
+                    class="mt-2 w-full border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-md shadow-sm"
                   >
                     <option value="" selected>-------------</option>
                     <option
@@ -192,7 +192,7 @@ const handleImageChange = (e) => {
                   <select
                     v-model="receta.dificultad_id"
                     id="dificultades"
-                    class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
+                    class="mt-2 w-full border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-md shadow-sm"
                   >
                     <option value="" selected>-------------</option>
                     <option
@@ -210,7 +210,7 @@ const handleImageChange = (e) => {
               <div class="my-8">
                 <label
                   for="imagen"
-                  class="cursor-pointer bg-amber-700 text-white py-2 px-4 rounded-md hover:bg-amber-800 focus:ring-2 focus:ring-amber-700"
+                  class="cursor-pointer bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 focus:ring-2 focus:ring-amber-500"
                 >
                   Subir imagen
                 </label>
@@ -225,7 +225,7 @@ const handleImageChange = (e) => {
                 <select
                   name="ingredientes"
                   id="ingredientes"
-                  class="mt-2 w-full border-gray-300 focus:border-amber-700 focus:ring-amber-700 rounded-md shadow-sm"
+                  class="mt-2 w-full border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-md shadow-sm"
                   @change="handleIngredientChange"
                 >
                   <option selected>-------------</option>
@@ -240,9 +240,9 @@ const handleImageChange = (e) => {
                 <InputError class="mt-2" :message="errors.ingredientes?.[0]" />
               </div>
 
-              <div class="mt-4 p-4 border border-amber-700 rounded-md">
+              <div class="mt-4 p-4 border border-amber-500 rounded-md">
                 <InputLabel class="font-medium">Ingredientes Seleccionados:</InputLabel>
-                <ul class="list-disc marker:text-amber-700 pl-0">
+                <ul class="list-disc marker:text-amber-500 pl-0">
                   <li
                     v-for="(ingrediente, index) in ingredientesSeleccionados"
                     :key="ingrediente.id"
