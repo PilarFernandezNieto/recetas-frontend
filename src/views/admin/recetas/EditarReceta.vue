@@ -116,7 +116,7 @@ const getImagen = (imagen) => {
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Editar receta</h2>
+      <h2 class="font-semibold text-3xl text-gray-700 leading-tight">Editar receta</h2>
     </template>
     <div class="py-12">
       <div class="w-[90%] lg:w-full max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -26,7 +26,7 @@ const showingNavigationDropdown = ref(false)
             <!-- Logo -->
             <div class="flex items-center flex-shrink-0">
               <RouterLink :to="{ name: 'dashboard' }">
-                <ApplicationLogo class="block w-40" />
+                <ApplicationLogo class="block w-48" />
               </RouterLink>
             </div>
 
@@ -54,7 +54,7 @@ const showingNavigationDropdown = ref(false)
                   <span class="inline-flex rounded-md">
                     <button
                       type="button"
-                      class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                      class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                     >
                       {{ user?.name }}
 
@@ -142,7 +142,7 @@ const showingNavigationDropdown = ref(false)
             <div class="font-medium text-base text-gray-800 dark:text-gray-200">
               {{ user?.name }}
             </div>
-            <div class="font-medium text-sm text-gray-500">
+            <div class="font-medium text-base text-gray-500">
               {{ user?.email }}
             </div>
           </div>

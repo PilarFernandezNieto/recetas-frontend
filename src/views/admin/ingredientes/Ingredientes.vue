@@ -34,7 +34,7 @@ const paginationClasses = ['bg-bg-amber-500', 'text-white', 'border-amber-500']
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Listado de ingredientes</h2>
+      <h2 class="font-semibold text-3xl text-gray-700 leading-tight">Listado de ingredientes</h2>
     </template>
 
     <div class="py-12">

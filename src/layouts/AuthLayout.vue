@@ -6,7 +6,7 @@ import ApplicationLogo from '../components/ApplicationLogo.vue';
     <!-- Logo -->
     <div class="flex items-center flex-shrink-0">
       <RouterLink :to="{ name: 'home' }">
-        <ApplicationLogo class="block w-40" />
+        <ApplicationLogo class="block w-56" />
       </RouterLink>
     </div>
     <div class="w-[90%] lg:w-[25%] mt-6 shadow-md overflow-hidden sm:rounded-md bg-white p-4">

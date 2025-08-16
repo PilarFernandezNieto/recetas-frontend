@@ -16,7 +16,7 @@ onMounted(() => {
 <template>
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-700 leading-tight">Listado de usuarios</h2>
+      <h2 class="font-semibold text-3xl text-gray-700 leading-tight">Listado de usuarios</h2>
     </template>
 
     <div class="py-12">

@@ -12,7 +12,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        principal: ['Urbanist', defaultTheme.fontFamily.sans],
+        principal: ['Outfit', defaultTheme.fontFamily.sans],
         titulares: ['Cinzel', defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
@@ -20,6 +20,9 @@ module.exports = {
       },
       colors: {
         'fondo-boton': '#F59E0B'
+      },
+      width: {
+        'contenedor-sm': "50%"
       }
     },
   },

@@ -28,7 +28,7 @@ const showingNavigationDropdown = ref(false)
           <!-- Logo -->
           <div class="flex items-center flex-shrink-0">
             <RouterLink :to="{ name: 'home' }">
-              <ApplicationLogo class="block w-40" />
+              <ApplicationLogo class="block w-48" />
             </RouterLink>
           </div>
           <!-- Navigation Links -->
