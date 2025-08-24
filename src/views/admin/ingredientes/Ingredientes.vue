@@ -58,7 +58,7 @@ const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
               <!-- Icono "X" para limpiar el campo de búsqueda -->
               <i
                 v-if="buscar.trim() !== ''"
-                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-green-800"
+                class="fa-solid fa-xmark cursor-pointer bg-green-800 hover:bg-green-600 text-white p-3 rounded-r-md border border-green-800"
                 @click="limpiarBusqueda"
               ></i>
               <i
@@ -68,7 +68,7 @@ const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
             </div>
             <NewElementLink :to="{ name: 'nuevo-ingrediente' }">Nuevo ingrediente</NewElementLink>
           </div>
-          <div class="grid grid-cols-1 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
             <Ingrediente
               v-for="ingrediente in ingredientesFiltrados"
               :key="ingrediente.id"

@@ -100,7 +100,7 @@ const getImagen = (imagen) => {
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
               >
-                Editar Ingrediente
+                Guardar cambios
               </PrimaryButton>
             </form>
             <GoBackButton class="w-full mt-2">Atrás</GoBackButton>

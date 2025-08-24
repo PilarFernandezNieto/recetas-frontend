@@ -84,7 +84,7 @@ const adminChecked = computed({
                 :class="{ 'opacity-25': processing }"
                 :disabled="processing"
               >
-                Editar Usuario
+                Guardar Cambios
               </PrimaryButton>
             </form>
             <GoBackButton class="w-full mt-2">Atrás</GoBackButton>

@@ -37,23 +37,22 @@ const showAlert = (id) => {
 </script>
 <template>
   <div
-    class="shadow-md p-4 space-y-4 md:grid md:grid-cols-[65%_35%] items-center bg-white justify-between"
+    class="shadow-md p-4 space-y-4 bg-white flex flex-col col-span-1 md:col-span-6 lg:col-span-4 xl:col-span-3"
   >
     <div class="space-y-2 pr-2">
-      <h4 class="font-black text-2xl">
+      <h4 class="font-black text-2xl text-center min-h-[64px]">
         {{ ingrediente.nombre }}
       </h4>
-      <p class="text-lg">{{ ingrediente.descripcion }}</p>
     </div>
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div class="flex flex-col  gap-4 ">
       <div class="flex justify-center lg:mb-0">
         <img
           :src="[imagenServer ? ingrediente.imagen : getImagen(ingrediente.imagen)]"
           :alt="ingrediente.nombre"
-          class="w-full lg:w-40 rounded-md"
+          class="w-full rounded-md"
         />
       </div>
-      <div class="flex lg:flex-col justify-between gap-5">
+      <div class="flex flex-col justify-center gap-1">
         <EditButton :to="{ name: 'editar-ingrediente', params: { id: ingrediente.id } }"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
