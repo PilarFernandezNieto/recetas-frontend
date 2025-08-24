@@ -24,10 +24,11 @@ const ingredientesFiltrados = computed(() => {
   if (!buscar.value.trim()) {
     return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
   }
-  return ingredienteStore.ingredientesTodos.filter((ingrediente) => {
+  return ingredienteStore.ingredientes.data.filter((ingrediente) => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
+
 const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
 </script>
 

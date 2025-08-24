@@ -113,12 +113,12 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       const { data } = await axios.delete(`/api/admin/ingredientes/${id}`)
 
       if (data.type === 'success') {
-        console.log('Éxito:', data.message)
         toastStore.mostrarExito(data.message)
         ingredientes.value = {
           ...ingredientes.value,
           data: ingredientes.value.data.filter((ingredienteStore) => ingredienteStore.id !== id),
         }
+                
       }
     } catch (error) {
       console.log('Error:', error.response?.status, error.response?.data)
