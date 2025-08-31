@@ -90,7 +90,7 @@ const getImagen = (imagen) => {
           <div>
             <h3 class="uppercase text-lg font-bold">Instrucciones</h3>
             <div
-              class="text-lg bg-white py-4"
+              class="text-lg bg-white py-4 instrucciones"
               v-html="receta.instrucciones"
             ></div>
           </div>
@@ -101,3 +101,14 @@ const getImagen = (imagen) => {
     
   </GuestLayout>
 </template>
+<style>
+.instrucciones a {
+  color: #166534;
+  transition: all 300ms ease;
+}
+.instrucciones a:hover {
+  color: #14532d;
+  font-weight: 600;
+}
+
+</style>
