@@ -24,7 +24,8 @@ const ingredientesFiltrados = computed(() => {
   if (!buscar.value.trim()) {
     return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
   }
-  return ingredienteStore.ingredientes.data.filter((ingrediente) => {
+  // busca en el listado de ingredientes, no en los que se devuelven paginados
+  return ingredienteStore.ingredientesTodos.filter((ingrediente) => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })

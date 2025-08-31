@@ -78,7 +78,7 @@ const decodedInstrucciones = computed(() => {
           <div>
             <h3 class="uppercase text-lg font-bold">Instrucciones</h3>
             <div
-              class="my-4 text-lg bg-white p-4 rounded-md"
+              class="my-4 text-lg bg-white p-4 rounded-md instrucciones"
               v-html="decodedInstrucciones"
             ></div>
           </div>
@@ -89,6 +89,13 @@ const decodedInstrucciones = computed(() => {
   </AuthenticatedLayout>
 </template>
 <style>
-
+.instrucciones a {
+  color: #166534;
+  transition: all 300ms ease;
+}
+.instrucciones a:hover {
+  color: #14532d;
+  font-weight: 600;
+}
 
 </style>
