@@ -18,7 +18,7 @@ const showingNavigationDropdown = ref(false)
 
 <template>
   <div class="min-h-screen">
-    <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+    <nav class="bg-white border-b border-gray-100">
       <!-- Navegación principal -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between">
@@ -54,7 +54,7 @@ const showingNavigationDropdown = ref(false)
                   <span class="inline-flex rounded-md">
                     <button
                       type="button"
-                      class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                      class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                     >
                       {{ user?.name }}
 
@@ -137,9 +137,9 @@ const showingNavigationDropdown = ref(false)
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 border-t border-gray-200">
           <div class="px-4">
-            <div class="font-medium text-base text-gray-800 dark:text-gray-200">
+            <div class="font-medium text-base text-gray-800">
               {{ user?.name }}
             </div>
             <div class="font-medium text-base text-gray-500">
@@ -155,7 +155,7 @@ const showingNavigationDropdown = ref(false)
     </nav>
 
     <!-- Page Heading -->
-    <header class="bg-amber-50 dark:bg-gray-800 shadow" v-if="$slots.header">
+    <header class="bg-amber-50 shadow" v-if="$slots.header">
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
         <slot name="header" />
       </div>

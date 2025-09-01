@@ -18,13 +18,13 @@ const handleResendEmailVerification = async () => await resendEmailVerification(
 
 <template>
   <AuthLayout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+    <div class="mb-4 text-sm text-gray-600">
       Gracias por registrarte. Antes de continuar debes verificar tu correo. Si no has recibido el
       email de confirmación puedes solicitar otro.
     </div>
 
     <div
-      class="mb-4 font-medium text-sm text-green-700 bg-green-100 px-4 py-2 rounded dark:text-green-400"
+      class="mb-4 font-medium text-sm text-green-700 bg-green-100 px-4 py-2 rounded"
       v-if="status"
     >
       Un nuevo enlace de verificación ha sido enviado a la dirección de correo electrónico que
