@@ -10,7 +10,8 @@ import { TailwindPagination } from 'laravel-vue-pagination'
 const recetaStore = useRecetaStore()
 
 onMounted(() => {
-  recetaStore.fetchRecetas()
+  recetaStore.fetchRecetas();
+  recetaStore.fetchAllRecetas();
 })
 const buscar = ref('')
 
@@ -31,11 +32,12 @@ watch(buscar, (nuevoValor) => {
 })
 
 const recetasFiltradas = computed(() => {
+  
   if (!buscar.value.trim()) {
     return recetaStore.recetas.data // Si no hay búsqueda, mostrar todas las recetas
   }
 
-  return recetaStore.recetas.filter((receta) => {
+  return recetaStore.recetasTodas.filter((receta) => {
     return (
       receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) ||
       receta.categoria.nombre.toLowerCase().includes(buscar.value.toLowerCase())
@@ -68,7 +70,7 @@ const recetasFiltradas = computed(() => {
               <!-- Icono "X" para limpiar el campo de búsqueda -->
               <i
                 v-if="buscar.trim() !== ''"
-                class="fa-solid fa-xmark cursor-pointer bg-slate-500 hover:bg-slate-600 text-white p-3 rounded-r-md border border-green-800"
+                class="fa-solid fa-xmark cursor-pointer bg-green-500 hover:bg-green-600 text-white p-3 rounded-r-md border border-green-800"
                 @click="limpiarBusqueda"
               ></i>
               <i
