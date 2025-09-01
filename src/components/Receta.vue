@@ -65,7 +65,7 @@ const showAlert = (id) => {
     </div>
     <div class="flex flex-col gap-4">
       <img :src="[imagenServer ? receta.imagen : getImagen(receta.imagen)]" :alt="receta.nombre" class="w-full rounded-md object-cover"/>
-      <div class="flex flex-col gap-4 w-full">
+      <div class="flex flex-col gap-1 w-full">
           <EditButton :to="{ name: 'editar-receta', params: { id: receta.id } }" >
             <svg
           xmlns="http://www.w3.org/2000/svg"

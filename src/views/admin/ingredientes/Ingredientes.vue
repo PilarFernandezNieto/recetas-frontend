@@ -70,7 +70,7 @@ const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
             </div>
             <NewElementLink :to="{ name: 'nuevo-ingrediente' }">Nuevo ingrediente</NewElementLink>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
             <Ingrediente
               v-for="ingrediente in ingredientesFiltrados"
               :key="ingrediente.id"
