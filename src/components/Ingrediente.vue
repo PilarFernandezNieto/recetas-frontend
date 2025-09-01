@@ -40,7 +40,7 @@ const showAlert = (id) => {
     class="shadow-md p-4 space-y-4 bg-white flex flex-col col-span-1 md:col-span-6 lg:col-span-3 xl:col-span-2"
   >
     <div class="space-y-2 pr-2">
-      <h4 class="font-black text-xl text-center min-h-[64px]">
+      <h4 class="font-black text-xl text-center min-h-[84px]">
         {{ ingrediente.nombre }}
       </h4>
     </div>
