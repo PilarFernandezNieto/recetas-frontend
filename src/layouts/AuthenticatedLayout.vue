@@ -32,8 +32,8 @@ const showingNavigationDropdown = ref(false)
 
             <!-- Navigation Links -->
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <NavLink :to="{ name: 'home' }"> Inicio </NavLink>
-              <NavLink :to="{ name: 'usuarios' }"> Usuarios </NavLink>
+              <NavLink :to="{ name: 'home' }" :active="route.name == 'home'"> Inicio </NavLink>
+              <NavLink :to="{ name: 'usuarios' }" :active="route.name == 'usuarios'"> Usuarios </NavLink>
               <NavLink :to="{ name: 'categorias' }" :active="route.name == 'categorias'">
                 Categorías
               </NavLink>
