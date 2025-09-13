@@ -170,7 +170,7 @@ const getImagen = (imagen) => {
                   <InputLabel for="tiempo" value="Tiempo" />
                   <TextInput
                     id="tiempo"
-                    type="number"
+                    type="text"
                     class="mt-2 block w-full"
                     v-model="recetaStore.receta.tiempo"
                   />
