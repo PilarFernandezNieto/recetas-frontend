@@ -98,7 +98,7 @@ const router = createRouter({
         {
           path: 'editar-usuario/:id',
           name: 'editar-usuario',
-          meta: { title: 'Editar Usuario', middleware: ['auth', 'is_admin']  },
+          meta: { title: 'Editar Usuario', middleware: ['auth', 'is_admin'] },
           component: () => import('@/views/admin/usuarios/EditarUsuario.vue'),
         },
       ],
@@ -110,6 +110,7 @@ const router = createRouter({
       children: [
         {
           path: 'login',
+          alias: '/intranet',
           name: 'login',
           meta: { title: 'Inicia sesión', middleware: ['guest'] },
           component: () => import('../views/auth/Login.vue'),
@@ -144,7 +145,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  document.title =  import.meta.env.VITE_APP_NAME  + ' | ' +  to.meta.title;
+  document.title = import.meta.env.VITE_APP_NAME + ' | ' + to.meta.title
 
   const auth = useAuthStore()
 
@@ -160,7 +161,7 @@ router.beforeEach(async (to, from, next) => {
   )
     next({ name: 'verify-email' })
   else if (to.meta.middleware.includes('auth') && !auth.isLoggedIn) next({ name: 'login' })
-    else if (to.meta.middleware.includes('is_admin') && !auth.isAdmin) next({ name: 'home' })
+  else if (to.meta.middleware.includes('is_admin') && !auth.isAdmin) next({ name: 'home' })
   else next()
 })
 
