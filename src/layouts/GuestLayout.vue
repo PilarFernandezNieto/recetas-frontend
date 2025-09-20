@@ -34,18 +34,18 @@ const showingNavigationDropdown = ref(false)
           <!-- Navigation Links -->
           <div class="flex">
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <template v-if="!isLoggedIn">
+              <!-- <template v-if="!isLoggedIn">
                 <NavLink
                   :to="{ name: 'login' }"
                   class="font-semibold text-gray-600 hover:text-gray-900"
                   >Inicia sesión</NavLink
                 >
-                <!-- <NavLink
+                <NavLink
                   :to="{ name: 'register' }"
                   class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
                   >Registro</NavLink
-                > -->
-              </template>
+                >
+              </template> -->
             </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
               <!-- Settings Dropdown User-->
@@ -127,7 +127,7 @@ const showingNavigationDropdown = ref(false)
         }"
         class="sm:hidden"
       >
-        <template v-if="!isLoggedIn">
+        <!-- <template v-if="!isLoggedIn">
           <ResponsiveNavLink
             :to="{ name: 'login' }"
             class="font-semibold text-gray-600 hover:text-gray-900"
@@ -139,8 +139,8 @@ const showingNavigationDropdown = ref(false)
             class="font-semibold text-gray-600 hover:text-gray-900"
             >Registro</ResponsiveNavLink
           >
-        </template>
-        <div v-else>
+        </template> -->
+        <div v-if="isLoggedIn">
           <div class="pt-2 pb-3 space-y-1">
             <ResponsiveNavLink :to="{ name: 'home' }"> Inicio </ResponsiveNavLink>
             <ResponsiveNavLink :to="{ name: 'dashboard' }" :active="route.name == 'dashboard'">
