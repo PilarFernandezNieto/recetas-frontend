@@ -80,7 +80,7 @@ const recetasFiltradas = computed(() => {
             </div>
             <NewElementLink :to="{ name: 'nueva-receta' }">Nueva Receta</NewElementLink>
           </div>
-          <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Receta v-for="receta in recetasFiltradas" :key="receta.id" :receta="receta" />
           </div>
         </div>
