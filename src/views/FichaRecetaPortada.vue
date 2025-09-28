@@ -102,13 +102,6 @@ const getImagen = (imagen) => {
   </GuestLayout>
 </template>
 <style>
-.instrucciones a {
-  color: #166534;
-  transition: all 300ms ease;
-}
-.instrucciones a:hover {
-  color: #14532d;
-  font-weight: 600;
-}
+
 
 </style>
