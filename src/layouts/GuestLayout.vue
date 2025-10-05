@@ -79,7 +79,7 @@ const showingNavigationDropdown = ref(false)
                       <DropdownLink :to="{ name: 'dashboard' }">Administrador</DropdownLink>
                     </div>
 
-                    <DropdownButton @click="logout()">Ciera sesión</DropdownButton>
+                    <DropdownButton @click="logout()">Cierra sesión</DropdownButton>
                   </template>
                 </Dropdown>
               </div>

@@ -75,7 +75,7 @@ const showingNavigationDropdown = ref(false)
                 </template>
 
                 <template #content>
-                  <DropdownButton @click="logout()">Ciera sesión</DropdownButton>
+                  <DropdownButton @click="logout()">Cierra sesión</DropdownButton>
                 </template>
               </Dropdown>
             </div>
