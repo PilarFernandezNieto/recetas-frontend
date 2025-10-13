@@ -1,63 +1,67 @@
-# Laravel API Breeze - Vite + Vue 3 Edition 🏝️
+# Laravel API Breeze - Edición Vite + Vue 3 🏝️
 
-## Introduction
+## Introducción
 
-This repository is an implementation of the [Laravel API Breeze](https://laravel.com/docs/starter-kits) application / authentication starter kit frontend in [Vue](https://vuejs.org). All of the authentication boilerplate is already written for you - powered by [Laravel Sanctum](https://laravel.com/docs/sanctum), allowing you to quickly begin pairing your beautiful Vue frontend with a powerful Laravel backend.
+Este repositorio es una implemetnación del kit de inicio de aplicación/autenticación[Laravel API Breeze](https://laravel.com/docs/starter-kits) con frontend en [Vue](https://vuejs.org).
 
-## Recommended IDE Setup
+## Configuración de entorno recomendado
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Usa [VSCode](https://code.visualstudio.com/) junto con [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (y desactiva Vetur) y el [plugin TypeScript Vue para Volar](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Official Documentation
+## Documentación oficial
 
-### Installation
+### Instalación
 
-First, create a Laravel backend by installing Laravel API Breeze into a [fresh Laravel application](https://laravel.com/docs/installation) and installing Breeze's API scaffolding:
+Primero crea un backend de Laravel instalando **Laravel API Breeze** en una [nueva aplicación Laravel](https://laravel.com/docs/installation) e instala el scaffolding de la API de Breeze.
 
 ```bash
-# Create the Laravel application...
+# Crear la apliación Laravel...
 laravel new vue-backend
 
 cd vue-backend
 
-# Install Breeze and dependencies...
+# Instalar Breeze y sus dependecias...
 composer require laravel/breeze --dev
 
 php artisan breeze:install api
 
-# Run database migrations...
+# Ejecutar las migraciones de base de datos...
 php artisan migrate
 ```
 
-Next, ensure that your application's `APP_URL` and `FRONTEND_URL` environment variables are set to `http://localhost:8000` and `http://localhost:3000`, respectively.
+A continuación, asegúrate de que las variables de entorno APP_URL y FRONTEND_URL de tu aplicación estén configuradas en http://localhost:8000 y http://localhost:3000, respectivamente.
 
-After defining the appropriate environment variables, you may serve the Laravel application using the `serve` Artisan command:
+Después de definir las variables de entorno, puedes servir la aplicación de Laravel usando el comando Artisan `serve`:
 
 ```bash
-# Serve the application...
+#  Servir la aplicación...
 php artisan serve
 ```
 
-Next, clone this repository and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env` and supply the URL of your backend:
+Luego, clona este repositorio e instala sus dependecias con `yarn install`o `npm install`.
 
-```
+Después, copia el archivo `.env.example`a `.env`y especifia la URL de tu backend:
+
+```ini
 VITE_APP_BACKEND_URL=http://localhost:8000
 ```
 
-Finally, run the application via `npm run dev`. The application will be available at `http://localhost:3000`:
-
-```
+Finalmente, ejecuta la aplicación con:
+```bash
 npm run dev
 ```
+La aplicación estará disponible en `http://localhost:3000`:
 
-> Note: Currently, we recommend using `localhost` during local development of your backend and frontend to avoid CORS "Same-Origin" issues.
+> Nota: Actualmente se recomienda usar `localhost`tanto para el backend como para el frontend durante el desarrollo local, a fin de evitar problemas de CORS o de 'Same-Origin'.
 
-### Authentication Middleware
+### Middleware de Autenticación
 
-This Vue application contains a custom `auth` middleware, designed to abstract all authentication logic away from your pages. In addition, the middleware can be used to access the currently authenticated user:
+Esta aplicación Vue incluye un *middleware* personalizado llamado `auth`, diseñado para abstraer toda la lógica de autenticación fuera de tus páginas.
+
+Además, el middleware puede usarse para acceder al usuario autenticado actualmente:
 
 ```js
-// First create a route inside router/index.js file
+// Primero crea una ruta dentro del archivo router/index.js
 {
     path: '/example-page',
     name: 'example-page',
@@ -90,12 +94,14 @@ const { user, logout } = useAuthStore()
 <style scoped></style>
 ```
 
-> Note: You will need to use [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) (`user?.name` instead of `user.name`) when accessing properties on the user object to account for Vue's initial server-side render.
+> Nota: Debes usar [encadenamiento opcional](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Optional_chaining)(`user?.name` en lugar de `user.name`) al acceder a propiedades del objeto `user` para manejar el renderizado del lado del servidor en Vue.
 
-## Contributing
+## Contribución
 
-Contribution is open. Create Pull-request and I'll add it to the project if it's good enough.
+Las contribuciones están abiertas.
 
-## License
+Crea un *Pull Request* y se añadirá al proyecto si cumple los requisitos de calidad.
 
-Laravel API Breeze Vite + Vue 3 is open-sourced software licensed under the [MIT license](LICENSE).
+## Licencia
+
+Laravel API Breeze Vite + Vue 3 es un software de código abierto bajo la licencia de [MIT license](LICENSE).
