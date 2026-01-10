@@ -34,7 +34,7 @@ const showingNavigationDropdown = ref(false)
           <!-- Navigation Links -->
           <div class="flex">
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-              <!-- <template v-if="!isLoggedIn">
+              <template v-if="!isLoggedIn">
                 <NavLink
                   :to="{ name: 'login' }"
                   class="font-semibold text-gray-600 hover:text-gray-900"
@@ -45,7 +45,7 @@ const showingNavigationDropdown = ref(false)
                   class="ml-4 font-semibold text-gray-600 hover:text-gray-900"
                   >Registro</NavLink
                 >
-              </template> -->
+              </template>
             </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
               <!-- Settings Dropdown User-->
