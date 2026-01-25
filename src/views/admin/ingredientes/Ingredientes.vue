@@ -88,6 +88,7 @@ const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
             :keepLength="true"
             @pagination-change-page="ingredienteStore.fetchIngredientes"
           />
+          <div v-else class="text-2xl">No hay resultados para la búsqueda</div>
         </div>
       </div>
     </div>
