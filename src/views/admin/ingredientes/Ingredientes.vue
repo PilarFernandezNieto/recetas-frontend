@@ -21,6 +21,9 @@ const limpiarBusqueda = () => {
 }
 
 const ingredientesFiltrados = computed(() => {
+  if (!ingredienteStore.ingredientes.data || ingredienteStore.ingredientes.data.length === 0) {
+    return []
+  }
   if (!buscar.value.trim()) {
     return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
   }
@@ -29,7 +32,6 @@ const ingredientesFiltrados = computed(() => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })
-
 const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
 </script>
 
@@ -80,6 +82,7 @@ const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
         </div>
         <div class="mt-10 flex justify-center">
           <TailwindPagination
+            v-if="ingredientesFiltrados.length > 0"
             :data="ingredienteStore.ingredientes"
             :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-50']"
             :keepLength="true"
