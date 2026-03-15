@@ -1,107 +1,105 @@
-# Laravel API Breeze - Edición Vite + Vue 3 🏝️
+# 📖 Libro de Recetas — Frontend
 
-## Introducción
+Aplicación web desarrollada con **Vue 3** y **Vite** que actúa como frontend para la aplicación _Libro de Recetas_. Permite consultar recetas públicamente y gestionar el contenido desde un panel de administración.
 
-Este repositorio es una implemetnación del kit de inicio de aplicación/autenticación[Laravel API Breeze](https://laravel.com/docs/starter-kits) con frontend en [Vue](https://vuejs.org).
+---
 
-## Configuración de entorno recomendado
+## 🗂️ Descripción general
 
-Usa [VSCode](https://code.visualstudio.com/) junto con [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (y desactiva Vetur) y el [plugin TypeScript Vue para Volar](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+El frontend consume la API REST del backend Laravel y ofrece:
 
-## Documentación oficial
+- **Portada pública**: listado de recetas accesible sin autenticación.
+- **Ficha de receta**: vista detallada de cada receta.
+- **Autenticación**: registro e inicio de sesión mediante Sanctum (cookies de sesión).
+- **Panel de administración** (acceso restringido a administradores):
+  - Gestión de recetas
+  - Gestión de ingredientes
+  - Gestión de categorías
+  - Gestión de usuarios
 
-### Instalación
+### Estructura principal
 
-Primero crea un backend de Laravel instalando **Laravel API Breeze** en una [nueva aplicación Laravel](https://laravel.com/docs/installation) e instala el scaffolding de la API de Breeze.
-
-```bash
-# Crear la apliación Laravel...
-laravel new vue-backend
-
-cd vue-backend
-
-# Instalar Breeze y sus dependecias...
-composer require laravel/breeze --dev
-
-php artisan breeze:install api
-
-# Ejecutar las migraciones de base de datos...
-php artisan migrate
+```
+src/
+├── views/
+│   ├── Home.vue               # Portada pública con listado de recetas
+│   ├── FichaRecetaPortada.vue # Detalle de una receta
+│   ├── Dashboard.vue          # Panel principal tras el login
+│   ├── admin/                 # Vistas del panel de administración
+│   │   ├── recetas/
+│   │   ├── ingredientes/
+│   │   ├── categorias/
+│   │   └── usuarios/
+│   └── auth/                  # Vistas de login y registro
+├── stores/                    # Estado global con Pinia
+├── router/                    # Rutas y middleware de autenticación
+├── components/                # Componentes reutilizables
+└── layouts/                   # Layouts (público y autenticado)
 ```
 
-A continuación, asegúrate de que las variables de entorno APP_URL y FRONTEND_URL de tu aplicación estén configuradas en http://localhost:8000 y http://localhost:3000, respectivamente.
+---
 
-Después de definir las variables de entorno, puedes servir la aplicación de Laravel usando el comando Artisan `serve`:
+## ⚙️ Requisitos previos
+
+- **Node.js** >= 18
+- **npm**
+- El backend (`recetas-backend`) en ejecución en `http://localhost:8000`
+
+---
+
+## 🚀 Instalación y puesta en marcha (desarrollo)
+
+### 1. Instalar dependencias
 
 ```bash
-#  Servir la aplicación...
-php artisan serve
+npm install
 ```
 
-Luego, clona este repositorio e instala sus dependecias con `yarn install`o `npm install`.
+### 2. Configurar el entorno
 
-Después, copia el archivo `.env.example`a `.env`y especifia la URL de tu backend:
+Copia el archivo de ejemplo y edítalo:
 
-```ini
+```bash
+cp .env.example .env.local
+```
+
+Variables clave en `.env.local`:
+
+```dotenv
 VITE_APP_BACKEND_URL=http://localhost:8000
+VITE_APP_NAME="Libro de Recetas"
 ```
 
-Finalmente, ejecuta la aplicación con:
+### 3. Iniciar el servidor de desarrollo
+
 ```bash
 npm run dev
 ```
-La aplicación estará disponible en `http://localhost:3000`:
 
-> Nota: Actualmente se recomienda usar `localhost`tanto para el backend como para el frontend durante el desarrollo local, a fin de evitar problemas de CORS o de 'Same-Origin'.
+> El frontend quedará disponible en **http://localhost:5173**
 
-### Middleware de Autenticación
+---
 
-Esta aplicación Vue incluye un *middleware* personalizado llamado `auth`, diseñado para abstraer toda la lógica de autenticación fuera de tus páginas.
+## 🔗 Backend relacionado
 
-Además, el middleware puede usarse para acceder al usuario autenticado actualmente:
+El backend (Laravel 11 + Sanctum) se encuentra en la carpeta `recetas-backend`. Consulta su propio `README.md` para iniciarlo antes de arrancar el frontend.
 
-```js
-// Primero crea una ruta dentro del archivo router/index.js
-{
-    path: '/example-page',
-    name: 'example-page',
-    meta: { title: 'Example Page', middleware: ['auth'] },
-    component: () => import('../views/ExamplePage.vue'),
-},
-```
+---
 
-```js
-// views/ExamplePage.vue
-<script lang="ts" setup>
-import AuthenticatedLayout from '../layouts/AuthenticatedLayout.vue'
-import { useAuthStore } from '../stores/auth'
+## 🛠️ Tecnologías utilizadas
 
-const { user, logout } = useAuthStore()
-</script>
+| Tecnología       | Versión  |
+| ---------------- | -------- |
+| Vue              | ^3.3.4   |
+| Vite             | ^4.3.9   |
+| Vue Router       | ^4.2.2   |
+| Pinia            | ^2.1.3   |
+| Tailwind CSS     | ^3.3.2   |
+| Flowbite Vue     | ^0.1.9   |
+| Axios            | ^1.4.0   |
 
-<template>
-  <AuthenticatedLayout>
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-10">
-        <p>{{ user?.name }}</p>
+---
 
-        <button @click="logout()">Sign out</button>
-      </div>
-    </div>
-  </AuthenticatedLayout>
-</template>
+## 📄 Licencia
 
-<style scoped></style>
-```
-
-> Nota: Debes usar [encadenamiento opcional](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Optional_chaining)(`user?.name` en lugar de `user.name`) al acceder a propiedades del objeto `user` para manejar el renderizado del lado del servidor en Vue.
-
-## Contribución
-
-Las contribuciones están abiertas.
-
-Crea un *Pull Request* y se añadirá al proyecto si cumple los requisitos de calidad.
-
-## Licencia
-
-Laravel API Breeze Vite + Vue 3 es un software de código abierto bajo la licencia de [MIT license](LICENSE).
+Este proyecto está bajo la licencia [MIT](LICENSE).
