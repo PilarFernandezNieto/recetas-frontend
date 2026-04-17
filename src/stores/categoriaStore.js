@@ -26,7 +26,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
       const { data } = await axios.get(`/api/admin/categorias`)
       categorias.value = data.data
     } catch (error) {
-      console.error(error)
+      toastStore.addToast({ type: 'error', message: error?.response?.data?.message ?? 'Error al cargar las categorías' })
     } finally {
       loading.value = false
     }
@@ -39,7 +39,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
       const { data } = await axios.get(`/api/admin/categorias/${id}`)
       categoria.value = data
     } catch (error) {
-      console.error(error)
+      toastStore.addToast({ type: 'error', message: error?.response?.data?.message ?? 'Error al cargar la categoría' })
     } finally {
       loading.value = false
     }
@@ -107,11 +107,10 @@ export const useCategoriaStore = defineStore('categorias', () => {
         categorias.value = categorias.value.filter((categoriaStore) => categoriaStore.id !== id)
       }
     } catch (error) {
-      console.log('Error:', error.response?.status, error.response?.data)
       if (error.response?.status === 409) {
         toastStore.mostrarError(error.response.data.message)
       } else {
-        toastStore.mostrarError('Error al eliminar la categorñia')
+        toastStore.mostrarError('Error al eliminar la categoría')
       }
     } finally {
       eliminandoId = null // Resetea el ID al finalizar

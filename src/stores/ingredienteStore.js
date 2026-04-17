@@ -24,7 +24,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       const { data } = await axios.get(`/api/admin/ingredientes?page=${page}`)
       ingredientes.value = data
     } catch (error) {
-      console.error(error)
+      toastStore.addToast({ type: 'error', message: error?.response?.data?.message ?? 'Error al cargar los ingredientes' })
     } finally {
       loading.value = false
     }
@@ -87,10 +87,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   const editarIngrediente = async (id, processing, errors, formData) => {
     processing.value = true
     errors.value = {}
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}:`, value);
-    // }
-
     try {
       await csrf()
       const { data } = await axios.post(`/api/admin/ingredientes/${id}`, formData, {
@@ -129,7 +125,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
         }
       }
     } catch (error) {
-      console.log('Error:', error.response?.status, error.response?.data)
       if (error.response?.status === 409) {
         toastStore.mostrarError(error.response.data.message)
       } else {

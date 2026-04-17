@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import DOMPurify from 'dompurify'
 import { useRoute } from 'vue-router'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
@@ -28,9 +29,9 @@ const getImagen = (imagen) => {
   return `${base}/${path}`;
   }
 }
-const decodedInstrucciones = computed(() => {
-  return decodeURIComponent(recetaStore.receta.instrucciones);
-});
+const safeInstrucciones = computed(() =>
+  DOMPurify.sanitize(recetaStore.receta.instrucciones ?? '')
+)
 </script>
 
 <template>
@@ -79,7 +80,7 @@ const decodedInstrucciones = computed(() => {
             <h3 class="uppercase text-lg font-bold">Instrucciones</h3>
             <div
               class="my-4 text-lg bg-white p-4 rounded-md instrucciones"
-              v-html="decodedInstrucciones"
+              v-html="safeInstrucciones"
             ></div>
           </div>
           <GoBackButton class="w-full mt-2">Atrás</GoBackButton>

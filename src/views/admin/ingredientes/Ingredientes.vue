@@ -20,19 +20,16 @@ const limpiarBusqueda = () => {
   buscar.value = ''
 }
 
+const buscando = computed(() => buscar.value.trim() !== '')
+
 const ingredientesFiltrados = computed(() => {
-  if (!ingredienteStore.ingredientes.data || ingredienteStore.ingredientes.data.length === 0) {
-    return []
+  if (!buscando.value) {
+    return ingredienteStore.ingredientes.data ?? []
   }
-  if (!buscar.value.trim()) {
-    return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
-  }
-  // busca en el listado de ingredientes, no en los que se devuelven paginados
-  return (ingredientesTodos.value ?? []).filter((ingrediente) => {
-    return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
-  })
+  return (ingredientesTodos.value ?? []).filter((ingrediente) =>
+    ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase()),
+  )
 })
-const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
 </script>
 
 <template>
@@ -82,13 +79,14 @@ const paginationClasses = ['bg-bg-green-800', 'text-white', 'border-green-800']
         </div>
         <div class="mt-10 flex justify-center">
           <TailwindPagination
-            v-if="ingredientesFiltrados.length > 0"
+            v-if="!buscando"
             :data="ingredienteStore.ingredientes"
             :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-50']"
-            :keepLength="true"
             @pagination-change-page="ingredienteStore.fetchIngredientes"
           />
-          <div v-else class="text-2xl">No hay resultados para la búsqueda</div>
+          <div v-if="buscando && ingredientesFiltrados.length === 0" class="text-2xl">
+            No hay resultados para "{{ buscar }}"
+          </div>
         </div>
       </div>
     </div>

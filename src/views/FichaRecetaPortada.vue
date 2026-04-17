@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import DOMPurify from 'dompurify'
 import { useRoute } from 'vue-router'
 import axios from '../utils/axios'
 import GuestLayout from '../layouts/GuestLayout.vue'
@@ -36,6 +37,10 @@ const filtrados = computed(() => {
     Object.entries(receta.value).filter(([clave]) => clavesPermitidas.includes(clave)),
   )
 })
+const safeInstrucciones = computed(() =>
+  DOMPurify.sanitize(receta.value.instrucciones ?? '')
+)
+
 const getImagen = (imagen) => {
   if(imagen){
   const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
@@ -92,7 +97,7 @@ const getImagen = (imagen) => {
             <h3 class="uppercase text-lg font-bold">Instrucciones</h3>
             <div
               class="text-lg bg-white py-4 instrucciones"
-              v-html="receta.instrucciones"
+              v-html="safeInstrucciones"
             ></div>
           </div>
           

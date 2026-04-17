@@ -62,6 +62,7 @@ const showAlert = (id) => {
         <li> <span class="font-semibold capitalize">Dificultad: </span class="font-medium"><span>{{ receta.dificultad.nombre }}</span></li>
         <li> <span class="font-semibold capitalize">Categoría: </span class="font-medium"><span>{{ receta.categoria.nombre }}</span></li>
       </ul>
+      
     </div>
     <div class="flex flex-col gap-4">
       <img :src="[imagenServer ? receta.imagen : getImagen(receta.imagen)]" :alt="receta.nombre" class="w-full rounded-md object-cover"/>

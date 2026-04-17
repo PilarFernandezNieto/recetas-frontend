@@ -3,8 +3,8 @@ import axios from '../utils/axios'
 
 export const queryKeys = {
   ingredientesTodos: ['ingredientes', 'todos'],
-  categorias:        ['categorias'],
-  dificultades:      ['dificultades'],
+  categorias: ['categorias'],
+  dificultades: ['dificultades'],
 }
 
 export const useIngredientesTodos = () =>
@@ -12,6 +12,7 @@ export const useIngredientesTodos = () =>
     queryKey: queryKeys.ingredientesTodos,
     queryFn: async () => {
       const { data } = await axios.get('/api/admin/ingredientes-todos')
+
       return data.data ?? []
     },
     staleTime: 2 * 60 * 1000, // 2 min — refresca en background si el usuario lleva más tiempo

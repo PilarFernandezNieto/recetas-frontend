@@ -10,6 +10,7 @@
   "dependencies": {
     "@tanstack/vue-query": "^5.99.0",
     "@tinymce/tinymce-vue": "^5.1.1",
+    "dompurify": "^3.4.0",
     "flowbite": "^3.1.2",
     "flowbite-vue": "^0.1.9",
     "laravel-vue-pagination": "^4.1.3",

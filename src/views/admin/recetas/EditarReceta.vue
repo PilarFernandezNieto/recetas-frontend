@@ -10,7 +10,11 @@ import GoBackButton from '../../../components/GoBackButton.vue'
 import EditorTiny from '../../../components/EditorTiny.vue'
 import Modal from '../../../components/Modal.vue'
 import { useRecetaStore } from '../../../stores/recetaStore'
-import { useIngredientesTodos, useCategorias, useDificultades } from '../../../composables/useQueries'
+import {
+  useIngredientesTodos,
+  useCategorias,
+  useDificultades,
+} from '../../../composables/useQueries'
 
 const route = useRoute()
 const recetaStore = useRecetaStore()
@@ -52,11 +56,8 @@ const handleImageChange = (e) => {
   nuevaImagen.value = e.target.files[0]
 }
 const handleIngredientChange = (event) => {
-  // Obtener el ingrediente seleccionado y la cantidad
   const selectedId = event.target.value
-  const ingrediente = ingredienteStore.ingredientesTodos.find(
-    (ing) => ing.id === parseInt(selectedId),
-  )
+  const ingrediente = ingredientesTodos.value?.find((ing) => ing.id === parseInt(selectedId))
   if (ingrediente) {
     ingredienteSeleccionado.value = ingrediente
     showModal.value = true
@@ -107,9 +108,6 @@ const handleReceta = async () => {
   if (nuevaImagen.value) {
     formData.append('imagen', nuevaImagen.value)
   }
-  // for (let [key, value] of formData.entries()) {
-  //   console.log(`${key}:`, value)
-  // }
   await recetaStore.editarReceta(id, processing, errors, formData)
 }
 

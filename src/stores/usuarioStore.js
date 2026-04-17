@@ -21,7 +21,7 @@ export const useUsuarioStore = defineStore('usuarios', () => {
       const { data } = await axios.get(`/api/admin/usuarios`)
       usuarios.value = data.data
     } catch (error) {
-      console.error(error)
+      toastStore.addToast({ type: 'error', message: error?.response?.data?.message ?? 'Error al cargar los usuarios' })
     } finally {
       loading.value = false
     }
@@ -34,15 +34,13 @@ export const useUsuarioStore = defineStore('usuarios', () => {
       const { data } = await axios.get(`/api/admin/usuarios/${id}`)
       usuario.value = data.data
     } catch (error) {
-      console.error(error)
+      toastStore.addToast({ type: 'error', message: error?.response?.data?.message ?? 'Error al cargar el usuario' })
     } finally {
       loading.value = false
     }
   }
 
-
-  const EditarUusuario = async (id, processing, errors, datos) => {
-    
+  const EditarUsuario = async (id, processing, errors, datos) => {
     processing.value = true
     try {
       await csrf()
@@ -51,7 +49,6 @@ export const useUsuarioStore = defineStore('usuarios', () => {
           'Content-Type': 'application/json',
         },
       })
-      
 
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)
@@ -75,7 +72,7 @@ export const useUsuarioStore = defineStore('usuarios', () => {
         usuarios.value = usuarios.value.filter((usuarioStore) => usuarioStore.id !== id)
       }
     } catch (error) {
-      console.error(error)
+      toastStore.mostrarError(error?.response?.data?.message ?? 'Error al eliminar el usuario')
     }
   }
 
@@ -84,7 +81,7 @@ export const useUsuarioStore = defineStore('usuarios', () => {
     fetchUser,
     usuarios,
     usuario,
-    EditarUusuario,
+    EditarUsuario,
     eliminarUsuario,
     loading,
   }

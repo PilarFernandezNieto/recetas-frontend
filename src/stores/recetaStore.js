@@ -54,10 +54,6 @@ export const useRecetaStore = defineStore('recetas', () => {
   }
 
   const nuevaReceta = async (processing, errors, formData) => {
-    // Recorriendo el FormData
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`)
-    // }
     processing.value = true
     errors.value = {}
     try {
@@ -85,9 +81,6 @@ export const useRecetaStore = defineStore('recetas', () => {
   const editarReceta = async (id, processing, errors, formData) => {
     processing.value = true
     errors.value = {}
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}:`, value)
-    // }
     try {
       await csrf()
       const { data } = await axios.post(`/api/admin/recetas/${id}`, formData, {
@@ -122,7 +115,7 @@ export const useRecetaStore = defineStore('recetas', () => {
         }
       }
     } catch (error) {
-      console.error(error)
+      toastStore.mostrarError(error?.response?.data?.message ?? 'Error al eliminar la receta')
     }
   }
 

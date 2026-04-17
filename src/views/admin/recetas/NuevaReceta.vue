@@ -72,12 +72,8 @@ const handleReceta = async () => {
 }
 
 const handleIngredientChange = (event) => {
-  // Obtener el ingrediente seleccionado y la cantidad
   const selectedId = event.target.value
-  const ingrediente = ingredienteStore.ingredientesTodos.find(
-    (ing) => ing.id === parseInt(selectedId),
-  )
-
+  const ingrediente = ingredientesTodos.value?.find((ing) => ing.id === parseInt(selectedId))
   if (ingrediente) {
     ingredienteSeleccionado.value = ingrediente
     showModal.value = true

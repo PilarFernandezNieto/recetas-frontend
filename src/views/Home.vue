@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref, version, computed, watch } from 'vue'
-import { RouterLink } from 'vue-router'
+import { onMounted, ref, watch } from 'vue'
 import { useAuthStore } from '../stores/auth'
+import { useToastStore } from '../stores/toastStore'
 import GuestLayout from '../layouts/GuestLayout.vue'
 import RecetaPortada from '../components/RecetaPortada.vue'
 import { TailwindPagination } from 'laravel-vue-pagination'
@@ -10,54 +10,34 @@ import { FwbSpinner } from 'flowbite-vue'
 import axios from '../utils/axios'
 
 const { isLoggedIn } = useAuthStore()
+const toastStore = useToastStore()
 const recetas = ref([])
 const loading = ref(true)
 const buscar = ref('')
-const paginaActual = ref(1)
+const debounceTimer = ref(null)
 
 onMounted(async () => {
   await getRecetasIndex()
 })
-const limpiarBusqueda = () => {
-  buscar.value = ''
-}
+
 watch(buscar, (nuevoValor) => {
-  if (nuevoValor.trim() !== '') {
-    clearTimeout(buscar.timeout)
-    buscar.timeout = setTimeout(() => {
-      paginaActual.value = 1
-      // Pasamos el valor de búsqueda a la función
-      getRecetasIndex(paginaActual.value, buscar.value)
-    }, 500) // 500 ms de retraso para evitar múltiples peticiones
-  } else {
-    getRecetasIndex() // Si no hay búsqueda, traemos todas las recetas
-  }
+  clearTimeout(debounceTimer.value)
+  debounceTimer.value = setTimeout(() => {
+    getRecetasIndex(1, nuevoValor.trim())
+  }, 500)
 })
 
 const getRecetasIndex = async (page = 1, search = '') => {
+  loading.value = true
   try {
     const { data } = await axios.get(`/api/recetas?page=${page}&buscar=${search}`)
     recetas.value = data
   } catch (error) {
-    const msg = error?.response?.data?.message ?? 'Error inesperado'
-    toastStore.addToast({ type: 'error', message: msg })
+    toastStore.addToast({ type: 'error', message: error?.response?.data?.message ?? 'Error al cargar las recetas' })
   } finally {
     loading.value = false
   }
 }
-
-// const recetasFiltradas = computed(() => {
-//   if (!buscar.value.trim()) {
-//     return recetas.value.data
-//   }
-
-//   return recetas.value.data.filter((receta) => {
-//     return (
-//       receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) ||
-//       receta.categoria?.nombre.toLowerCase().includes(buscar.value.toLowerCase())
-//     )
-//   })
-// })
 </script>
 
 <template>
@@ -81,7 +61,7 @@ const getRecetasIndex = async (page = 1, search = '') => {
           <TailwindPagination
             :data="recetas"
             :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-100']"
-            @pagination-change-page="(page) => getRecetasIndex(page, buscar)"
+            @pagination-change-page="(page) => getRecetasIndex(page, buscar.value)"
           />
         </div>
       </section>
