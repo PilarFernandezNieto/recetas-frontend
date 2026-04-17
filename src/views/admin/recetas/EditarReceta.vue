@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
@@ -28,6 +28,15 @@ const processing = ref(false)
 const errors = ref({})
 const id = route.params.id
 const nuevaImagen = ref(null)
+const selectRef = ref(null)
+const cantidadInputRef = ref(null)
+
+watch(showModal, async (val) => {
+  if (val) {
+    await nextTick()
+    cantidadInputRef.value?.focus()
+  }
+})
 
 onMounted(async () => {
   await recetaStore.fetchReceta(id)
@@ -46,7 +55,7 @@ onMounted(async () => {
 })
 
 const handleImageChange = (e) => {
-  nuevaImagen.value = event.target.files[0]
+  nuevaImagen.value = e.target.files[0]
 }
 const handleIngredientChange = (event) => {
   // Obtener el ingrediente seleccionado y la cantidad
@@ -63,6 +72,14 @@ const eliminarIngrediente = (index) => {
   ingredientesSeleccionados.value.splice(index, 1)
 }
 
+const closeModal = () => {
+  showModal.value = false
+  cantidadIngrediente.value = ''
+  unidadMedida.value = ''
+  ingredienteSeleccionado.value = null
+  if (selectRef.value) selectRef.value.value = ''
+}
+
 const handleCantidadChange = () => {
   if (cantidadIngrediente.value) {
     ingredientesSeleccionados.value.push({
@@ -70,9 +87,7 @@ const handleCantidadChange = () => {
       cantidad: cantidadIngrediente.value,
       unidad: unidadMedida.value,
     })
-    cantidadIngrediente.value = ''
-    unidadMedida.value = ''
-    showModal.value = false
+    closeModal()
   }
 }
 
@@ -235,6 +250,7 @@ const getImagen = (imagen) => {
               <div class="mt-2 md:mt-0">
                 <InputLabel for="ingredientes" value="Ingredientes" />
                 <select
+                  ref="selectRef"
                   name="ingredientes"
                   id="ingredientes"
                   class="mt-2 w-full border-gray-300 focus:border-green-800 focus:ring-green-800 rounded-md shadow-sm"
@@ -293,7 +309,7 @@ const getImagen = (imagen) => {
       </div>
     </div>
     <div class="fixed inset-0 bg-black opacity-50" v-if="processing"></div>
-    <Modal :show="showModal" @close="showModal = false">
+    <Modal :show="showModal" @close="closeModal">
       <template #default>
         <div class="p-4">
           <h3 class="text-xl font-semibold text-center">
@@ -302,10 +318,12 @@ const getImagen = (imagen) => {
           <div class="mt-4 flex flex-col md:flex-row items-center md:justify-center gap-4">
             <div>
               <TextInput
+                ref="cantidadInputRef"
                 id="cantidad"
                 type="text"
                 v-model="cantidadIngrediente"
                 placeholder="Cantidad"
+                @keyup.enter="handleCantidadChange"
               />
             </div>
             <div>
@@ -314,10 +332,18 @@ const getImagen = (imagen) => {
                 type="text"
                 v-model="unidadMedida"
                 placeholder="Unidad de medida"
+                @keyup.enter="handleCantidadChange"
               />
             </div>
           </div>
-          <div class="mt-4 flex justify-center">
+          <div class="mt-4 flex justify-center gap-3">
+            <button
+              type="button"
+              class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100"
+              @click="closeModal"
+            >
+              Cancelar
+            </button>
             <PrimaryButton @click="handleCantidadChange">Añadir</PrimaryButton>
           </div>
         </div>

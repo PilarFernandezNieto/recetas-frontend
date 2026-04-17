@@ -39,6 +39,6 @@ const getImagen = (imagen) => {
       <NewElementLink :to="{ name: 'ver-receta', params: {id: receta.id} }">Ver receta</NewElementLink>
     
     </div>
-    <img class="w-full h-full object-cover object-center" :src="getImagen(receta.imagen)" alt="" />
+    <img class="w-full h-full object-cover object-center" :src="getImagen(receta.imagen)" :alt="`Imagen de ${receta.nombre}`" />
   </div>
 </template>

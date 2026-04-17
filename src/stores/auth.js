@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchUser = async () => {
     try {
       const { data } = await axios.get('/api/user')
-  
+
       user.value = data
     } catch (error) {
       if (error.response.status === 409) {
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
       await axios.post('/login', data)
 
       await fetchUser()
-    
+
       router.push({ name: 'dashboard' })
     } catch (error) {
       if (error.response.status === 422) {
@@ -125,12 +125,15 @@ export const useAuthStore = defineStore('auth', () => {
   const resendEmailVerification = async (processing, status) => {
     processing.value = true
     status.value = null
-
-    const { data } = await axios.post('/email/verification-notification')
-
-    status.value = data.status
-
-    processing.value = false
+    try {
+      const { data } = await axios.post('/email/verification-notification')
+      status.value = data.status
+    } catch (error) {
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
+    } finally {
+      processing.value = false
+    }
   }
 
   const logout = async () => {

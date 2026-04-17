@@ -37,7 +37,10 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       const { data } = await axios.get('/api/admin/ingredientes-todos')
       ingredientesTodos.value = data.data
     } catch (error) {
-      console.log(error)
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
+    } finally {
+      loading.value = false
     }
   }
   const fetchIngrediente = async (id) => {
@@ -48,7 +51,8 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
 
       ingrediente.value = data
     } catch (error) {
-      console.error(error)
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
     } finally {
       loading.value = false
     }
@@ -106,7 +110,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   }
 
   const eliminarIngrediente = async (id) => {
-    if (eliminandoId === id) return; // sale de aquí si ya se está eliminando este ingrediente
+    if (eliminandoId === id) return // sale de aquí si ya se está eliminando este ingrediente
     eliminandoId = id // Evita múltiples clics
     try {
       await csrf()
@@ -118,7 +122,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
           ...ingredientes.value,
           data: ingredientes.value.data.filter((ingredienteStore) => ingredienteStore.id !== id),
         }
-                
       }
     } catch (error) {
       console.log('Error:', error.response?.status, error.response?.data)

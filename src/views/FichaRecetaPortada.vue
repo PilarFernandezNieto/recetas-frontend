@@ -23,7 +23,8 @@ const getRecetaPortada = async () => {
     receta.value = data
     
   } catch (error) {
-    console.log(error);
+       const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
   } finally {
     loading.value = false
   }

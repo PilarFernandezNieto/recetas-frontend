@@ -39,7 +39,8 @@ const getRecetasIndex = async (page = 1, search = '') => {
     const { data } = await axios.get(`/api/recetas?page=${page}&buscar=${search}`)
     recetas.value = data
   } catch (error) {
-    console.log(error)
+    const msg = error?.response?.data?.message ?? 'Error inesperado'
+    toastStore.addToast({ type: 'error', message: msg })
   } finally {
     loading.value = false
   }
@@ -61,8 +62,6 @@ const getRecetasIndex = async (page = 1, search = '') => {
 
 <template>
   <GuestLayout>
-    
-
     <div
       class="relative flex flex-col justify-center items-center min-h-screen selection:bg-green-800 selection:text-white"
     >
@@ -82,7 +81,7 @@ const getRecetasIndex = async (page = 1, search = '') => {
           <TailwindPagination
             :data="recetas"
             :active-classes="['border-green-900', 'text-green-900', 'hover:bg-amber-100']"
-            @pagination-change-page="(page)=>getRecetasIndex(page, buscar)"
+            @pagination-change-page="(page) => getRecetasIndex(page, buscar)"
           />
         </div>
       </section>

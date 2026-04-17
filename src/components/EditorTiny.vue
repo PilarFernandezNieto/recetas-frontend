@@ -1,9 +1,10 @@
 <script setup>
 import Editor from '@tinymce/tinymce-vue'
+const tinymceApiKey = import.meta.env.VITE_TINYMCE_API_KEY
 </script>
 <template>
   <Editor
-    api-key="3mwpefylf87qmow9slz4sqdjz7toujobppay56nan6xsqdqp"
+    :api-key="tinymceApiKey"
     :init="{
       plugins: 'lists link code',
       toolbar: 'undo redo | bold italic underline | bullist numlist | outdent indent link code',

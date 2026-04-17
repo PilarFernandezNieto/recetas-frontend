@@ -21,7 +21,8 @@ export const useRecetaStore = defineStore('recetas', () => {
       const { data } = await axios.get(`/api/admin/recetas?page=${page}&buscar=${search}`)
       recetas.value = data
     } catch (error) {
-      console.log(error)
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
     } finally {
       loading.value = false
     }
@@ -33,7 +34,8 @@ export const useRecetaStore = defineStore('recetas', () => {
       const { data } = await axios.get(`/api/admin/recetas-todas`)
       recetasTodas.value = data.data
     } catch (error) {
-      console.log(error)
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
     } finally {
       loading.value = false
     }
@@ -46,7 +48,8 @@ export const useRecetaStore = defineStore('recetas', () => {
       const { data } = await axios.get(`/api/admin/recetas/${id}`)
       receta.value = data
     } catch (error) {
-      console.log(error)
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
     } finally {
       loading.value = false
     }
@@ -58,7 +61,10 @@ export const useRecetaStore = defineStore('recetas', () => {
       const { data } = await axios.get('/api/admin/dificultades')
       dificultades.value = data.data
     } catch (error) {
-      console.log(error)
+      const msg = error?.response?.data?.message ?? 'Error inesperado'
+      toastStore.addToast({ type: 'error', message: msg })
+    } finally {
+      loading.value = false
     }
   }
 
