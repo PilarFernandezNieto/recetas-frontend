@@ -1,18 +1,18 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
 import Ingrediente from '@/components/Ingrediente.vue'
 import { useIngredienteStore } from '../../../stores/ingredienteStore'
+import { useIngredientesTodos } from '../../../composables/useQueries'
 import { FwbSpinner } from 'flowbite-vue'
 import { TailwindPagination } from 'laravel-vue-pagination'
 
 const ingredienteStore = useIngredienteStore()
+const { data: ingredientesTodos } = useIngredientesTodos()
 
 onMounted(() => {
   ingredienteStore.fetchIngredientes()
-  ingredienteStore.fetchAllIngredientes()
 })
 
 const buscar = ref('')
@@ -28,7 +28,7 @@ const ingredientesFiltrados = computed(() => {
     return ingredienteStore.ingredientes.data // Si no hay búsqueda, mostrar todos los ingredientes
   }
   // busca en el listado de ingredientes, no en los que se devuelven paginados
-  return ingredienteStore.ingredientesTodos.filter((ingrediente) => {
+  return (ingredientesTodos.value ?? []).filter((ingrediente) => {
     return ingrediente.nombre.toLowerCase().includes(buscar.value.toLowerCase())
   })
 })

@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import axios from '../utils/axios'
 import { useToastStore } from './toastStore'
 import { useRouter } from 'vue-router'
+import { queryClient } from '../queryClient'
+import { queryKeys } from '../composables/useQueries'
 
 export const useCategoriaStore = defineStore('categorias', () => {
   const categorias = ref([])
@@ -56,6 +58,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
       })
 
       if (data.type === 'success') {
+        queryClient.invalidateQueries({ queryKey: queryKeys.categorias })
         toastStore.mostrarExito(data.message)
         router.push({ name: 'categorias' })
       }
@@ -78,6 +81,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
       })
 
       if (data.type === 'success') {
+        queryClient.invalidateQueries({ queryKey: queryKeys.categorias })
         toastStore.mostrarExito(data.message)
         router.push({ name: 'categorias' })
       }
@@ -98,6 +102,7 @@ export const useCategoriaStore = defineStore('categorias', () => {
       const { data } = await axios.delete(`/api/admin/categorias/${id}`)
 
       if (data.type === 'success') {
+        queryClient.invalidateQueries({ queryKey: queryKeys.categorias })
         toastStore.mostrarExito(data.message)
         categorias.value = categorias.value.filter((categoriaStore) => categoriaStore.id !== id)
       }

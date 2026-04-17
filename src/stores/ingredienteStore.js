@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import axios from '../utils/axios'
 import { useToastStore } from './toastStore'
 import { useRouter } from 'vue-router'
+import { queryClient } from '../queryClient'
+import { queryKeys } from '../composables/useQueries'
 
 export const useIngredienteStore = defineStore('ingredientes', () => {
   const ingredientes = ref([])
@@ -70,6 +72,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
         },
       })
       if (data.type === 'success') {
+        queryClient.invalidateQueries({ queryKey: queryKeys.ingredientesTodos })
         toastStore.mostrarExito(data.message)
         router.push({ name: 'ingredientes' })
       }
@@ -97,6 +100,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       })
 
       if (data.type === 'success') {
+        queryClient.invalidateQueries({ queryKey: queryKeys.ingredientesTodos })
         toastStore.mostrarExito(data.message)
         router.push({ name: 'ingredientes' })
       }
@@ -117,6 +121,7 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
       const { data } = await axios.delete(`/api/admin/ingredientes/${id}`)
 
       if (data.type === 'success') {
+        queryClient.invalidateQueries({ queryKey: queryKeys.ingredientesTodos })
         toastStore.mostrarExito(data.message)
         ingredientes.value = {
           ...ingredientes.value,

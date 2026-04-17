@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watch, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
 import TextInput from '../../../components/TextInput.vue'
@@ -9,12 +9,12 @@ import InputError from '../../../components/InputError.vue'
 import EditorTiny from '../../../components/EditorTiny.vue'
 import Modal from '../../../components/Modal.vue'
 import { useRecetaStore } from '../../../stores/recetaStore'
-import { useIngredienteStore } from '../../../stores/ingredienteStore'
-import { useCategoriaStore } from '../../../stores/categoriaStore'
+import { useIngredientesTodos, useCategorias, useDificultades } from '../../../composables/useQueries'
 
 const recetaStore = useRecetaStore()
-const ingredienteStore = useIngredienteStore()
-const categoriaStore = useCategoriaStore()
+const { data: ingredientesTodos } = useIngredientesTodos()
+const { data: categorias } = useCategorias()
+const { data: dificultades } = useDificultades()
 const receta = ref({
   nombre: '',
   origen: '',
@@ -44,11 +44,6 @@ watch(showModal, async (val) => {
 const processing = ref(false)
 const errors = ref({})
 
-onMounted(async () => {
-  await recetaStore.fetchDificultades()
-  await ingredienteStore.fetchAllIngredientes()
-  await categoriaStore.fetchCategorias()
-})
 
 const handleReceta = async () => {
   // Guardar la receta y sus ingredientes con cantidades en la base de datos
@@ -191,7 +186,7 @@ const handleImageChange = (e) => {
                   >
                     <option value="" selected>-------------</option>
                     <option
-                      v-for="categoria in categoriaStore.categorias"
+                      v-for="categoria in categorias"
                       :key="categoria.id"
                       :value="categoria.id"
                       :selected="receta.categoria_id === categoria.id"
@@ -211,7 +206,7 @@ const handleImageChange = (e) => {
                   >
                     <option value="" selected>-------------</option>
                     <option
-                      v-for="dificultad in recetaStore.dificultades"
+                      v-for="dificultad in dificultades"
                       :key="dificultad.id"
                       :value="dificultad.id"
                       :selected="receta.dificultad_id === dificultad.id"
@@ -246,7 +241,7 @@ const handleImageChange = (e) => {
                 >
                   <option selected>-------------</option>
                   <option
-                    v-for="ingrediente in ingredienteStore.ingredientesTodos"
+                    v-for="ingrediente in ingredientesTodos"
                     :key="ingrediente.id"
                     :value="ingrediente.id"
                   >

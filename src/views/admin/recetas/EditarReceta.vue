@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, computed, watch, nextTick } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import InputLabel from '../../../components/InputLabel.vue'
 import InputError from '../../../components/InputError.vue'
@@ -10,14 +10,13 @@ import GoBackButton from '../../../components/GoBackButton.vue'
 import EditorTiny from '../../../components/EditorTiny.vue'
 import Modal from '../../../components/Modal.vue'
 import { useRecetaStore } from '../../../stores/recetaStore'
-import { useIngredienteStore } from '../../../stores/ingredienteStore'
-import { useCategoriaStore } from '../../../stores/categoriaStore'
+import { useIngredientesTodos, useCategorias, useDificultades } from '../../../composables/useQueries'
 
 const route = useRoute()
-const router = useRouter()
 const recetaStore = useRecetaStore()
-const ingredienteStore = useIngredienteStore()
-const categoriaStore = useCategoriaStore()
+const { data: ingredientesTodos } = useIngredientesTodos()
+const { data: categorias } = useCategorias()
+const { data: dificultades } = useDificultades()
 const receta = ref(null)
 const ingredientesSeleccionados = ref([])
 const ingredienteSeleccionado = ref(null)
@@ -40,12 +39,7 @@ watch(showModal, async (val) => {
 
 onMounted(async () => {
   await recetaStore.fetchReceta(id)
-  await ingredienteStore.fetchIngredientes()
-  await ingredienteStore.fetchAllIngredientes()
-  await recetaStore.fetchDificultades()
-  await categoriaStore.fetchCategorias()
 
-  // Inicializar ingredientes seleccionados
   ingredientesSeleccionados.value = recetaStore.receta.ingredientes.map((ing) => ({
     id: ing.id,
     nombre: ing.nombre,
@@ -203,7 +197,7 @@ const getImagen = (imagen) => {
                   >
                     <option value="" selected>-------------</option>
                     <option
-                      v-for="categoria in categoriaStore.categorias"
+                      v-for="categoria in categorias"
                       :key="categoria.id"
                       :value="categoria.id"
                     >
@@ -221,7 +215,7 @@ const getImagen = (imagen) => {
                   >
                     <option value="" selected>-------------</option>
                     <option
-                      v-for="dificultad in recetaStore.dificultades"
+                      v-for="dificultad in dificultades"
                       :key="dificultad.id"
                       :value="dificultad.id"
                     >
@@ -258,7 +252,7 @@ const getImagen = (imagen) => {
                 >
                   <option selected>-------------</option>
                   <option
-                    v-for="ingrediente in ingredienteStore.ingredientesTodos"
+                    v-for="ingrediente in ingredientesTodos"
                     :key="ingrediente.id"
                     :value="ingrediente.id"
                   >

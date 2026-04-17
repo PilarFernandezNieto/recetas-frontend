@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import AuthenticatedLayout from '../../../layouts/AuthenticatedLayout.vue'
 import NewElementLink from '../../../components/NewElementLink.vue'
 import Receta from '../../../components/Receta.vue'
@@ -8,41 +8,22 @@ import { useRecetaStore } from '@/stores/recetaStore'
 import { TailwindPagination } from 'laravel-vue-pagination'
 
 const recetaStore = useRecetaStore()
+const buscar = ref('')
+const debounceTimer = ref(null)
 
 onMounted(() => {
-  recetaStore.fetchRecetas();
-  recetaStore.fetchAllRecetas();
+  recetaStore.fetchRecetas()
 })
-const buscar = ref('')
 
 const limpiarBusqueda = () => {
   buscar.value = ''
 }
 
 watch(buscar, (nuevoValor) => {
-  if (nuevoValor.trim() !== '') {
-    clearTimeout(buscar.timeout)
-    buscar.timeout = setTimeout(() => {
-      // Pasamos el valor de búsqueda a la función
-      recetaStore.fetchRecetas(1, buscar.value)
-    }, 500) // 500 ms de retraso para evitar múltiples peticiones
-  } else {
-    recetaStore.fetchRecetas(1) // Si no hay búsqueda, traemos todas las recetas
-  }
-})
-
-const recetasFiltradas = computed(() => {
-  
-  if (!buscar.value.trim()) {
-    return recetaStore.recetas.data // Si no hay búsqueda, mostrar todas las recetas
-  }
-
-  return recetaStore.recetasTodas.filter((receta) => {
-    return (
-      receta.nombre.toLowerCase().includes(buscar.value.toLowerCase()) ||
-      receta.categoria.nombre.toLowerCase().includes(buscar.value.toLowerCase())
-    )
-  })
+  clearTimeout(debounceTimer.value)
+  debounceTimer.value = setTimeout(() => {
+    recetaStore.fetchRecetas(1, nuevoValor.trim())
+  }, 500)
 })
 </script>
 
@@ -81,7 +62,7 @@ const recetasFiltradas = computed(() => {
             <NewElementLink :to="{ name: 'nueva-receta' }">Nueva Receta</NewElementLink>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Receta v-for="receta in recetasFiltradas" :key="receta.id" :receta="receta" />
+            <Receta v-for="receta in recetaStore.recetas.data" :key="receta.id" :receta="receta" />
           </div>
         </div>
         <div class="mt-10 flex justify-center">
