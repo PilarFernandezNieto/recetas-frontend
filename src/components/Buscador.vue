@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  modelValue: String
+  modelValue: String,
 })
 const emit = defineEmits(['update:modelValue']) // Para emitir el cambio de valor al padre
 
@@ -8,15 +8,14 @@ const emit = defineEmits(['update:modelValue']) // Para emitir el cambio de valo
 const onInput = (event) => {
   emit('update:modelValue', event.target.value)
 }
-
 </script>
 <template>
-  <div class=" w-72 mx-auto flex justify-center py-5">
+  <div class="w-72 mx-auto flex justify-center py-5">
     <input
       type="text"
-      class="w-full p-2 border border-green-900 rounded-l-md focus:outline-none  focus:ring-green-900 placeholder-gray-500"
+      class="w-full p-2 border border-green-900 rounded-l-md focus:outline-none focus:ring-green-900 placeholder-gray-500"
       placeholder="Buscar"
-      :v-model="modelValue"
+      v-model="modelValue"
       @input="onInput"
     />
     <i

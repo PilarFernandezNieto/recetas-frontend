@@ -21,7 +21,7 @@ const processing = ref(false)
 const errors = ref({})
 
 const handleImageChange = (e) => {
-  nuevaImagen.value = event.target.files[0]
+  nuevaImagen.value = e.target.files[0]
 }
 const handleIngrediente = async () => {
   const formData = new FormData()
