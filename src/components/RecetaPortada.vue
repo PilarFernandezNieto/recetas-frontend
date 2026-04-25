@@ -1,6 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import NewElementLink from './NewElementLink.vue'
+import { useImagen } from '../composables/useImagen'
+
+const { getImagen } = useImagen()
+
 const props = defineProps({
   receta: {
     type: Object,
@@ -13,13 +17,6 @@ const filtrados = computed(() => {
     Object.entries(props.receta).filter(([clave]) => clavesPermitidas.includes(clave)),
   )
 })
-const getImagen = (imagen) => {
-  if (imagen){
-  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
-  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
-  return `${base}/${path}`;
-  }
-}
 </script>
 
 <template>
@@ -39,6 +36,8 @@ const getImagen = (imagen) => {
       <NewElementLink :to="{ name: 'ver-receta', params: {id: receta.id} }">Ver receta</NewElementLink>
     
     </div>
-    <img class="w-full h-full object-cover object-center" :src="getImagen(receta.imagen)" :alt="`Imagen de ${receta.nombre}`" />
+    <div v-if="getImagen(receta.imagen)" class="w-full aspect-[4/3] overflow-hidden">
+      <img class="w-full h-full object-cover object-center" :src="getImagen(receta.imagen)" :alt="`Imagen de ${receta.nombre}`" loading="lazy" />
+    </div>
   </div>
 </template>

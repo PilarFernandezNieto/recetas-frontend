@@ -4,6 +4,7 @@ import DOMPurify from 'dompurify'
 import { useRoute } from 'vue-router'
 import { useToastStore } from '../stores/toastStore'
 import axios from '../utils/axios'
+import { useImagen } from '../composables/useImagen'
 import GuestLayout from '../layouts/GuestLayout.vue'
 import GoBackButton from '../components/GoBackButton.vue'
 import { FwbSpinner } from 'flowbite-vue'
@@ -38,13 +39,7 @@ const filtrados = computed(() => {
 })
 const safeInstrucciones = computed(() => DOMPurify.sanitize(receta.value.instrucciones ?? ''))
 
-const getImagen = (imagen) => {
-  if (imagen) {
-    const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, '') // quita slash final
-    const path = imagen.replace(/^\/+/, '') // quita slash inicial
-    return `${base}/${path}`
-  }
-}
+const { getImagen } = useImagen()
 </script>
 
 <template>
@@ -87,11 +82,14 @@ const getImagen = (imagen) => {
               </ul>
             </div>
           </div>
-          <img
-            :src="getImagen(receta.imagen)"
-            :alt="receta.nombre"
-            class="w-full rounded md:col-span-5"
-          />
+          <div v-if="getImagen(receta.imagen)" class="w-full aspect-[4/3] overflow-hidden rounded md:col-span-5">
+            <img
+              :src="getImagen(receta.imagen)"
+              :alt="receta.nombre"
+              class="w-full h-full object-cover"
+              fetchpriority="high"
+            />
+          </div>
         </div>
 
         <div>

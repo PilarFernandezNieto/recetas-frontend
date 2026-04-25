@@ -4,9 +4,11 @@ import { computed, inject } from 'vue'
 import EditButton from './EditButton.vue'
 import DeleteButton from './DeleteButton.vue'
 import { useRecetaStore } from '../stores/recetaStore'
+import { useImagen } from '../composables/useImagen'
 
 const swal = inject('$swal')
 const recetaStore = useRecetaStore()
+const { getImagen } = useImagen()
 
 const props = defineProps({
   receta: {
@@ -21,14 +23,6 @@ const filtrados = computed(() => {
     Object.entries(props.receta).filter(([clave]) => clavesPermitidas.includes(clave)),
   )
 })
-
-const getImagen = (imagen) => {
-  if (imagen) {
-    const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, '')
-    const path = imagen.replace(/^\/+/, '')
-    return `${base}/${path}`
-  }
-}
 
 const showAlert = (id) => {
   swal({
@@ -75,12 +69,14 @@ const showAlert = (id) => {
     </div>
 
     <div class="flex flex-col gap-4 w-full">
-      <img
-        v-if="getImagen(receta.imagen)"
-        :src="getImagen(receta.imagen)"
-        :alt="receta.nombre"
-        class="w-full rounded-md object-cover"
-      />
+      <div v-if="getImagen(receta.imagen)" class="w-full aspect-[4/3] overflow-hidden rounded-md">
+        <img
+          :src="getImagen(receta.imagen)"
+          :alt="receta.nombre"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
       <div class="flex flex-col gap-1 w-full">
         <EditButton :to="{ name: 'editar-receta', params: { id: receta.id } }">
           <svg

@@ -7,10 +7,12 @@ import NewElementLink from '../../../components/NewElementLink.vue'
 import GoBackButton from '../../../components/GoBackButton.vue'
 import { FwbSpinner } from 'flowbite-vue'
 import { useRecetaStore } from '@/stores/recetaStore'
+import { useImagen } from '@/composables/useImagen'
 
 const recetaStore = useRecetaStore()
 const route = useRoute()
 const id = route.params.id
+const { getImagen } = useImagen()
 
 onMounted(() => {
   recetaStore.fetchReceta(id)
@@ -21,14 +23,6 @@ const filtrados = computed(() => {
     Object.entries(recetaStore.receta).filter(([clave]) => clavesPermitidas.includes(clave)),
   )
 })
-
-const getImagen = (imagen) => {
-  if(imagen){
-      const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, ''); // quita slash final
-  const path = imagen.replace(/^\/+/, ''); // quita slash inicial
-  return `${base}/${path}`;
-  }
-}
 const safeInstrucciones = computed(() =>
   DOMPurify.sanitize(recetaStore.receta.instrucciones ?? '')
 )
@@ -69,11 +63,14 @@ const safeInstrucciones = computed(() =>
               </div>
 
             </div>
-            <img
-              :src="getImagen(recetaStore.receta.imagen)"
-              :alt="recetaStore.receta.nombre"
-              class="w-full rounded"
-            />
+            <div v-if="getImagen(recetaStore.receta.imagen)" class="w-full aspect-[4/3] overflow-hidden rounded">
+              <img
+                :src="getImagen(recetaStore.receta.imagen)"
+                :alt="recetaStore.receta.nombre"
+                class="w-full h-full object-cover"
+                fetchpriority="high"
+              />
+            </div>
           </div>
 
           <div>
