@@ -69,7 +69,8 @@ src/
 │   └── toastStore.js        # Notificaciones toast globales
 │
 ├── composables/
-│   └── useQueries.js        # Queries TanStack Query para datos estáticos
+│   ├── useQueries.js        # Queries TanStack Query para datos estáticos
+│   └── useImagen.js         # getImagen(): construye la URL pública de una imagen
 │
 ├── utils/
 │   └── axios.js             # Instancia Axios configurada (baseURL, withCredentials, timeout)
@@ -77,6 +78,8 @@ src/
 ├── components/              # Componentes reutilizables
 │   ├── Receta.vue           # Tarjeta de receta (panel admin)
 │   ├── RecetaPortada.vue    # Tarjeta de receta (portada pública)
+│   ├── RecetasForm.vue      # Formulario compartido crear/editar receta
+│   ├── IngredienteForm.vue  # Formulario compartido crear/editar ingrediente
 │   ├── Ingrediente.vue      # Fila de ingrediente (panel admin)
 │   ├── Categoria.vue        # Fila de categoría
 │   ├── Usuario.vue          # Fila de usuario
@@ -200,15 +203,15 @@ Esto aplica tanto en `FichaReceta.vue` (admin) como en `FichaRecetaPortada.vue` 
 
 ### Imágenes
 
-Las imágenes se suben al backend y se almacenan en `storage/app/public`. La URL se construye concatenando `VITE_APP_BACKEND_URL` con la ruta devuelta por la API, sin barras duplicadas:
+Las imágenes se suben al backend y se almacenan en `storage/app/public` como WebP. La URL pública se construye mediante el composable `useImagen`:
 
 ```js
-const getImagen = (imagen) => {
-  const base = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/+$/, '')
-  const path = imagen.replace(/^\/+/, '')
-  return `${base}/${path}`
-}
+import { useImagen } from '../composables/useImagen'
+const { getImagen } = useImagen()
+// getImagen(receta.imagen) → "http://localhost:8000/storage/img/foto-a1b2c3.webp"
 ```
+
+Todos los componentes que muestran imágenes usan este composable. No hay lógica de URL duplicada.
 
 ---
 
