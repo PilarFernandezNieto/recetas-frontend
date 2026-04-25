@@ -15,11 +15,8 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   const router = useRouter()
   let eliminandoId = null
 
-  const csrf = () => axios.get('/sanctum/csrf-cookie')
-
   const fetchIngredientes = async (page = 1) => {
     try {
-      await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/ingredientes?page=${page}`)
       ingredientes.value = data
@@ -35,7 +32,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
    */
   const fetchAllIngredientes = async () => {
     try {
-      await csrf()
       const { data } = await axios.get('/api/admin/ingredientes-todos')
       ingredientesTodos.value = data.data
     } catch (error) {
@@ -47,7 +43,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
   }
   const fetchIngrediente = async (id) => {
     try {
-      await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/ingredientes/${id}`)
 
@@ -65,7 +60,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     errors.value = {}
 
     try {
-      await csrf()
       const { data } = await axios.post('/api/admin/ingredientes', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -88,7 +82,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     processing.value = true
     errors.value = {}
     try {
-      await csrf()
       const { data } = await axios.post(`/api/admin/ingredientes/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -113,7 +106,6 @@ export const useIngredienteStore = defineStore('ingredientes', () => {
     if (eliminandoId === id) return // sale de aquí si ya se está eliminando este ingrediente
     eliminandoId = id // Evita múltiples clics
     try {
-      await csrf()
       const { data } = await axios.delete(`/api/admin/ingredientes/${id}`)
 
       if (data.type === 'success') {

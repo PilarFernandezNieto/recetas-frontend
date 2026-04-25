@@ -12,11 +12,8 @@ export const useUsuarioStore = defineStore('usuarios', () => {
   const toastStore = useToastStore()
   const router = useRouter()
 
-  const csrf = () => axios.get('/sanctum/csrf-cookie')
-
   const fetchUsers = async () => {
     try {
-      await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/usuarios`)
       usuarios.value = data.data
@@ -29,7 +26,6 @@ export const useUsuarioStore = defineStore('usuarios', () => {
 
   const fetchUser = async (id) => {
     try {
-      await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/usuarios/${id}`)
       usuario.value = data.data
@@ -43,7 +39,6 @@ export const useUsuarioStore = defineStore('usuarios', () => {
   const EditarUsuario = async (id, processing, errors, datos) => {
     processing.value = true
     try {
-      await csrf()
       const { data } = await axios.put(`/api/admin/usuarios/${id}`, datos, {
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +60,6 @@ export const useUsuarioStore = defineStore('usuarios', () => {
 
   const eliminarUsuario = async (id) => {
     try {
-      await csrf()
       const { data } = await axios.delete(`/api/admin/usuarios/${id}`)
       if (data.type === 'success') {
         toastStore.mostrarExito(data.message)

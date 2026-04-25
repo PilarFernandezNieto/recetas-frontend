@@ -17,11 +17,8 @@ export const useCategoriaStore = defineStore('categorias', () => {
   const router = useRouter()
     let eliminandoId = null
 
-  const csrf = () => axios.get('/sanctum/csrf-cookie')
-
   const fetchCategorias = async () => {
     try {
-      await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/categorias`)
       categorias.value = data.data
@@ -34,7 +31,6 @@ export const useCategoriaStore = defineStore('categorias', () => {
 
   const fetchCategoria = async (id) => {
     try {
-      await csrf()
       loading.value = true
       const { data } = await axios.get(`/api/admin/categorias/${id}`)
       categoria.value = data
@@ -50,7 +46,6 @@ export const useCategoriaStore = defineStore('categorias', () => {
     errors.value = {}
 
     try {
-      await csrf()
       const { data } = await axios.post('/api/admin/categorias', datos, {
         headers: {
           'Content-Type': 'application/json,',
@@ -73,7 +68,6 @@ export const useCategoriaStore = defineStore('categorias', () => {
   const editarCategoria = async (id, processing, errors, datos) => {
     processing.value = true
     try {
-      await csrf()
       const { data } = await axios.put(`/api/admin/categorias/${id}`, datos, {
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +92,6 @@ export const useCategoriaStore = defineStore('categorias', () => {
     if (eliminandoId === id) return // sale de aquí si ya se está eliminando este ingrediente
     eliminandoId = id // Evita múltiples clics
     try {
-      await csrf()
       const { data } = await axios.delete(`/api/admin/categorias/${id}`)
 
       if (data.type === 'success') {

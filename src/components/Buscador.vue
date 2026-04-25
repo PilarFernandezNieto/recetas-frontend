@@ -15,7 +15,7 @@ const onInput = (event) => {
       type="text"
       class="w-full p-2 border border-green-900 rounded-l-md focus:outline-none focus:ring-green-900 placeholder-gray-500"
       placeholder="Buscar"
-      v-model="modelValue"
+      :value="modelValue"
       @input="onInput"
     />
     <i
